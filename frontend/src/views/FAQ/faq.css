@@ -1,0 +1,8 @@
+.nav-faq.nav-link.active {
+  background-color: transparent !important;
+}
+
+.nav-faq.nav-link.active div {
+  color: #03ffa4;
+  text-decoration: underline;
+}

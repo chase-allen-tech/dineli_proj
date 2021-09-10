@@ -1,0 +1,52 @@
+
+.CircularProgressbar .CircularProgressbar-trail {
+    stroke: #323a45;
+}
+
+.CircularProgressbar .CircularProgressbar-path {
+    stroke: #03ffa4;
+    stroke-linecap: butt;
+}
+
+.d-square-black {
+    color: black !important;
+    border-radius: 0px !important;
+}
+
+.d-square-white {
+    color: white !important;
+    border-radius: 0px !important;
+}
+
+.d-square-highlight {
+    color: #03ffa4 !important;
+    border-radius: 0px !important;
+}
+
+.house-info {
+    margin-bottom: 0 !important;
+}
+
+.house-info-image {
+    background-size: 100% 100%;
+    background: url("imgs/marketplace.png") no-repeat;
+    padding: 0 !important;
+}
+
+#house-info-totalTokens table, #house-info-tokenAvailable table {
+    margin-bottom: 0 !important;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 450px) {
+    .product-circular-value * {
+        font-size: 3.5vw !important;
+    }
+
+    .product-tokens .d-text-14 {
+        font-size: 2.5vw !important;
+    }
+
+
+
+}
+

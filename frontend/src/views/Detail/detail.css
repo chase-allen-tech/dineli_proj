@@ -1,0 +1,11 @@
+.gradient-bg {
+  background-image: linear-gradient(to right, RGB(0, 149, 126), RGB(3, 255, 164));
+}
+
+.card .card-header {
+  border-radius: 7px;
+}
+
+.fa-caret-down:hover {
+  color: #156cab !important;
+}

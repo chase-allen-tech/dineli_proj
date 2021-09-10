@@ -1,0 +1,932 @@
+
+.d-content-dark {
+    background-color: #262c34;
+}
+
+.d-content-highlight {
+    background-color: #03ffa4 !important;
+}
+
+.d-content-center {
+    text-align: center;
+}
+
+.d-content-round-border {
+    border-radius: 8px;
+    border: solid 1px #03ffa4;
+    padding: 5%;
+}
+
+.d-black {
+    color: black;
+}
+
+.d-white {
+    color: white !important;
+}
+
+.d-highlight {
+    color: #03ffa4 !important;
+}
+
+.d-font-bold {
+    font-family: 'Circular Std Bold';
+}
+
+.d-font-book {
+    font-family: 'Circular Std Book';
+}
+
+.d-font-black {
+    font-family: 'Circular Std Black';
+}
+
+.d-font-strong {
+    font-weight: bold !important;
+}
+
+
+/*  ================font definition================================   */
+.d-text-header {
+    font-size: 92px !important;
+}
+
+.d-text-90 {
+    font-size: 90px !important;
+    line-height: 80px;
+}
+
+.d-text-85 {
+    font-size: 85px !important;
+}
+
+.d-text-82 {
+    font-size: 82px !important;
+}
+
+.d-text-72 {
+    font-size: 72px !important;
+}
+
+.d-text-60 {
+    font-size: 60px !important;
+}
+
+.d-text-56 {
+    font-size: 56px !important;
+}
+
+.d-text-48 {
+    font-size: 48px !important;
+    line-height: 40px;
+}
+
+.d-text-36 {
+    font-size: 36px !important;
+}
+
+.d-text-32 {
+    font-size: 32px !important;
+}
+
+.d-text-30 {
+    font-size: 30px !important;
+}
+
+.d-text-28 {
+    font-size: 28px !important;
+}
+
+.d-text-24 {
+    font-size: 24px !important;
+}
+
+.d-text-20 {
+    font-size: 20px !important;
+}
+
+.d-text-18 {
+    font-size: 18px !important;
+}
+
+.d-text-nav {
+    font-size: 17px !important;
+}
+
+.d-text-14 {
+    font-size: 14px !important;
+}
+
+.d-text-10 {
+    font-size: 10px !important;
+}
+
+/*  ================font definition according to devices================   */
+@media only screen and (max-width: 612px) {
+    .d-text-header {
+        font-size: 36px !important;
+    }
+
+    .d-text-90 {
+        font-size: 36px !important;
+        line-height: 36px;
+    }
+
+    .d-text-85 {
+        font-size: 30px !important;
+    }
+
+    .d-text-82 {
+        font-size: 29px !important;
+    }
+
+    .d-text-72 {
+        font-size: 25px !important;
+    }
+
+    .d-text-60 {
+        font-size: 21px !important;
+    }
+
+    .d-text-56 {
+        font-size: 24px !important;
+    }
+
+    .d-text-48 {
+        font-size: 17px !important;
+        line-height: 17px;
+    }
+
+    .d-text-36 {
+        font-size: 13px !important;
+    }
+
+    .d-text-32 {
+        font-size: 12px !important;
+    }
+
+    .d-text-30 {
+        font-size: 12px !important;
+    }
+
+    .d-text-28 {
+        font-size: 12px !important;
+    }
+
+    .d-text-24 {
+        font-size: 12px !important;
+    }
+
+    .d-text-20 {
+        font-size: 12px !important;
+    }
+
+    .d-text-18 {
+        font-size: 12px !important;
+    }
+
+    .d-text-nav {
+        font-size: 12px !important;
+    }
+
+    .d-text-14 {
+        font-size: 12px !important;
+    }
+
+    .d-text-10 {
+        font-size: 12px !important;
+    }
+
+    .img-mobile {
+        zoom: 50%;
+    }
+}
+
+@media only screen and (min-width: 613px) and (max-width: 887px) {
+    .d-text-header {
+        font-size: 42px !important;
+    }
+
+    .d-text-90 {
+        font-size: 42px !important;
+        line-height: 42px;
+    }
+
+    .d-text-85 {
+        font-size: 37px !important;
+    }
+
+    .d-text-82 {
+        font-size: 36px !important;
+    }
+
+    .d-text-72 {
+        font-size: 32px !important;
+    }
+
+    .d-text-60 {
+        font-size: 26px !important;
+    }
+
+    .d-text-56 {
+        font-size: 28px !important;
+    }
+
+    .d-text-48 {
+        font-size: 21px !important;
+        line-height: 21px;
+    }
+
+    .d-text-36 {
+        font-size: 16px !important;
+    }
+
+    .d-text-32 {
+        font-size: 14px !important;
+    }
+
+    .d-text-30 {
+        font-size: 13px !important;
+    }
+
+    .d-text-28 {
+        font-size: 12px !important;
+    }
+
+    .d-text-24 {
+        font-size: 12px !important;
+    }
+
+    .d-text-20 {
+        font-size: 12px !important;
+    }
+
+    .d-text-18 {
+        font-size: 12px !important;
+    }
+
+    .d-text-14 {
+        font-size: 12px !important;
+    }
+
+    .d-text-10 {
+        font-size: 12px !important;
+    }
+
+    .img-mobile {
+        zoom: 70%;
+    }
+}
+
+@media only screen and (min-width: 888px) and (max-width: 946px) {
+    .d-text-header {
+        font-size: 50px !important;
+    }
+
+    .d-text-90 {
+        font-size: 50px !important;
+        line-height: 50px;
+    }
+
+    .d-text-85 {
+        font-size: 42px !important;
+    }
+
+    .d-text-82 {
+        font-size: 41px !important;
+    }
+
+    .d-text-72 {
+        font-size: 36px !important;
+    }
+
+    .d-text-60 {
+        font-size: 30px !important;
+    }
+
+    .d-text-56 {
+        font-size: 30px !important;
+    }
+
+    .d-text-48 {
+        font-size: 24px !important;
+        line-height: 24px;
+    }
+
+    .d-text-36 {
+        font-size: 18px !important;
+    }
+
+    .d-text-32 {
+        font-size: 16px !important;
+    }
+
+    .d-text-30 {
+        font-size: 15px !important;
+    }
+
+    .d-text-28 {
+        font-size: 14px !important;
+    }
+
+    .d-text-24 {
+        font-size: 12px !important;
+    }
+
+    .d-text-20 {
+        font-size: 12px !important;
+    }
+
+    .d-text-18 {
+        font-size: 12px !important;
+    }
+
+    .d-text-14 {
+        font-size: 12px !important;
+    }
+
+    .d-text-10 {
+        font-size: 12px !important;
+    }
+
+    .img-mobile {
+        zoom: 90%;
+    }
+}
+
+@media only screen and (min-width: 947px) and (max-width: 1472px) {
+    .d-text-header {
+        font-size: 60px !important;
+    }
+
+    .d-text-90 {
+        font-size: 60px !important;
+        line-height: 60px;
+    }
+
+    .d-text-85 {
+        font-size: 42px !important;
+    }
+
+    .d-text-82 {
+        font-size: 41px !important;
+    }
+
+    .d-text-72 {
+        font-size: 36px !important;
+    }
+
+    .d-text-60 {
+        font-size: 30px !important;
+    }
+
+    .d-text-56 {
+        font-size: 32px !important;
+    }
+
+    .d-text-48 {
+        font-size: 24px !important;
+        line-height: 24px;
+    }
+
+    .d-text-36 {
+        font-size: 18px !important;
+    }
+
+    .d-text-32 {
+        font-size: 16px !important;
+    }
+
+    .d-text-30 {
+        font-size: 15px !important;
+    }
+
+    .d-text-28 {
+        font-size: 14px !important;
+    }
+
+    .d-text-24 {
+        font-size: 12px !important;
+    }
+
+    .d-text-20 {
+        font-size: 12px !important;
+    }
+
+    .d-text-18 {
+        font-size: 12px !important;
+    }
+
+    .d-text-14 {
+        font-size: 12px !important;
+    }
+
+    .d-text-10 {
+        font-size: 12px !important;
+    }
+
+    .img-mobile {
+        zoom: 90%;
+    }
+}
+
+@media only screen and (min-width: 1473px) and (max-width: 3500px) {
+    .d-text-header {
+        font-size: 90px !important;
+    }
+
+    .d-text-90 {
+        font-size: 85px !important;
+        line-height: 85px;
+    }
+
+    .d-text-85 {
+        font-size: 56px !important;
+    }
+
+    .d-text-82 {
+        font-size: 54px !important;
+    }
+
+    .d-text-72 {
+        font-size: 48px !important;
+    }
+
+    .d-text-60 {
+        font-size: 40px !important;
+    }
+
+    .d-text-56 {
+        font-size: 42px !important;
+    }
+
+    .d-text-48 {
+        font-size: 32px !important;
+        line-height: 32px;
+    }
+
+    .d-text-36 {
+        font-size: 24px !important;
+    }
+
+    .d-text-32 {
+        font-size: 21px !important;
+    }
+
+    .d-text-30 {
+        font-size: 20px !important;
+    }
+
+    .d-text-28 {
+        font-size: 18px !important;
+    }
+
+    .d-text-24 {
+        font-size: 100% !important;
+    }
+
+    .d-text-20 {
+        font-size: 16px !important;
+    }
+
+    .d-text-18 {
+        font-size: 18px !important;
+    }
+
+    .d-text-14 {
+        font-size: 12px !important;
+    }
+
+    .d-text-10 {
+        font-size: 12px !important;
+    }
+
+    .img-mobile {
+        zoom: 90%;
+    }
+}
+
+.img-box {
+    display: table;
+    width: 100%;
+    padding: 0;
+    background-color: #e5e5e5;
+}
+
+.img-box-team {
+    background: url("imgs/team.jpg") no-repeat center;
+    background-size: cover;
+}
+
+.img-box-faq {
+    height: 475px;
+    background: url("imgs/faq.jpg") no-repeat center;
+    background-size: cover;
+}
+
+.img-box-token {
+    background: url("imgs/token.jpg") no-repeat center;
+    background-size: cover;
+}
+
+.btn-primary {
+    color: black !important;
+    background-color: #03ffa4 !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px !important;
+}
+
+.d-btn-radius-2 {
+    border-radius: 2px !important;
+}
+
+.d-black-highlight-button {
+    background-color: black !important;
+    color: #03ffa4 !important;
+}
+
+.d-black-white-button {
+    background-color: black !important;
+    color: white !important;
+}
+
+.d-none-white-button {
+    background-color: transparent !important;
+    color: white !important;
+    border-width: 2px !important;
+    border-color: white !important;
+}
+
+@media all and (min-width: 991.98px) {
+    .deskContent {
+        display: flex !important;
+    }
+
+    .phoneContent {
+        display: none !important;
+    }
+}
+
+@media all and (max-width: 991.98px) {
+    .deskContent {
+        display: none !important;
+    }
+
+    .phoneContent {
+        display: block !important;
+    }
+}
+
+@media all and (min-width: 1280px) {
+    .product-deskContent {
+        display: block !important;
+    }
+
+    .product-phoneContent {
+        display: none !important;
+    }
+}
+
+@media all and (max-width: 612px) {
+    .product-deskContent {
+        display: none !important;
+    }
+
+    .product-phoneContent {
+        display: block !important;
+    }
+}
+
+@media all and (min-width: 450px) {
+    .footer-deskContent {
+        display: flex !important;
+    }
+
+    .footer-deskContent-link-left {
+        margin-left: 50%;
+        width: 95%;
+    }
+
+    .footer-phoneContent {
+        display: none !important;
+    }
+}
+
+@media all and (max-width: 900px) {
+    .footer-deskContent {
+        display: none !important;
+    }
+
+    .footer-phoneContent {
+        display: block !important;
+    }
+}
+
+/*--------get access page-------------*/
+.get-access-div {
+    text-align: center;
+    margin-top: 1%;
+    margin-bottom: 5%;
+}
+
+.get-access-div img {
+    width: 100px;
+}
+
+.get-access-side {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.get-access-invitation {
+    background-color: black;
+    border: 1px solid gray;
+    border-radius: 5px;
+    color: gray;
+    margin-right: 6px;
+    padding: 5px;
+    font-size: 14px;
+    width: 120px;
+}
+
+@media only screen and (min-width: 400px) and (max-width: 800px) {
+    .get-access-logo {
+        width: 80px !important;
+    }
+
+    .get-access-title {
+        font-size: 36px;
+        margin-top: 170px !important;
+    }
+
+    .get-access-content {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 801px) and (max-width: 1367px) {
+    .get-access-logo {
+        width: 100px !important;
+    }
+
+    .get-access-title {
+        font-size: 50px;
+        margin-top: 140px !important;
+    }
+
+    .get-access-content {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 1368px) and (max-width: 3500px) {
+    .get-access-logo {
+        width: 130px !important;
+    }
+
+    .get-access-title {
+        font-size: 64px;
+        margin-top: 30px !important;
+    }
+
+    .get-access-content {
+        font-size: 24px;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 350px) {
+    .get-access-invitation {
+        width: 28vw;
+        height: 10vw;
+        font-size: 2.8vw !important;
+    }
+
+    .get-access-btn {
+        width: 30vw;
+        height: 10vw;
+        font-size: 3vw !important;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 887px) {
+    .app-content {
+        margin-top: 120px !important;
+    }
+}
+
+@media only screen and (min-width: 888px) and (max-width: 3500px) {
+    .app-content {
+        margin-top: 180px !important;
+    }
+}
+
+
+
+
+
+/*-------login form-------*/
+.login-ruleForm a {
+    color: #03ffa4;
+}
+
+.login-ruleForm button {
+    color: black;
+    margin-top: 15px;
+    background-color: #03ffa4 !important;
+}
+
+.login-ruleForm .el-checkbox__label, .login-ruleForm label {
+    color: white;
+}
+
+.el-form-item.is-required .el-form-item__label:before {
+    content: '*';
+    color: #ff4949;
+    margin-right: 4px;
+    opacity: 0;
+}
+
+.el-form-item.is-required .el-form-item__label:after {
+    content: '*';
+    color: #03ffa4;
+    margin-right: 4px;
+}
+
+.el-form-item__error {
+    color: #03ffa4 !important;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+    background-color: #03ffa4 !important;
+    border-color: #03ffa4 !important;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #03ffa4 !important;
+    border-color: #03ffa4 !important;
+}
+
+/*-----register form ----------------*/
+.register-ruleForm a {
+    color: #03ffa4;
+}
+
+.register-ruleForm button {
+    color: black;
+    margin-top: 15px;
+    background-color: #03ffa4 !important;
+}
+
+.register-ruleForm .el-checkbox__label, .register-ruleForm label {
+    color: white;
+}
+
+.el-form-item.is-required .el-form-item__label:before {
+    content: '*';
+    color: #ff4949;
+    margin-right: 4px;
+    opacity: 0;
+}
+
+.el-form-item.is-required .el-form-item__label:after {
+    content: '*';
+    color: #03ffa4;
+    margin-right: 4px;
+}
+
+.el-form-item__error {
+    color: #03ffa4 !important;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: #03ffa4 !important;
+    border-color: #03ffa4 !important;
+}
+
+/*-------------*/
+.myaccount-login-register {
+    margin: 5%;
+}
+
+#navbar-my-account-children {
+    height: 0;
+    transition: height 4s;
+}
+
+#navbar-my-account:hover > #navbar-my-account-children {
+    display: block !important;
+    height: 150px;
+}
+
+/*---------------house info----------------*/
+.house-info-left {
+    margin-left: 50px;
+}
+
+.house-info-cell-black {
+    background-color: #000000 !important;
+}
+
+.house-info-cell-gray {
+    background-color: #262c34 !important;
+}
+
+.house-info-cell > button {
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    min-height: 100vh !important;
+    z-index: 100;
+    padding: 48px 0 0;
+    /* box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1); */
+}
+#sidebar-wrapper{
+    min-height: 100vh !important;
+    width: 100vw;
+    margin-left: -1rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+}
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+}
+
+.c-sidenav-item {
+    text-decoration: none;
+    color: #ccc !important;
+}
+
+.c-sidenav-item:hover > div {
+    background-color: #333 !important;
+    color: #ccc;
+}
+
+.c-sidenav-active > div {
+    background-color: #444 !important;
+    color: white;
+}
+
+.c-sidenav-active img.c-sidenav-icon {
+    display: none;
+}
+
+.c-sidenav-active img.c-sidenav-icon-active {
+    display: block !important;
+}
+
+@media only screen and (max-width: 576px) {
+    .c-sidebar-group-name {
+        display: none;
+    }
+}
+
+.c-sidebar-group-name {
+    font-size: 12px;
+}
+
+.trans-1 {
+    transition: all ease-in-out 0.1s;
+}
+
+.el-input.is-disabled .el-input__inner {
+    background-color: #AAA !important;
+    color: black !important;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-pointer:hover {
+    cursor: pointer;
+}

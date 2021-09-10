@@ -1,0 +1,385 @@
+import React, {Component} from "react"
+import {Button, Form, Input, Layout, Radio, Select, Checkbox} from "element-react"
+import Fade from "react-reveal/Fade"
+import {Link} from "react-router-dom"
+
+class Checkout extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            form: {
+                firstname: '',
+                lastname: '',
+                country: '',
+                phone: '',
+                email: '',
+                street: '',
+                city: '',
+                postCode: '',
+                type: '',
+                type2: '',
+                desc: '',
+                payCard: 1,
+                cardNumber: '',
+            },
+            rules: {
+                firstname: [
+                    {required: true, message: 'Please input first name', trigger: 'blur'}
+                ],
+                lastname: [
+                    {required: true, message: 'Please input last name', trigger: 'blur'}
+                ],
+                country: [
+                    {required: true, message: 'Please input country', trigger: 'blur'}
+                ],
+                phone: [
+                    {required: true, message: 'Please input phone', trigger: 'blur'}
+                ],
+                street: [
+                    {required: true, message: 'Please input street', trigger: 'blur'}
+                ],
+                email: [
+                    {required: true, message: 'Please input email', trigger: 'blur'},
+                    {type: 'email', message: 'Please input correct email address', trigger: 'blur,change'}
+                ],
+                city: [
+                    {required: true, message: 'Please input Town/City', trigger: 'change'}
+                ],
+            }
+        };
+    }
+
+    handleSubmit(e) {
+        e.preventDefault()
+
+        this.refs.form.validate((valid) => {
+            if (valid) {
+                // this.props.actionAuthRegister(this.state.form);
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
+        })
+    }
+
+    handleReset(e) {
+        e.preventDefault();
+
+        this.refs.form.resetFields()
+    }
+
+    onChange(key, value) {
+        this.setState({
+            form: Object.assign({}, this.state.form, {[key]: value})
+        })
+    }
+
+    onChangePaycard(value) {
+        this.setState({
+            form: Object.assign({}, this.state.form, {payCard : value})
+        })
+    }
+
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
+    render() {
+        return (
+            <div style={{margin: "4% 12% 4% 12%"}}>
+                <Fade bottom delay={200}>
+                    <Layout.Row>
+                        <Layout.Col sm="24" md={12}>
+                            <div className="grid-content">
+                                <Form ref="form" model={this.state.form} rules={this.state.rules} labelWidth="100"
+                                      className="register-ruleForm d-font-bold"
+                                      labelPosition={"top"}
+                                      style={{border: "2px solid #03ffa4", margin: 20, borderRadius: 10}}>
+
+                                    <Layout.Row style={{fontSize: 25, margin: "-1px 0px 15px 0px"}}>
+                                        <Layout.Col span="24">
+                                            <div className="grid-content d-content-highlight"
+                                                 style={{borderRadius: "10px 10px 1px 1px"}}>
+                                                <div className='d-font-bold d-black'
+                                                     style={{display: "inline", marginLeft: 10}}>Billing Details
+                                                </div>
+                                            </div>
+                                        </Layout.Col>
+                                    </Layout.Row>
+
+                                    <Layout.Row>
+                                        <Layout.Col span="12">
+                                            <div className="grid-content bg-purple">
+                                                <Form.Item label="FIRST NAME" prop="firstname" style={{margin: 15}}>
+                                                    <Input value={this.state.form.firstname}
+                                                           onChange={this.onChange.bind(this, 'firstname')}/>
+                                                </Form.Item>
+                                            </div>
+                                        </Layout.Col>
+                                        <Layout.Col span="12">
+                                            <div className="grid-content bg-purple-light">
+                                                <Form.Item label="LAST NAME" prop="lastname"
+                                                           style={{margin: 15}}>
+                                                    <Input value={this.state.form.lastname}
+                                                           onChange={this.onChange.bind(this, 'lastname')}/>
+                                                </Form.Item></div>
+                                        </Layout.Col>
+                                    </Layout.Row>
+                                    <Form.Item label="EMAIL ADDRESS" prop="email" style={{margin: 15}}>
+                                        <Input value={this.state.form.email}
+                                               onChange={this.onChange.bind(this, 'email')}/>
+                                    </Form.Item>
+                                    <Form.Item label="PHONE" prop="phone" style={{margin: 15}}>
+                                        <Input value={this.state.form.phone}
+                                               onChange={this.onChange.bind(this, 'phone')}/>
+                                    </Form.Item>
+                                    <Form.Item label="Country" prop="country" style={{margin: 15}}>
+                                        <Select value={this.state.form.country} placeholder="country name"
+                                                onChange={this.onChange.bind(this, 'country')} style={{width: "100%"}}>
+                                            <Select.Option label="Pakistan" value="Pakistan"/>
+                                            <Select.Option label="United State" value="United State"/>
+                                        </Select>
+                                    </Form.Item>
+                                    <Form.Item label="STREET ADDRESS" prop="street" style={{margin: 15}}>
+                                        <Input value={this.state.form.street}
+                                               onChange={this.onChange.bind(this, 'street')}/>
+                                    </Form.Item>
+
+                                    <Form.Item label="TOWN/CITY" prop="city" style={{margin: 15}}>
+                                        <Input value={this.state.form.city}
+                                               onChange={this.onChange.bind(this, 'city')}/>
+                                    </Form.Item>
+
+                                    <Form.Item label="POST CODE/ZIP" prop="postCode" style={{margin: 15}}>
+                                        <Input value={this.state.form.postCode}
+                                               onChange={this.onChange.bind(this, 'postCode')}/>
+                                    </Form.Item>
+                                </Form>
+                            </div>
+                        </Layout.Col>
+
+                        <Layout.Col sm="24" md={12}>
+                            <div className="grid-content">
+                                <form ref="form" labelWidth="100"
+                                      className="register-ruleForm d-font-bold"
+                                      labelPosition={"top"}
+                                      style={{border: "2px solid #03ffa4", margin: 20, borderRadius: 10}}>
+
+                                    <Layout.Row style={{fontSize: 25, margin: "-1px 0px 15px 0px"}}>
+                                        <Layout.Col span="24">
+                                            <div className="grid-content d-content-highlight"
+                                                 style={{borderRadius: "10px 10px 1px 1px"}}>
+                                                <div className='d-font-bold d-black'
+                                                     style={{display: "inline", marginLeft: 10}}>Additional Information
+                                                </div>
+                                            </div>
+                                        </Layout.Col>
+                                        <Layout.Col span="24">
+                                            <div className="grid-content"
+                                                 style={{
+                                                     borderRadius: "10px 10px 1px 1px",
+                                                     marginLeft: 20,
+                                                     marginTop: 20
+                                                 }}>
+                                                <div>
+                                                    <Checkbox.Group value={this.state.form.type}
+                                                                    onChange={this.onChange.bind(this, 'type')}>
+                                                        <Checkbox label=" &nbsp; THIS ORDER IS A GIFT" name="type"/>
+                                                    </Checkbox.Group>
+                                                </div>
+                                            </div>
+                                        </Layout.Col>
+
+                                        <Layout.Col span="24">
+                                            <div className="grid-content"
+                                                 style={{borderRadius: "10px 10px 1px 1px"}}>
+                                                <div className='d-font-bold d-white d-text-14'
+                                                     style={{display: "inline", marginLeft: 20}}>ORDER NOTES (OPTIONAL)
+                                                </div>
+                                            </div>
+                                        </Layout.Col>
+
+                                        <Layout.Col span="24">
+                                            <div className="grid-content"
+                                                 style={{borderRadius: "10px 10px 1px 1px"}}>
+                                                <Input type="textarea" value={this.state.form.desc}
+                                                       onChange={this.onChange.bind(this, 'desc')}
+                                                       style={{width: "95%", margin: "0px 20px 0px 20px"}}/>
+                                            </div>
+                                        </Layout.Col>
+                                    </Layout.Row>
+                                </form>
+                            </div>
+                        </Layout.Col>
+
+                        <Layout.Col span={24}>
+                            <div className="grid-content">
+                                <form ref="form" labelWidth="100"
+                                      className="register-ruleForm d-font-bold"
+                                      labelPosition={"top"}
+                                      style={{border: "2px solid #03ffa4", margin: 20, borderRadius: 10}}>
+
+                                    <Layout.Row style={{fontSize: 25, margin: "-1px 0px 15px 0px"}}>
+                                        <Layout.Col span="24">
+                                            <div className="grid-content d-content-highlight"
+                                                 style={{borderRadius: "10px 10px 1px 1px"}}>
+                                                <div className='d-font-bold d-black'
+                                                     style={{display: "inline", marginLeft: 10}}>YOUR ORDER
+                                                </div>
+                                            </div>
+                                        </Layout.Col>
+                                        <Layout.Row style={{margin: "1%"}}>
+                                            <Layout.Col span="12">
+                                                <div className="grid-content bg-purple"><span
+                                                    className='d-white d-text-28' style={{margin: 50}}>PRODUCT</span>
+                                                </div>
+                                            </Layout.Col>
+                                            <Layout.Col span="12" style={{textAlign: "center"}}>
+                                                <div className="grid-content bg-purple-light"><span
+                                                    className='d-white d-text-28'>SUBTOTAL</span>
+                                                </div>
+                                            </Layout.Col>
+                                        </Layout.Row>
+
+                                        <Layout.Row style={{margin: "1%", border: "1px solid #03ffa4"}}>
+                                            <Layout.Col span="12">
+                                                <div className="grid-content bg-purple"><span
+                                                    className='d-white d-text-28' style={{margin: 50}}>3115-3254 United State, Washington x 2</span>
+                                                </div>
+                                            </Layout.Col>
+                                            <Layout.Col span="12" style={{textAlign: "center"}}>
+                                                <div className="grid-content bg-purple-light"><span
+                                                    className='d-white d-text-28'>$103.34</span>
+                                                </div>
+                                            </Layout.Col>
+                                        </Layout.Row>
+
+                                        <Layout.Row style={{margin: "1%"}}>
+                                            <Layout.Col span="12">
+                                                <div className="grid-content bg-purple"><span
+                                                    className='d-white d-text-28' style={{margin: 50}}>TOTAL</span>
+                                                </div>
+                                            </Layout.Col>
+                                            <Layout.Col span="12" style={{textAlign: "center"}}>
+                                                <div className="grid-content bg-purple-light"><span
+                                                    className='d-white d-text-28'>$103.34</span>
+                                                </div>
+                                            </Layout.Col>
+                                        </Layout.Row>
+
+
+                                    </Layout.Row>
+                                </form>
+                            </div>
+                        </Layout.Col>
+
+                        <Layout.Col span={24}>
+                            <div className="grid-content"
+                                 style={{border: "2px solid #03ffa4", margin: 20, borderRadius: 10}}>
+                                <div style={{margin: "2%"}}>
+                                    <Radio value="1" checked={this.state.form.payCard === 1}
+                                           onChange={this.onChangePaycard.bind(this)}
+                                           className="d-font-bold d-white d-text-28">&nbsp;&nbsp;PAY WITH
+                                        CRYPTOCURRENCY</Radio>
+                                    <div className='d-font-book d-text-28 d-highlight'>
+                                        Pay with cryptocurrency. If you pay in USDC or DAI, you mush pay only on the
+                                        ETHEREUM network!
+                                    </div>
+                                </div>
+                                <div style={{margin: "2%"}}>
+                                    <Radio value="2" checked={this.state.form.payCard === 2}
+                                           onChange={this.onChangePaycard.bind(this)}
+                                           className="d-font-bold d-white d-text-28">&nbsp; &nbsp;PAY WITH CREDIT OR
+                                        DEBIT</Radio>
+                                </div>
+
+                                <Form ref="form" model={this.state.form} rules={this.state.rules} labelWidth="100"
+                                      className="register-ruleForm d-font-bold"
+                                      labelPosition={"top"}
+                                      style={{
+                                          border: "2px solid #03ffa4",
+                                          borderRight: "black",
+                                          borderLeft: "black",
+                                          margin: 20,
+                                          borderTopLeftRadius: 10,
+                                          borderTopRightRadius: 10
+                                      }}>
+
+                                    <Layout.Row style={{fontSize: 25, margin: "-1px 0px 15px 0px"}}>
+                                        <Layout.Col span="24">
+                                            <div className="grid-content d-content-highlight"
+                                                 style={{borderRadius: "10px 10px 1px 1px"}}>
+                                                <div className='d-font-bold d-black d-text-28'
+                                                     style={{display: "inline", marginLeft: 10}}>Pay securely using your
+                                                    credit card!
+                                                </div>
+                                            </div>
+                                        </Layout.Col>
+                                    </Layout.Row>
+
+                                    <Form.Item label="CARD NUMBER" prop="cardNumber" style={{margin: 15}}>
+                                        <Input value={this.state.form.cardNumber} type={'password'}
+                                               onChange={this.onChange.bind(this, 'cardNumber')}/>
+                                    </Form.Item>
+
+                                    <Layout.Row>
+                                        <Layout.Col span="12">
+                                            <div className="grid-content bg-purple">
+                                                <Form.Item label="EXPIRATION (MM/YY)" prop="mmyy" style={{margin: 15}}>
+                                                    <Input value={this.state.form.mmyy} placeholder={'MM/YY'}
+                                                           onChange={this.onChange.bind(this, 'mmyy')}/>
+                                                </Form.Item>
+                                            </div>
+                                        </Layout.Col>
+                                        <Layout.Col span="12">
+                                            <div className="grid-content bg-purple-light">
+                                                <Form.Item label="CARD SECURITY CODE" prop="csc"
+                                                           style={{margin: 15}}>
+                                                    <Input value={this.state.form.csc} placeholder={'CSC'}
+                                                           onChange={this.onChange.bind(this, 'csc')}/>
+                                                </Form.Item>
+                                            </div>
+                                        </Layout.Col>
+                                    </Layout.Row>
+                                </Form>
+                                <div className="d-font-book d-text-30 d-white" style={{margin: "2%"}}>
+                                    Your proposal data will be used to process your order, support your experience
+                                    throughout this website, and for other purposes described in our &nbsp;
+                                    <button type="button" className="d-highlight">Privacy Policy</button>
+                                </div>
+                                <div style={{textAlign: "right", marginRight: "3%"}}>
+                                    <Checkbox.Group value={this.state.form.type2}
+                                                    onChange={this.onChange.bind(this, 'type2')}>
+                                        <Checkbox
+                                            label=" &nbsp; I HAVE READ AND AGREE TO THE WEBSITE TEAMS AND CONDITIONS"
+                                            name="type2"
+                                            className="d-font-bold d-white" style={{fontSize: "2em"}}/>
+                                    </Checkbox.Group>
+                                </div>
+                                <div className="block" style={{marginTop: 30}}>
+                                <div className="wrapper" style={{textAlign: "right", margin: "3% 3% 3% 0"}}>
+                                  <Link to={'./'}>
+                                      <Button type="success" className="d-font-bold d-text-28"
+                                              style={{
+                                                  width: "50%",
+                                                  background: "#03ffa4",
+                                                  color: "black",
+                                                  borderRadius: 10
+                                              }}>PLACE ORDER
+                                      </Button>
+                                  </Link>
+                                </div>
+                                </div>
+
+                            </div>
+                        </Layout.Col>
+
+                    </Layout.Row>
+                </Fade>
+            </div>
+        )
+    }
+}
+
+export default Checkout
