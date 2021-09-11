@@ -98,7 +98,7 @@ class TheHeader extends Component {
               this.state.logged && (
                 <>
                   <Nav.Link href="#my-account" className="deskContent">
-                    <Link to={`/cart`}>
+                    <Link to={`/cart/null`}>
                       <img className="img-mobile" src="imgs/header/myaccount.png" alt="cart"
                         style={{ position: 'absolute', marginTop: -18, marginLeft: '2rem' }} />
                       <label className="d-text-28 d-font-bold d-white"

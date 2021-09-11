@@ -18,19 +18,30 @@ const Cart = props => {
 	const [quantityValues, setQuantityValues] = useState({});
 
 	useEffect(() => {
-		dispatch(actionPropertyGet(productID));
-    }, [productID]);
-    
-	useEffect(() => {
-		if (!product || Object.keys(product).length === 0) return;
+		window.scrollTo(0, 0);
+	}, []);
 
+	useEffect(() => {
+		dispatch(actionPropertyGet(productID));
+	}, [productID]);
+
+	useEffect(() => {
 		let cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
 		cartProducts = cartProducts && cartProducts.length ? cartProducts : [];
-		if (!cartProducts.find(p => p.id === product.id)) {
-			cartProducts.push(product);
+
+		if (productID === 'null') {
+			setProducts(cartProducts);
+		} else {
+			if (!product || Object.keys(product).length === 0) return;
+			
+			if (!cartProducts.find(p => p.id === product.id)) {
+				cartProducts.push(product);
+			}
+			setProducts(cartProducts);
+			if (cartProducts.length > 0) localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
 		}
-		setProducts(cartProducts);
-		if (cartProducts.length > 0) localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+
+		console.log(cartProducts);
 
 		// Set quantity state
 		let quantityArray = {}
@@ -38,6 +49,8 @@ const Cart = props => {
 			quantityArray[product.id.toString()] = product.tokenQuantity ? Number(product.tokenQuantity) : 0;
 		}
 		setQuantityValues(quantityArray);
+
+
 	}, [product]);
 
 	const handleLearnMore = () => {

@@ -9,12 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionUserList } from "../../redux/actions/user";
 import { actionTokenList } from "../../redux/actions/token";
 
-import { CONTRACT_ABI } from '../../config/abi';
+// import { CONTRACT_ABI } from '../../config/abi';
+import { transferToken } from "../../services/crypto";
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_NETWORK_ENDPOINT));
 
-function financialBalance(numMfil) {
-  return Number.parseFloat(numMfil / 1e18).toFixed(18);
-}
+
 
 const AdminUser = props => {
 
@@ -47,43 +46,19 @@ const AdminUser = props => {
 
   const onTransferSubmit = async (e) => {
     e.preventDefault();
+    setModalIndex(-1);
     const payload = {
       fromAddress: e.target.fromAddress.value,
       toAddress: e.target.toAddress.value,
       tokenAddress: e.target.tokenAddress.value,
-      tokenAmount: web3.utils.toWei(e.target.tokenAmount.value, 'ether'),
-      gasPriceGwei: 3,
-      gasLimit: 300000,
+      tokenAmount: e.target.tokenAmount.value,
       chainId: 42,
     }
 
-    try {
-
-      let contract = new web3.eth.Contract(CONTRACT_ABI, payload.tokenAddress);
-
-      // # of transactions in my account
-      let count = await web3.eth.getTransactionCount(payload.fromAddress);
-      console.log('Number of transactions so far in my account: ', count);
-
-      // My balance
-      let balance = await contract.methods.balanceOf(payload.fromAddress).call();
-      console.log('Balance before send: ', financialBalance(balance));
-
-      let encoded = contract.methods.transfer(payload.toAddress, payload.tokenAmount).encodeABI();
-      let tx = {
-        gasLimit: web3.utils.toHex(6200000),
-        to: payload.tokenAddress,
-        data: encoded,
-        chainId: payload.chainId
-      };
-
-      let signed = await web3.eth.accounts.signTransaction(tx, process.env.REACT_APP_MY_ACCOUNT_PRIVATE_KEY);
-      web3.eth.sendSignedTransaction(signed.rawTransaction).once('receipt', receipt => {
-        console.log(receipt)
-        if (receipt.status) { successMsg(receipt.transactionHash); } else { errorMsg(); }
-      }).catch(err => { errorMsg(); });
-    } catch (err) {
-      console.log('[err]', err);
+    let transferResult = await transferToken(payload.fromAddress, payload.toAddress, payload.tokenAddress, payload.tokenAmount, payload.chainId);
+    if(transferResult.success) {
+      successMsg();
+    } else {
       errorMsg();
     }
   }

@@ -40,17 +40,22 @@ const Marketplace = connect(mapStateToProps, mapDispatchToProps)(class extends C
 
 
   componentDidMount() {
+
     window.scrollTo(0, 0)
     let compensation = 0
     this.setState({ width: window.innerWidth })
     window.addEventListener('resize', this.handleResize)
     this.props.actionPropertyList(20).then(() => {
+      console.log('[res]', this.props.propertyData);
+
       this.setState({ products: this.props.propertyData })
       if (window.innerWidth > this.state.marketCriticalWidth) {
         let temp = (this.myRef.current && this.myRef.current.offsetHeight) ? this.myRef.current.offsetHeight : 0;
         this.setState({ houseImageHeight: temp + compensation })
       }
     })
+
+
   }
 
   componentWillUnmount() {

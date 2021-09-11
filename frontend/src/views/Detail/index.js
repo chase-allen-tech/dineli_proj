@@ -41,6 +41,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
     window.scrollTo(0, 0);
 
     this.props.actionPropertyGet(productID).then(() => {
+      console.log('[curr]', this.props.currentHouse);
       this.setState({product: this.props.currentHouse})
     })
   }

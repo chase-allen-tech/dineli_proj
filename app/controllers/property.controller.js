@@ -1,5 +1,6 @@
 const db = require('../models')
 const Property = db.property
+const Token = db.token;
 
 exports.getProperties = (req, res) => {
   const count = Number(req.query.count) ? Number(req.query.count) : 20
@@ -8,8 +9,22 @@ exports.getProperties = (req, res) => {
     limit: count,
     order: ['id'],
   })
-    .then(result => {
-      res.status(200).json(result)
+    .then(async result => {
+      let payload = result.map(item => item.dataValues);
+      let data = [];
+
+      for(let item of payload) {
+        let token = await Token.findOne({ where: { propertyId: item.id}});
+        if(token) {
+          token = token.dataValues;
+          delete token.id;
+          delete token.createdAt;
+          delete token.updatedAt;
+          data.push({...item, ...token});
+        }
+      }
+      
+      res.status(200).json(data)
     })
     .catch(err => {
       res.status(500).json({message: err.message})
@@ -20,12 +35,23 @@ exports.getPropertyById = (req, res) => {
   const ID = req.query.ID
   let option = {id: ID}
 
-  console.log('-=-=-=-=-=-=-=-=-=-=-=-=get property by id option ', option)
-
   Property.findOne({where: option})
-    .then(result => {
-      res.status(200).json(result)
-      // console.log(result)
+    .then(async result => {
+        result = result.dataValues;
+
+        let token = await Token.findOne({ where: { propertyId: result.id }});
+        if(token) {
+          delete token.id;
+          delete token.createdAt;
+          delete token.updatedAt;
+  
+          let payload = {...result, ...token.dataValues};
+  
+          res.status(200).json(payload)
+        } else {
+          res.status(200).json(result);
+        }
+        
     })
     .catch(err => {
       // console.log(err.message)
