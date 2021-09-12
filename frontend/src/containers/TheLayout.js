@@ -8,11 +8,11 @@ class TheLayout extends Component {
     return (
       <div>
         <Layout.Row>
-          <Layout.Col span="24" style={{backgroundColor: '#000000', zIndex: 1000, position: "fixed"}}>
+          <Layout.Col span="24" style={{backgroundColor: '#000000', zIndex: 1000, position: "fixed", borderBottom: '1px solid gray'}}>
             <div className="grid-content bg-purple-light"><TheHeader/></div>
           </Layout.Col>
         </Layout.Row>
-        <Layout.Row className='app-content'>
+        <Layout.Row className='app-content' style={{zIndex: 1}}>
           <Layout.Col span="24">
             <div className="grid-content bg-purple-light"><TheContent/></div>
           </Layout.Col>

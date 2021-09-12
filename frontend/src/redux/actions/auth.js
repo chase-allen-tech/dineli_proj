@@ -155,7 +155,8 @@ export const actionAuthResetNewPassword = (userData) => (dispatch) => {
 }
 
 export const actionAuthLogout = () => (dispatch) => {
-  localStorage.removeItem('user')
+  localStorage.removeItem('user');
+  localStorage.removeItem('cartProducts');
   dispatch({
     type: LOGOUT,
   })

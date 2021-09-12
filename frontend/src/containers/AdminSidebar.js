@@ -38,7 +38,8 @@ const menu = [
       { key: 'users', to: '/admin/users', name: 'Users', icon: SpotlightSvg, iconActive: SpotlightOnSvg },
       { key: 'teams', to: '/admin/teams', name: 'Teams', icon: CommunitySvg, iconActive: CommunityOnSvg },
       { key: 'faqs', to: '/admin/faqs', name: 'Faqs', icon: MarketSvg, iconActive: MarketOnSvg },
-      { key: 'blogs', to: '/admin/blogs', name: 'Blogs', icon: ReferralSvg, iconActive: ReferralOnSvg }
+      { key: 'blogs', to: '/admin/blogs', name: 'Blogs', icon: ReferralSvg, iconActive: ReferralOnSvg },
+      { key: 'transaction', to: '/admin/transaction', name: 'Transaction', icon: ReferralSvg, iconActive: ReferralOnSvg }
     ]
   },
   {
@@ -82,7 +83,7 @@ class AdminSidebar extends Component {
               {
                 group.groupItems.map(item => <Fragment key={item.key}>
                   <NavLink to={item.to} className="nav-link align-middle p-0 c-sidenav-item w-100" activeClassName="c-sidenav-active">
-                    <div className="d-flex p-1 rounded my-2">
+                    <div className="d-flex p-1 rounded my-1">
                       <img src={item.icon} width="17" className="c-sidenav-icon" alt="icon" />
                       <img src={item.iconActive} width="17" style={{ display: 'none' }} className="c-sidenav-icon-active" alt="img" />
                       <div className="ms-3 d-none d-sm-inline">{item.name}</div>

@@ -44,11 +44,12 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
       console.log('[curr]', this.props.currentHouse);
       this.setState({product: this.props.currentHouse})
     })
+
+  
   }
 
   render() {
     let product = this.state.product
-    console.log('[p]', product)
     let address1 = product.address1
     let address2 = product.address2
     let pos_latitude = product.pos_latitude

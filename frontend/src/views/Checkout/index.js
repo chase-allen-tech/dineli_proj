@@ -1,17 +1,27 @@
 import React, { Component } from "react"
 import { Button, Form, Input, Layout, Radio, Select, Checkbox, Notification } from "element-react"
 import Fade from "react-reveal/Fade"
-import { Link } from "react-router-dom";
 import { Table as TableBs } from 'react-bootstrap';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { balanceAvailable, transferToken } from "../../services/crypto";
+import { connect } from 'react-redux'
+
+import { actionPropertyGet } from '../../redux/actions/property';
+import { actionOrderCreate } from '../../redux/actions/order';
+// import { balanceAvailable, transferToken } from "../../services/crypto";
 
 import CoinbaseCommerceButton from 'react-coinbase-commerce';
 // import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
 
 const CRYPTO_MODE = '1', PAYPAL_MODE = '2';
 
-class Checkout extends Component {
+const mapStateToProps = state => {
+  return {}
+}
+
+const mapDispatchToProps = { actionPropertyGet, actionOrderCreate }
+
+const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Component {
+// class Checkout extends Component {
 	constructor(props) {
 		super(props)
 
@@ -51,18 +61,20 @@ class Checkout extends Component {
 				walletAddress: [{ required: true, message: 'Please input wallet address', trigger: 'change' }],
 			},
 			productItems: [],
-			totalPrice: 0
+			totalPrice: 0,
+			coinbaseId: null
 		};
 
 		this.onPaypalSuccess.bind(this);
-	}
-
-	componentWillReceiveProps() {
-		console.log(this.state);
+		this.onSaveOrder.bind(this);
 	}
 
 	componentDidMount() {
+		window.scrollTo(0, 0);
+
 		const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+
+		if(!cartProducts ||  !cartProducts.length) return;
 
 		let items = [];
 		let total = 0;
@@ -75,7 +87,33 @@ class Checkout extends Component {
 		}
 		this.setState({ productItems: items, totalPrice: total });
 
-		window.scrollTo(0, 0);
+		// Create coinbase checkout with api
+		const body = {
+			"name": "Token Purchase - " + (new Date()),
+			"description": "Token purchase with coinbase",
+			"local_price": {
+				"amount": total,
+				"currency": "USD"
+			},
+			"pricing_type": "fixed_price",
+			"requested_info": ["email"]
+		}
+
+		fetch(process.env.REACT_APP_COINBASE_API_ENDPOINT + '/checkouts', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CC-Api-Key': process.env.REACT_APP_COINBASE_API_KEY,
+				'X-CC-Version': '2018-03-22'
+			},
+			body: JSON.stringify(body)
+		}).then(async res => {
+			let result = await res.json();
+			console.log('[cionbase data]', result);
+			this.setState({ coinbaseId: result.data.id });
+		}).catch(err => {
+			console.log('[coinbase error]', err);
+		})
 	}
 
 	handleSubmit(e) {
@@ -90,13 +128,8 @@ class Checkout extends Component {
 		})
 	}
 
-	handlePaypalPayment() {
-
-	}
-
 	handleReset(e) {
 		e.preventDefault();
-
 		this.refs.form.resetFields()
 	}
 
@@ -104,13 +137,12 @@ class Checkout extends Component {
 		this.setState({
 			form: Object.assign({}, this.state.form, { [key]: value })
 		})
-
 	}
 
 	onChangePaycard(value) {
 		this.setState({
 			form: Object.assign({}, this.state.form, { payCard: value })
-		})
+		});
 	}
 
 	// async balanceAvailCheck(tokenAddress, tokenQuantity) {
@@ -136,6 +168,8 @@ class Checkout extends Component {
 			duration: 5000
 		});
 
+		this.onSaveOrder('paypal');
+
 
 		// // Now transfer Token
 		// const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
@@ -157,6 +191,51 @@ class Checkout extends Component {
 		// 	}
 		// }
 
+	}
+
+	onCryptoSuccess() {
+		Notification.success({
+			title: 'Payment Success',
+			message: 'Crypto payment success',
+			type: 'success',
+			duration: 5000
+		});
+		this.onSaveOrder('coinbase');
+	}
+
+	onSaveOrder(paymentMethod) {
+		console.log('[saving order...]');
+		const user = JSON.parse(localStorage.getItem('user'));
+		console.log(user, user.walletAddress);
+		const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+		let totalCount = 0;
+		let details = [];
+		for(let item of cartProducts) {
+			totalCount += parseFloat(item.tokenQuantity);
+			details.push({
+				tokenAddress: item.tokenAddress,
+				tokenQuantity: item.tokenQuantity,
+				toAddress: user.walletAddress
+			})
+		}
+
+		console.log('[details]', details);
+
+
+		const payload = {
+			userId: user.id,
+			status: 'pending',
+			totalPrice: this.state.totalPrice,
+			count: totalCount,
+			paymentMethod: paymentMethod,
+			details: JSON.stringify(details)
+		}
+
+		console.log('[payload]', payload);
+
+		this.props.actionOrderCreate(payload);
+		localStorage.removeItem("cartProducts");
+		this.props.history.push('/marketplace');
 	}
 
 
@@ -304,24 +383,25 @@ class Checkout extends Component {
 								</div>
 							</Layout.Col>
 
-							<Layout.Col span={24}>
+							<Layout.Col span={24} style={{ zIndex: 100 }}>
 								<div className="grid-content"
 									style={{ border: "2px solid #03ffa4", margin: 20, borderRadius: 10 }}>
 									<div style={{ margin: "2%" }}>
 										<Radio value="1" checked={this.state.form.payCard === CRYPTO_MODE} onChange={this.onChangePaycard.bind(this)} className="d-font-bold d-white d-text-28">&nbsp;&nbsp;PAY WITH CRYPTOCURRENCY</Radio>
 										<div className='d-font-book d-text-28 d-highlight'>Pay with cryptocurrency. If you pay in USDC or DAI, you mush pay only on the ETHEREUM network!</div>
+										{
+											this.state.form.payCard === CRYPTO_MODE && this.state.coinbaseId &&
+											<div>
+												<CoinbaseCommerceButton checkoutId={this.state.coinbaseId}
+													styled={true}
+													onChargeSuccess={() => alert("success")}
+													onChargeFailure={() => console.log("Failure")} />
+											</div>
+										}
 									</div>
 									<div style={{ margin: "2%" }}>
 										<Radio value="2" checked={this.state.form.payCard === PAYPAL_MODE} onChange={this.onChangePaycard.bind(this)} className="d-font-bold d-white d-text-28">&nbsp; &nbsp;PAY WITH PAYPAL</Radio>
 									</div>
-
-									{
-										this.state.form.payCard === CRYPTO_MODE &&
-										<div>
-											<CoinbaseCommerceButton checkoutId={"1b39d435-143a-4daf-93ec-18e7652c1ef2"} />
-										</div>
-									}
-
 									{
 										this.state.form.payCard == PAYPAL_MODE &&
 										<div className="d-flex justify-content-center">
@@ -393,6 +473,6 @@ class Checkout extends Component {
 			</div>
 		)
 	}
-}
+})
 
 export default Checkout

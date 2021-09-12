@@ -6,6 +6,7 @@ import user from './user';
 import team from './team';
 import blog from './blog';
 import faq from './faq';
+import order from './order';
 
 const appReducer = combineReducers({
   auth,
@@ -14,7 +15,8 @@ const appReducer = combineReducers({
   user,
   team,
   faq,
-  blog
+  blog,
+  order
 })
 const rootReducer = (state, action) => {
   return appReducer(state, action)

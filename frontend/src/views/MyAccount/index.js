@@ -48,12 +48,17 @@ const MyAccount = connect(mapStateToProps, mapDispatchToProps)(class extends Com
   }
 
   componentWillUpdate() {
-    console.log('[user]', this.props);
-    if(this.props.user) {
-      if(this.props.user.roles[0] === 'ADMIN') {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(user) {
+      if(user.roles[0] === 'ADMIN') {
         this.props.history.push('/admin/dashboard');
       }
     }
+    // if(this.props.user) {
+    //   if(this.props.user.roles[0] === 'ADMIN') {
+    //     this.props.history.push('/admin/dashboard');
+    //   }
+    // }
   }
 
   componentDidMount() {

@@ -27,6 +27,7 @@ const AdminPropertyNew = React.lazy(() => import('./views/Admin/AdminPropertyNew
 const AdminToken = React.lazy(() => import('./views/Admin/AdminToken'));
 const AdminTokenNew = React.lazy(() => import('./views/Admin/AdminTokenNew'));
 const AdminUser = React.lazy(() => import('./views/Admin/AdminUser'));
+const AdminTransaction = React.lazy(() => import('./views/Admin/AdminTransaction')) ;
 const AdminUserNew = React.lazy(() => import('./views/Admin/AdminUserNew'));
 const AdminTeam = React.lazy(() => import('./views/Admin/AdminTeam'));
 const AdminTeamNew = React.lazy(() => import('./views/Admin/AdminTeamNew'));
@@ -75,6 +76,7 @@ const routes = [
   { path: '/admin/blogs/new', name: 'AdminBlogNew', component: AdminBlogNew, exact: true },
   { path: '/admin/email', name: 'AdminEmail', component: AdminEmail },
   { path: '/admin/log', name: 'AdminLog', component: AdminLog },
+  { path: '/admin/transaction', name: 'AdminTransaction', component: AdminTransaction },
 
   { path: '/admin/product/edit', name: 'HouseEditor', component: HouseEditor },
   { path: '/admin', name: 'LogRegister', component: LogRegister },

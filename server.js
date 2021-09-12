@@ -56,7 +56,8 @@ require('./app/routes/site.routes')(app)
 require('./app/routes/token.routes')(app)
 require('./app/routes/team.routes')(app)
 require('./app/routes/faq.routes')(app)
-require('./app/routes/blog.routes')(app)
+require('./app/routes/blog.routes')(app);
+require('./app/routes/order.routes')(app);
 
 app.use(express.static('frontend/build'));
 app.get('/', (req, res) => {

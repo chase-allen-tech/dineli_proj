@@ -162,6 +162,7 @@ loginProcess = (req, res, user) => {
         phone: user.phone,
         roles: authorities,
         accessToken: token,
+        walletAddress: user.walletAddress
       })
     })
 }

@@ -35,18 +35,23 @@ exports.getPropertyById = (req, res) => {
   const ID = req.query.ID
   let option = {id: ID}
 
+  console.log('[getPropById]', option);
+
   Property.findOne({where: option})
     .then(async result => {
         result = result.dataValues;
 
         let token = await Token.findOne({ where: { propertyId: result.id }});
+        token = token.dataValues;
+
+
         if(token) {
           delete token.id;
           delete token.createdAt;
           delete token.updatedAt;
   
-          let payload = {...result, ...token.dataValues};
-  
+          let payload = {...result, ...token};
+
           res.status(200).json(payload)
         } else {
           res.status(200).json(result);

@@ -16,6 +16,15 @@ class TheAdminLayout extends Component {
     }
   }
 
+  componentDidMount() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(user) {
+      if(user.roles[0] !== 'ADMIN') {
+        this.setState({ logged: false });
+      }
+    }
+  }
+
   render() {
     return (
       <div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+
 import { Navbar, Nav, NavDropdown, Button, Dropdown } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
   actionAuthLogout,
@@ -16,9 +17,10 @@ class TheHeader extends Component {
     this.onClickedLogout = this.onClickedLogout.bind(this)
   }
   componentDidMount() {
+    const user = JSON.parse(localStorage.getItem('user'));
     this.setState({
       logged: this.props.logged,
-      role: this.props.user ? this.props.user['roles'][0] : ''
+      role: user ? user.roles[0] : ''
     })
   }
 
@@ -35,7 +37,10 @@ class TheHeader extends Component {
   }
   onClickedLogout(e) {
     e.preventDefault()
-    this.props.actionAuthLogout()
+    this.props.actionAuthLogout();
+    localStorage.removeItem('user');
+    this.props.history.push('/home');
+    window.location.reload();
   }
   render() {
     return (
@@ -97,7 +102,7 @@ class TheHeader extends Component {
             {
               this.state.logged && (
                 <>
-                  <Nav.Link href="#my-account" className="deskContent">
+                  <div className="deskContent">
                     <Link to={`/cart/null`}>
                       <img className="img-mobile" src="imgs/header/myaccount.png" alt="cart"
                         style={{ position: 'absolute', marginTop: -18, marginLeft: '2rem' }} />
@@ -133,9 +138,9 @@ class TheHeader extends Component {
                         </Nav.Link>
                       </div>
                     </div>
-                  </Nav.Link>
+                  </div>
 
-                  <Nav.Link href="#my-account" className="phoneContent">
+                  <div className="phoneContent">
                     <div className="d-white d-font-book d-text-nav" style={{ background: "#212926" }}>MY ACCOUNT
                       <Nav.Link href="#calculator">
                         <div className="d-highlight d-font-bold d-text-nav"
@@ -167,7 +172,7 @@ class TheHeader extends Component {
                         </div>
                       </Nav.Link>
                     </div>
-                  </Nav.Link>
+                  </div>
                 </>
               )
             }
@@ -213,4 +218,5 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   actionAuthLogout,
 }
-export default connect(mapStateToProps, mapDispatchToProps)(TheHeader)
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TheHeader));

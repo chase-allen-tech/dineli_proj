@@ -1018,10 +1018,10 @@ iframe.coinbase-commerce-iframe {
     position: fixed;
     left: 0;
     right: 0;
-    top: 0;
+    top: 160px;
     bottom: 0;
     z-index: 99999;
-    height: 100%;
+    height: calc(100% - 160px);
     width: 100%;
     border: none;
 }

@@ -6,10 +6,11 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
       },
       userId: { type: Sequelize.INTEGER },
-      status: { type: Sequelize.INTEGER },
+      status: { type: Sequelize.STRING },
       totalPrice: { type: Sequelize.FLOAT },
       count: { type: Sequelize.INTEGER },
-      paymentMethod: { type: Sequelize.INTEGER },
+      paymentMethod: { type: Sequelize.STRING },
+      details: { type: Sequelize.STRING }
   })
   return Order
 }

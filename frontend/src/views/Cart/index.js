@@ -14,6 +14,7 @@ const Cart = props => {
 	const { productID } = useParams();
 	const dispatch = useDispatch();
 	const product = useSelector(state => state.property.currentHouse);
+	console.log('product]', product);
 	const [products, setProducts] = useState([]);
 	const [quantityValues, setQuantityValues] = useState({});
 
