@@ -1018,7 +1018,7 @@ iframe.coinbase-commerce-iframe {
     position: fixed;
     left: 0;
     right: 0;
-    top: 160px;
+    top: 100px;
     bottom: 0;
     z-index: 99999;
     height: calc(100% - 100px);
