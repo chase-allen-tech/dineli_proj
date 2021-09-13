@@ -20,6 +20,7 @@ exports.createToken = (req, res) => {
     userId: req.body.userId,
     propertyId: req.body.propertyId,
     tokenAddress: req.body.tokenAddress,
+    tokenSymbol: req.body.tokenSymbol,
     purchasePrice: req.body.purchasePrice,
     salePrice: req.body.salePrice,
     quantity: req.body.quantity,
@@ -53,6 +54,7 @@ exports.saveToken = (req, res) => {
     token.userId = req.body.userId
     token.propertyId = req.body.propertyId
     token.tokenAddress = req.body.tokenAddress
+    token.tokenSymbol = req.body.tokenSymbol
     token.purchasePrice = req.body.purchasePrice
     token.salePrice = req.body.salePrice,
     token.quantity = req.body.quantity

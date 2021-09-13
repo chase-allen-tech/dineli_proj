@@ -169,7 +169,8 @@ const Marketplace = connect(mapStateToProps, mapDispatchToProps)(class extends C
                                 borderTopLeftRadius: 0,
                                 borderBottomLeftRadius: 0,
                               }}
-                              height={houseImageHeight}
+                              // height={houseImageHeight}
+                              height="380"
                               className="marketplace-img"
                               src={`${process.env.REACT_APP_API_ENDPOINT}/public/${img}`} alt=""
                             />

@@ -8,7 +8,7 @@ import {actionPropertyList} from "../../redux/actions/property"
 import {connect} from "react-redux"
 
 const mapStateToProps = state => {
-  const {propertyData} = state;
+  const {propertyData} = state.property;
   return {
     propertyData
   }
@@ -68,6 +68,8 @@ const Home3 = connect(mapStateToProps, mapDispatchToProps)(class extends Compone
   }
 
   render() {
+
+    console.log(this.state.products);
 
     let products = this.state.products;
     let width = this.state.width;

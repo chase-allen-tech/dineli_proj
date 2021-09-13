@@ -2,6 +2,13 @@ import Web3 from 'web3';
 import { CONTRACT_ABI } from '../config/abi';
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_NETWORK_ENDPOINT));
 
+export const tokenInfo = async (tokenAddress) => {
+  const contract = new web3.eth.Contract(CONTRACT_ABI, tokenAddress);
+  const tokenName = await contract.methods.symbol().call();
+
+  console.log('[token name]', tokenName);
+}
+
 function financialBalance(numMfil) {
   return Number.parseFloat(numMfil / 1e18).toFixed(18);
 }

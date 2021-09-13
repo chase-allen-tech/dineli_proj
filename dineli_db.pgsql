@@ -604,7 +604,8 @@ CREATE TABLE public.tokens (
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
     "tokenAddress" character varying(255) NOT NULL,
-    "salePrice" double precision NOT NULL
+    "salePrice" double precision NOT NULL,
+    "tokenSymbol" character varying(255)
 );
 
 
@@ -1031,9 +1032,9 @@ COPY public.teams (id, name, job, avatar, content, "createdAt", "updatedAt") FRO
 -- Data for Name: tokens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.tokens (id, "userId", "propertyId", "purchasePrice", quantity, "createdAt", "updatedAt", "tokenAddress", "salePrice") FROM stdin;
-13	1	12	4.5	10000	2021-09-04 04:45:04.724+04	2021-09-04 04:45:04.724+04	0x711169eba29367425a45a2b6ee4b7c345befc0ad	5
-17	1	13	140	1000	2021-09-09 18:21:46.921+04	2021-09-09 18:21:46.921+04	0x6570865f7496336D9B68bEAeD40a48be4F31169b	150
+COPY public.tokens (id, "userId", "propertyId", "purchasePrice", quantity, "createdAt", "updatedAt", "tokenAddress", "salePrice", "tokenSymbol") FROM stdin;
+13	1	12	4.5	10000	2021-09-04 04:45:04.724+04	2021-09-04 04:45:04.724+04	0x711169eba29367425a45a2b6ee4b7c345befc0ad	5	MTT
+17	1	13	140	1000	2021-09-09 18:21:46.921+04	2021-09-09 18:21:46.921+04	0x6570865f7496336D9B68bEAeD40a48be4F31169b	150	DINELI_TK1
 \.
 
 
@@ -1191,7 +1192,7 @@ SELECT pg_catalog.setval('public.teams_id_seq', 4, true);
 -- Name: tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tokens_id_seq', 17, true);
+SELECT pg_catalog.setval('public.tokens_id_seq', 19, true);
 
 
 --

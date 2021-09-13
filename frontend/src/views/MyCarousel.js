@@ -16,7 +16,7 @@ export default class MyCarousel extends Component {
 
         return (
             <Carousel images={images}
-                style={{ height: "1000px", width: "100%" }}
+                style={{ height: "400px", width: "100%" }}
                 leftIcon={<div style={{
                     color: "#ffffff",
                     fontSize: 80,

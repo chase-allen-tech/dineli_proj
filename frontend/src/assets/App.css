@@ -716,7 +716,7 @@
 
 @media only screen and (min-width: 888px) and (max-width: 3500px) {
     .app-content {
-        margin-top: 180px !important;
+        margin-top: 100px !important;
     }
 }
 
@@ -1021,8 +1021,20 @@ iframe.coinbase-commerce-iframe {
     top: 160px;
     bottom: 0;
     z-index: 99999;
-    height: calc(100% - 160px);
+    height: calc(100% - 100px);
     width: 100%;
     border: none;
 }
 
+.hover-bg-dark:hover {
+    background-color: #444;
+    border-radius: 5px;
+}
+
+.trans-2 {
+    transition: all 0.2s ease-in-out;
+}
+
+._1_Dg2 {
+    padding-top: 100px;
+}

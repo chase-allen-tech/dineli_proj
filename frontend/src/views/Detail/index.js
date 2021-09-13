@@ -52,8 +52,8 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
     let product = this.state.product
     let address1 = product.address1
     let address2 = product.address2
-    let pos_latitude = product.pos_latitude
-    let pos_longitude = product.pos_longitude
+    let pos_latitude = product.pos_latitude || 0
+    let pos_longitude = product.pos_longitude || 0
 
     let imageData = product.imageData
 
@@ -133,7 +133,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         </div>
 
         <div>
-          <Fade bottom delay={800}>
+          <Fade bottom delay={200}>
             <TableBs borderless>
               <tbody className={'d-font-bold'}>
                 <tr>
@@ -520,7 +520,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
           </Layout.Col>
         </Layout.Row>
         <Zoom delay={300}>
-          <div style={{marginTop: '40px', width: '100%', height: 600}}>
+          <div style={{marginTop: '40px', width: '100%', height: '600px'}}>
             <SimpleMap lat={pos_latitude} long={pos_longitude}>Google Map</SimpleMap>
           </div>
         </Zoom>

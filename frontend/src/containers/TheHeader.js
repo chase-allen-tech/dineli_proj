@@ -44,15 +44,15 @@ class TheHeader extends Component {
   }
   render() {
     return (
-      <Navbar expand="lg" style={{ margin: "0% 12% 0% 12%" }}>
+      <Navbar expand="lg" className="container">
         <Navbar.Brand href="#home">
-          <img className="img-mobile" src="imgs/logo.png" alt="Logo" />
+          <img className="img-mobile" src="imgs/logo.png" alt="Logo" width="80" />
         </Navbar.Brand>
         <Navbar.Toggle className="img-mobile" aria-controls="basic-navbar-nav"
           style={{ backgroundColor: "white" }} />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav style={{ marginLeft: 'auto' }}>
-            <div className="deskContent" style={{ position: 'absolute', marginTop: -48, marginLeft: '7rem' }}>
+          <Nav style={{ marginLeft: 'auto', flexDirection: 'column' }}>
+            <div className="deskContent ms-auto">
               <Button className="d-font-bold d-text-nav" style={{ width: 192 }}
                 onClick={() => this.onClickedAffiliate()}>Affiliate Program</Button>
               <div style={{ width: 12 }} />
@@ -68,131 +68,129 @@ class TheHeader extends Component {
                   <Dropdown.Item>Russian</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-            </div>
-            <Nav.Link href="#marketplace">
-              <div className="d-white d-font-book d-text-nav">
-                MARKETPLACE
-              </div>
-            </Nav.Link>
-            <Nav.Link href="#sell-tokens">
-              <div className="d-white d-font-book d-text-nav">
-                SELL TOKENS
-              </div>
-            </Nav.Link>
-            <Nav.Link href="#team">
-              <div className="d-white d-font-book d-text-nav">
-                TEAM
-              </div>
-            </Nav.Link>
-            <Nav.Link href="#learn">
-              <div className="d-white d-font-book d-text-nav">
-                LEARN
-              </div>
-            </Nav.Link>
-            <Nav.Link href="#faq">
-              <div className="d-white d-font-book d-text-nav">
-                FAQ
-              </div>
-            </Nav.Link>
-            <Nav.Link href="#blog">
-              <div className="d-white d-font-book d-text-nav">
-                BLOG
-              </div>
-            </Nav.Link>
-            {
-              this.state.logged && (
-                <>
-                  <div className="deskContent">
-                    <Link to={`/cart/null`}>
-                      <img className="img-mobile" src="imgs/header/myaccount.png" alt="cart"
-                        style={{ position: 'absolute', marginTop: -18, marginLeft: '2rem' }} />
-                      <label className="d-text-28 d-font-bold d-white"
-                        style={{ position: 'absolute', marginTop: -20, marginLeft: '2.8rem' }}>5</label>
-                    </Link>
-                    <div className="d-white d-font-bold d-text-nav" id='navbar-my-account'
-                      style={{ position: 'absolute', marginTop: -48, marginRight: 10, width: 'fit-content' }}>MY ACCOUNT
-                        <div className="position-relative h-100"
-                        style={{
-                          background: "#000",
-                          width: 240,
-                          left: -80,
-                          display: "none",
-                          border: '1px solid gray'
-                        }}
-                        id="navbar-my-account-children">
+
+              {
+                this.state.logged && (
+                  <div className="ms-2">
+                    <div className="deskContent align-items-center h-100">
+                      <div className="d-white d-font-bold d-text-nav position-relative hover-bg-dark trans-2 p-2 cursor-pointer" id='navbar-my-account' style={{zIndex: 1}}>
+                        <div>MY ACCOUNT</div>
+                        <div className="position-absolute bg-dark d-none border border-1 border-secondary" style={{ minWidth: 220, right: 0, top: 40, height: 'fit-content'}} id="navbar-my-account-children">
+                          <Nav.Link href="#calculator">
+                            <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">CALCULATOR</div>
+                          </Nav.Link>
+                          <Nav.Link href="#affiliate-dashboard">
+                            <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">AFFILIATE DASHBOARD</div>
+                          </Nav.Link>
+                          {
+                            this.state.role === 'ADMIN' &&
+                            <Nav.Link href="#admin/dashboard">
+                              <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">ADMIN</div>
+                            </Nav.Link>
+                          }
+
+                          <Nav.Link onClick={this.onClickedLogout}>
+                            <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">LOGOUT</div>
+                          </Nav.Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="phoneContent">
+                      <div className="d-white d-font-book d-text-nav" style={{ background: "#212926" }}>MY ACCOUNT
                         <Nav.Link href="#calculator">
-                          <div className="d-highlight d-font-bold d-text-nav">CALCULATOR</div>
+                          <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2"
+                            style={{
+                              width: 'fit-content'
+                            }}>CALCULATOR
+                          </div>
                         </Nav.Link>
                         <Nav.Link href="#affiliate-dashboard">
-                          <div className="d-highlight d-font-bold d-text-nav">AFFILIATE DASHBOARD</div>
+                          <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2"
+                            style={{
+                              width: 'fit-content'
+                            }}>AFFILIATE DASHBOARD
+                          </div>
                         </Nav.Link>
-                        {
-                          this.state.role === 'ADMIN' &&
-                          <Nav.Link href="#admin/dashboard">
-                            <div className="d-highlight d-font-bold d-text-nav">ADMIN</div>
-                          </Nav.Link>
-                        }
-
+                        <Nav.Link href="#admin/product/edit">
+                          <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2"
+                            style={{
+                              width: 'fit-content'
+                            }}>PROPERTY Edit(ADMIN)
+                          </div>
+                        </Nav.Link>
                         <Nav.Link onClick={this.onClickedLogout}>
-                          <div className="d-highlight d-font-bold d-text-nav">Log Out</div>
+                          <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2"
+                            style={{
+                              width: 'fit-content'
+                            }}>
+                            Log Out
+                          </div>
                         </Nav.Link>
                       </div>
                     </div>
                   </div>
-
-                  <div className="phoneContent">
-                    <div className="d-white d-font-book d-text-nav" style={{ background: "#212926" }}>MY ACCOUNT
-                      <Nav.Link href="#calculator">
-                        <div className="d-highlight d-font-bold d-text-nav"
-                          style={{
-                            width: 'fit-content'
-                          }}>CALCULATOR
-                        </div>
-                      </Nav.Link>
-                      <Nav.Link href="#affiliate-dashboard">
-                        <div className="d-highlight d-font-bold d-text-nav"
-                          style={{
-                            width: 'fit-content'
-                          }}>AFFILIATE DASHBOARD
-                        </div>
-                      </Nav.Link>
-                      <Nav.Link href="#admin/product/edit">
-                        <div className="d-highlight d-font-bold d-text-nav"
-                          style={{
-                            width: 'fit-content'
-                          }}>PROPERTY Edit(ADMIN)
-                        </div>
-                      </Nav.Link>
-                      <Nav.Link onClick={this.onClickedLogout}>
-                        <div className="d-highlight d-font-bold d-text-nav"
-                          style={{
-                            width: 'fit-content'
-                          }}>
-                          Log Out
-                        </div>
-                      </Nav.Link>
+                )
+              }
+              {
+                !this.state.logged && (
+                  <Nav.Link href="#my-account" className="deskContent">
+                    <div className="d-white d-font-bold d-text-nav hover-bg-dark trans-2 px-1" id='navbar-my-account'
+                      style={{ width: 'fit-content' }}>
+                      Sign In
                     </div>
-                  </div>
-                </>
-              )
-            }
-            {
-              !this.state.logged && (
-                <Nav.Link href="#my-account" className="deskContent">
-                  <div className="d-white d-font-bold d-text-nav" id='navbar-my-account'
-                    style={{ position: 'absolute', marginTop: -48, width: 'fit-content' }}>
-                    Sign In
-                  </div>
-                </Nav.Link>
-              )
-            }
-            {
-              !this.props.logged && (
-                <Nav.Link href="#my-account" className="phoneContent">
-                  <div className="d-white d-font-book d-text-nav">Sign In</div>
-                </Nav.Link>
-              )
-            }
+                  </Nav.Link>
+                )
+              }
+              {
+                !this.props.logged && (
+                  <Nav.Link href="#my-account" className="phoneContent">
+                    <div className="d-white d-font-book d-text- hover-bg-dark trans-2 px-1">Sign In</div>
+                  </Nav.Link>
+                )
+              }
+            </div>
+
+            <div className="d-flex ms-auto">
+              <Nav.Link href="#marketplace">
+                <div className="d-white d-font-book d-text-nav hover-bg-dark trans-2 px-1">
+                  MARKETPLACE
+                </div>
+              </Nav.Link>
+              <Nav.Link href="#sell-tokens">
+                <div className="d-white d-font-book d-text-nav hover-bg-dark trans-2 px-1">
+                  SELL TOKENS
+                </div>
+              </Nav.Link>
+              <Nav.Link href="#team">
+                <div className="d-white d-font-book d-text-nav hover-bg-dark trans-2 px-1">
+                  TEAM
+                </div>
+              </Nav.Link>
+              <Nav.Link href="#learn">
+                <div className="d-white d-font-book d-text-nav hover-bg-dark trans-2 px-1">
+                  LEARN
+                </div>
+              </Nav.Link>
+              <Nav.Link href="#faq">
+                <div className="d-white d-font-book d-text-nav hover-bg-dark trans-2 px-1">
+                  FAQ
+                </div>
+              </Nav.Link>
+              <Nav.Link href="#blog">
+                <div className="d-white d-font-book d-text-nav hover-bg-dark trans-2 px-1">
+                  BLOG
+                </div>
+              </Nav.Link>
+              <Link to={`/cart/null`}>
+                <div className="position-relative">
+                  <img className="img-mobile ms-2" src="imgs/header/myaccount.png" alt="cart" />
+                  <label className="d-text-28 d-font-bold d-white position-absolute" style={{ top: 0, left: 25 }}>5</label>
+                </div>
+              </Link>
+            </div>
+
+
             <Nav.Link href="#affiliate" className="phoneContent">
               <div className="d-white d-font-book d-text-nav">AFFILIATE PROGRAM</div>
             </Nav.Link>

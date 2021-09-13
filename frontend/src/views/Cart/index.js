@@ -19,6 +19,11 @@ const Cart = props => {
 	const [quantityValues, setQuantityValues] = useState({});
 
 	useEffect(() => {
+		const user = localStorage.getItem('user');
+		if(!user) {
+			localStorage.removeItem('cartProducts');
+			history.goBack();
+		}
 		window.scrollTo(0, 0);
 	}, []);
 
@@ -34,7 +39,7 @@ const Cart = props => {
 			setProducts(cartProducts);
 		} else {
 			if (!product || Object.keys(product).length === 0) return;
-			
+
 			if (!cartProducts.find(p => p.id === product.id)) {
 				cartProducts.push(product);
 			}
@@ -140,53 +145,6 @@ const Cart = props => {
 				</tbody>
 			</TableBs>
 
-			{/* {
-				products.map((product, key) => (
-					<Layout.Row style={{ border: "2px solid #03ffa4" }} key={key}>
-						<Layout.Col span="9">
-							<div className="grid-content bg-purple">
-								<div className='d-white d-text-36' style={{ margin: "0px 0px 5px 10px" }}>&nbsp;
-                  <span>
-										<Icon className="product-cart-delete" name="circle-cross" style={{ color: "white", cursor: "pointer" }} />&nbsp;&nbsp;&nbsp;
-                  </span>
-									<Link to={'/detail/16'}>
-										<img src={require("../../assets/images/marketplace.png").default} alt="" width={35} height={30} style={{ borderRadius: 2 }} />
-									</Link>&nbsp;&nbsp;&nbsp;
-                  <Link to={'/detail/16'}>
-										<span className="d-text-28 d-font-book">This is my url.</span>
-									</Link>
-
-								</div>
-							</div>
-						</Layout.Col>
-						<Layout.Col span="3">
-							<div className="grid-content bg-purple-light"><span className='d-white d-text-36'>${product?.assetPrice}</span></div>
-						</Layout.Col>
-						<Layout.Col span="3">
-							<div className="grid-content bg-purple-light"><span
-								className='d-white d-text-36'>{product?.monthlyCosts}</span>
-							</div>
-						</Layout.Col>
-						<Layout.Col span="3">
-							<div className="grid-content bg-purple-light"><span
-								className='d-white d-font-bold d-text-36'>${product?.tokenValue}</span>
-							</div>
-						</Layout.Col>
-						<Layout.Col span="3">
-							<div className="grid-content bg-purple-light">
-								<input type={'number'} className='text-center d-font-bold d-text-28'
-									style={{ width: "100%", marginTop: 5 }} step="1" min="1" max="9"
-									pattern="[0-9]" />
-							</div>
-						</Layout.Col>
-						<Layout.Col span="3">
-							<div className="grid-content bg-purple-light">
-								<span className='d-white d-text-36 d-font-book'>${product?.tokenValue}</span></div>
-						</Layout.Col>
-					</Layout.Row>
-				))
-			} */}
-
 			<Layout.Row>
 				<Layout.Col span="24" style={{ marginTop: 30, textAlign: "right" }}>
 					<div className="grid-content">
@@ -223,7 +181,7 @@ const Cart = props => {
 							<Layout.Col span="12">
 								<div className="grid-content d-font-bold d-text-28 d-white"
 									style={{ textAlign: "right" }}>$51.67
-                                    </div>
+								</div>
 							</Layout.Col>
 						</Layout.Row>
 						<div className="block" style={{ marginTop: 30 }}>
@@ -236,7 +194,7 @@ const Cart = props => {
 											color: "black",
 											borderRadius: 10
 										}}>PROCEED TO CHECKOUT
-                                      </Button>
+									</Button>
 								</Link>
 							</span>
 						</div>
@@ -250,22 +208,21 @@ const Cart = props => {
 							</div>
 							{learnMore &&
 								<div className="block" style={{ textAlign: "justify", margin: 20 }}>
-									<label className="d-font-book d-text-20 d-white">To make your order a gift, just
-									check 'This order is a gift' at checkout, then enter the recipient's name,
-									email, and your preferred delivery date. We'll email you a printable certificate
-									to give in person, and we'll email that certificate to the gift recipient on the
-                                        delivery date, too. <br /> <br />
+									<p className="d-font-book d-text-20 d-white">To make your order a gift, just
+										check 'This order is a gift' at checkout, then enter the recipient's name,
+										email, and your preferred delivery date. We'll email you a printable certificate
+										to give in person, and we'll email that certificate to the gift recipient on the
+										delivery date, too. </p>
 
-                                        The recipient can follow a simple link or QR code to register and complete ID
-                                        verification, including registering an Ethereum wallet. When they're done, we'll
-                                        dispense their gift tokens! <br /><br />
+									<p className="d-font-book d-text-20 d-white">The recipient can follow a simple link or QR code to register and complete ID
+										verification, including registering an Ethereum wallet. When they're done, we'll
+										dispense their gift tokens!</p>
 
-										<strong>Note:</strong> Tokens may not yet be gifted to minors.<br /><br />
+									<p className="d-font-book d-text-20 d-white"><strong>Note:</strong> Tokens may not yet be gifted to minors.</p>
 
-										<strong>Important: </strong>Gift recipients who are U.S. citizens or residents
-                                        must be verified
-                                        as Accredited Investors before we can dispense their gifts.
-                                    </label>
+									<p className="d-font-book d-text-20 d-white"><strong>Important: </strong>Gift recipients who are U.S. citizens or residents
+										must be verified as Accredited Investors before we can dispense their gifts.
+									</p>
 								</div>}
 						</div>
 					</div>

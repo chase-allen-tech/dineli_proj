@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 const rules = {
   property: [{ required: true, message: 'This field is required', trigger: 'blur' }],
   tokenAddress: [{ required: true, message: 'This field is required', trigger: 'blur' }],
+  tokenSymbol: [{ required: true, message: 'This field is required', trigger: 'blur' }],
   purchasePrice: [{ required: true, message: 'This field is required', trigger: 'blur' }],
   quantity: [{ required: true, message: 'This field is required', trigger: 'blur' }],
   salePrice: [{ required: true, message: 'This field is required', trigger: 'blur' }],
@@ -30,6 +31,7 @@ const AdminTokenNew = props => {
     property: '',
     user: '',
     tokenAddress: '',
+    tokenSymbol: '',
     purchasePrice: 0,
     quantity: 0,
     salePrice: 0,
@@ -51,6 +53,7 @@ const AdminTokenNew = props => {
         userId: user.id,
         propertyId: properties.find(p => p.address1 == form.property).id,
         tokenAddress: form.tokenAddress,
+        tokenSymbol: form.tokenSymbol,
         purchasePrice: form.purchasePrice,
         salePrice: form.salePrice,
         quantity: form.quantity,
@@ -92,12 +95,17 @@ const AdminTokenNew = props => {
                 </div>
                 <div className="col-md-6">
                   <Form.Item label="User" prop="user">
-                    <Input type="user" value={user.username} autoComplete="off" readOnly />
+                    <Input type="user" value={user.username} autoComplete="off" disabled />
                   </Form.Item>
                 </div>
-                <div className="col-md-12">
+                <div className="col-md-6">
                   <Form.Item label="Token Address" prop="tokenAddress">
                     <Input value={form.tokenAddress} onChange={val => onFormChange('tokenAddress', val)} />
+                  </Form.Item>
+                </div>
+                <div className="col-md-6">
+                  <Form.Item label="Token Symbol" prop="tokenSymbol">
+                    <Input value={form.tokenSymbol} onChange={val => onFormChange('tokenSymbol', val)} />
                   </Form.Item>
                 </div>
                 <div className="col-md-4">

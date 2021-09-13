@@ -2,14 +2,34 @@
 import React, { Component } from 'react';
 import { Button, Row, Col, FormControl, Form } from 'react-bootstrap';
 import Fade from 'react-reveal/Fade';
+import { connect } from "react-redux";
+import { actionPropertyList } from "../../redux/actions/property";
+import { tokenInfo } from '../../services/crypto';
 
-class SellTokens extends Component {
+const mapStateToProps = state => {
+  const { propertyData } = state.property
+  return {
+    propertyData
+  }
+}
+
+const mapDispatchToProps = {
+  actionPropertyList
+}
+
+const SellTokens = connect(mapStateToProps, mapDispatchToProps)(class extends Component {
+
+  constructor(props) {
+    super(props);
+  }
 
   componentDidMount() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
+    this.props.actionPropertyList();
   }
 
   render() {
+    console.log(this.props.propertyData)
     return (
       <div>
         <Fade>
@@ -162,6 +182,6 @@ class SellTokens extends Component {
       </div>
     )
   }
-}
+});
 
 export default SellTokens;

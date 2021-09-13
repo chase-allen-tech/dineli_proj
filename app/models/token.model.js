@@ -7,6 +7,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     userId: { type: Sequelize.INTEGER },
     tokenAddress: { type: Sequelize.STRING },
+    tokenSymbol: { type: Sequelize.STRING },
     propertyId: { type: Sequelize.INTEGER },
     purchasePrice: { type: Sequelize.FLOAT },
     salePrice: { type: Sequelize.FLOAT },

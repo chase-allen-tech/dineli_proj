@@ -50,6 +50,7 @@ const AdminToken = props => {
                   <tr>
                     <th className="bg-secondary">#</th>
                     <th className="bg-secondary" style={{ minWidth: 130 }}>Property</th>
+                    <th className="bg-secondary" style={{ minWidth: 130 }}>Token Name</th>
                     <th className="bg-secondary" style={{ minWidth: 130 }}>User</th>
                     <th className="bg-secondary" style={{ minWidth: 130 }}>Purchase Price</th>
                     <th className="bg-secondary" style={{ minWidth: 130 }}>Quantity</th>
@@ -63,6 +64,7 @@ const AdminToken = props => {
                       <tr key={key}>
                         <td>{key + 1}</td>
                         <td>{properties.find(p => p.id === token.propertyId)?.address1 }</td>
+                        <td>{token.tokenSymbol}</td>
                         <td>{users.find(u => u.id === token.userId)?.username }</td>
                         <td>{token.purchasePrice}</td>
                         <td>{token.quantity}</td>
