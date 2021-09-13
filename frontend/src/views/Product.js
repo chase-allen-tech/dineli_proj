@@ -51,10 +51,10 @@ class Product extends Component {
 					marginBottom: 30
 				}}>
 
-					<div>
+					{/* <div>
 						<Link to={`/detail/${this.props.productData.id}`}>
 							<img src={img} alt="" style={{ width: '100%' }} /></Link>
-					</div>
+					</div> */}
 
 					<div style={{
 						backgroundColor: '#323a45',
