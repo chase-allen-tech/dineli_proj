@@ -10,7 +10,8 @@ module.exports = (sequelize, Sequelize) => {
       totalPrice: { type: Sequelize.FLOAT },
       count: { type: Sequelize.INTEGER },
       paymentMethod: { type: Sequelize.STRING },
-      details: { type: Sequelize.STRING }
+      details: { type: Sequelize.STRING },
+      signatureId: { type: Sequelize.STRING }
   })
   return Order
 }

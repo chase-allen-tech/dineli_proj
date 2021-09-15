@@ -1,18 +1,13 @@
 import React, { Fragment, useEffect, useState } from "react"
-import { Button, Layout, Notification } from "element-react"
-import Web3 from 'web3';
+import { Button, Layout } from "element-react"
 import Fade from "react-reveal/Fade"
 import { Modal, Table as TableBs } from 'react-bootstrap';
 
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionUserList } from "../../redux/actions/user";
-import { actionTokenList } from "../../redux/actions/token";
 
-// import { CONTRACT_ABI } from '../../config/abi';
 import { transferToken } from "../../services/crypto";
 import { actionOrderList, actionOrderUpdate } from "../../redux/actions/order";
-const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_NETWORK_ENDPOINT));
 
 const AdminTransaction = props => {
 
@@ -23,10 +18,10 @@ const AdminTransaction = props => {
 
   const users = useSelector(state => state.user.userData);
   const orders = useSelector(state => state.order.orderData);
+  const credentials = useSelector(state => state.credential.credentialData);
 
   useEffect(() => {
     dispatch(actionUserList());
-    // dispatch(actionTokenList());
     dispatch(actionOrderList());
   }, []);
 
@@ -60,16 +55,16 @@ const AdminTransaction = props => {
       for (let j = 0; j < transaction.details.length; j++) {
         const detail = transaction.details[j];
         const payload = {
-          fromAddress: process.env.REACT_APP_MY_ACCOUNT,
+          fromAddress: credentials[0].walletPublicKey,
           toAddress: detail.toAddress,
           tokenAddress: detail.tokenAddress,
           tokenAmount: detail.tokenQuantity,
-          chainId: process.env.REACT_APP_CHAIN_ID
+          chainId: credentials[0].blockchainId,
         }
 
         console.log('[payload]', payload);
 
-        let transferResult = await transferToken(payload.fromAddress, payload.toAddress, payload.tokenAddress, payload.tokenAmount, payload.chainId)
+        let transferResult = await transferToken(credentials[0]?.infuraProjectEndpoint, credentials[0]?.walletPrivateKey, payload.fromAddress, payload.toAddress, payload.tokenAddress, payload.tokenAmount, payload.chainId)
         if (transferResult.success) {
           console.log(transferResult.data);
           transactionClone.details[j]['hash'] = transferResult.data.transactionHash;
@@ -136,6 +131,7 @@ const AdminTransaction = props => {
                     <th className="bg-secondary" style={{ minWidth: 130 }}>Total Price</th>
                     <th className="bg-secondary">Count</th>
                     <th className="bg-secondary" style={{ minWidth: 130 }}>Payment Method</th>
+                    <th className="bg-secondary" style={{ minWidth: 130 }}>Signature ID</th>
                     <th className="bg-secondary" style={{ minWidth: 130 }}>Token Address</th>
                     <th className="bg-secondary" style={{ minWidth: 130 }}>Target Wallet Address</th>
                     <th className="bg-secondary" style={{ minWidth: 130 }}>Token Quantity</th>
@@ -166,6 +162,7 @@ const AdminTransaction = props => {
                                   <td rowSpan={transaction.details.length}>{transaction.totalPrice}</td>
                                   <td rowSpan={transaction.details.length}>{transaction.count}</td>
                                   <td rowSpan={transaction.details.length}>{transaction.paymentMethod}</td>
+                                  <td rowSpan={transaction.details.length}>{transaction.signatureId}</td>
                                 </>
                               }
                               <td>{detail.tokenAddress}</td>
@@ -191,10 +188,10 @@ const AdminTransaction = props => {
         <Modal.Body>
           <form onSubmit={onTransferSubmit}>
             <div className="form-group">
-              <div><b>From:</b> {process.env.REACT_APP_MY_ACCOUNT}</div>
+              <div><b>From:</b> {credentials[0]?.walletPublicKey}</div>
               <div><b>To:</b> {users[modalIndex]?.walletAddress}</div>
 
-              <input name="fromAddress" value={process.env.REACT_APP_MY_ACCOUNT || ''} hidden readOnly />
+              <input name="fromAddress" value={credentials[0]?.walletPublicKey || ''} hidden readOnly />
               <input name="toAddress" value={users[modalIndex]?.walletAddress || ''} hidden readOnly />
             </div>
             <div className="form-group mt-2">

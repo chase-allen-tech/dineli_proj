@@ -1,17 +1,29 @@
 
 import React, { Component, Suspense } from 'react';
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
 
 // routes config
 import routes from '../routes'
+import { actionCredentialList } from '../redux/actions/credential';
 
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
-)
+);
 
-class TheContent extends Component {
+const mapStateToProps = state => {
+	return {}
+}
+
+const mapDispatchToProps = { actionCredentialList }
+
+const TheContent = connect(mapStateToProps, mapDispatchToProps)(class extends Component {
+
+  componentDidMount() {
+    this.props.actionCredentialList();
+  }
 
   render() {
     return (
@@ -36,6 +48,6 @@ class TheContent extends Component {
       </HashRouter>
     )
   }
-}
+});
 
 export default TheContent;

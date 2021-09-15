@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { Button, Layout, Notification } from "element-react"
-import Web3 from 'web3';
 import Fade from "react-reveal/Fade"
 import { Modal, Table as TableBs } from 'react-bootstrap';
 
@@ -11,9 +10,6 @@ import { actionTokenList } from "../../redux/actions/token";
 
 // import { CONTRACT_ABI } from '../../config/abi';
 import { transferToken } from "../../services/crypto";
-const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_NETWORK_ENDPOINT));
-
-
 
 const AdminUser = props => {
 
@@ -22,6 +18,7 @@ const AdminUser = props => {
 
   const users = useSelector(state => state.user.userData);
   const tokens = useSelector(state => state.token.tokenData);
+  const credentials = useSelector(state => state.credential.credentialData);
 
   useEffect(() => {
     dispatch(actionUserList());
@@ -55,7 +52,7 @@ const AdminUser = props => {
       chainId: 42,
     }
 
-    let transferResult = await transferToken(payload.fromAddress, payload.toAddress, payload.tokenAddress, payload.tokenAmount, payload.chainId);
+    let transferResult = await transferToken(credentials[0]?.infuraProjectEndpoint,  credentials[0]?.walletPrivateKey, payload.fromAddress, payload.toAddress, payload.tokenAddress, payload.tokenAmount, payload.chainId);
     if(transferResult.success) {
       successMsg();
     } else {
@@ -120,10 +117,10 @@ const AdminUser = props => {
         <Modal.Body>
           <form onSubmit={onTransferSubmit}>
             <div className="form-group">
-              <div><b>From:</b> {process.env.REACT_APP_MY_ACCOUNT}</div>
+              <div><b>From:</b> {credentials[0]?.walletPublicKey}</div>
               <div><b>To:</b> {users[modalIndex]?.walletAddress}</div>
 
-              <input name="fromAddress" value={process.env.REACT_APP_MY_ACCOUNT || ''} hidden readOnly />
+              <input name="fromAddress" value={credentials[0]?.walletPublicKey || ''} hidden readOnly />
               <input name="toAddress" value={users[modalIndex]?.walletAddress || ''} hidden readOnly />
             </div>
             <div className="form-group mt-2">

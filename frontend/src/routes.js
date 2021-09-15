@@ -37,6 +37,7 @@ const AdminBlog = React.lazy(() => import('./views/Admin/AdminBlog'));
 const AdminBlogNew = React.lazy(() => import('./views/Admin/AdminBlogNew'));
 const AdminEmail = React.lazy(() => import('./views/Admin/AdminEmail'));
 const AdminLog = React.lazy(() => import('./views/Admin/AdminLog'));
+const AdminCredential = React.lazy(() => import('./views/Admin/AdminCredential'));
 
 
 const routes = [
@@ -77,6 +78,7 @@ const routes = [
   { path: '/admin/email', name: 'AdminEmail', component: AdminEmail },
   { path: '/admin/log', name: 'AdminLog', component: AdminLog },
   { path: '/admin/transaction', name: 'AdminTransaction', component: AdminTransaction },
+  { path: '/admin/credential', name: 'AdminCredential', component: AdminCredential },
 
   { path: '/admin/product/edit', name: 'HouseEditor', component: HouseEditor },
   { path: '/admin', name: 'LogRegister', component: LogRegister },

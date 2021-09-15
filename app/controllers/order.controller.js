@@ -23,7 +23,8 @@ exports.createOrder = (req, res) => {
     totalPrice: req.body.totalPrice,
     count: req.body.count,
     paymentMethod: req.body.paymentMethod,
-    details: req.body.details
+    details: req.body.details,
+    signatureId: req.body.signatureId
   }).then(result => {
     if (result) {
       res.status(200).send({
@@ -58,6 +59,7 @@ exports.saveOrder = (req, res) => {
     order.count = req.body.count
     order.paymentMethod = req.body.paymentMethod;
     order.details = req.body.details;
+    order.signatureId = req.body.signatureId;
     order.save()
     res.status(200).send({
       message: 'Order approved successfully',

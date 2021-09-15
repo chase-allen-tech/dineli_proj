@@ -39,7 +39,8 @@ const menu = [
       { key: 'teams', to: '/admin/teams', name: 'Teams', icon: CommunitySvg, iconActive: CommunityOnSvg },
       { key: 'faqs', to: '/admin/faqs', name: 'Faqs', icon: MarketSvg, iconActive: MarketOnSvg },
       { key: 'blogs', to: '/admin/blogs', name: 'Blogs', icon: ReferralSvg, iconActive: ReferralOnSvg },
-      { key: 'transaction', to: '/admin/transaction', name: 'Transaction', icon: ReferralSvg, iconActive: ReferralOnSvg }
+      { key: 'transaction', to: '/admin/transaction', name: 'Transaction', icon: ReferralSvg, iconActive: ReferralOnSvg },
+      { key: 'credential', to: '/admin/credential', name: 'Credential', icon: ReferralSvg, iconActive: ReferralOnSvg }
     ]
   },
   {

@@ -1,19 +1,19 @@
 import Web3 from 'web3';
 import { CONTRACT_ABI } from '../config/abi';
-const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_NETWORK_ENDPOINT));
 
-export const tokenInfo = async (tokenAddress) => {
+export const tokenInfo = async (endpoint, tokenAddress) => {
+  const web3 = new Web3(new Web3.providers.HttpProvider(endpoint));
   const contract = new web3.eth.Contract(CONTRACT_ABI, tokenAddress);
   const tokenName = await contract.methods.symbol().call();
-
-  console.log('[token name]', tokenName);
+  return tokenName;
 }
 
 function financialBalance(numMfil) {
   return Number.parseFloat(numMfil / 1e18).toFixed(18);
 }
 
-export const balanceAvailable = async (fromAddress, tokenAddress, tokenAmount) => {
+export const balanceAvailable = async (endpoint, fromAddress, tokenAddress, tokenAmount) => {
+  const web3 = new Web3(new Web3.providers.HttpProvider(endpoint));
   let contract = new web3.eth.Contract(CONTRACT_ABI, tokenAddress);
   let balance = await contract.methods.balanceOf(fromAddress).call();
   console.log('[balance]', financialBalance(balance), tokenAmount)
@@ -23,8 +23,8 @@ export const balanceAvailable = async (fromAddress, tokenAddress, tokenAmount) =
   return true;
 }
 
-export const transferToken = async (fromAddress, toAddress, tokenAddress, tokenAmount, chainId) => {
-
+export const transferToken = async (endpoint, privateKey, fromAddress, toAddress, tokenAddress, tokenAmount, chainId) => {
+  const web3 = new Web3(new Web3.providers.HttpProvider(endpoint));
   const gasLimit = web3.utils.toHex(6200000);
 
   try {
@@ -50,7 +50,7 @@ export const transferToken = async (fromAddress, toAddress, tokenAddress, tokenA
       chainId: chainId
     };
 
-    let signed = await web3.eth.accounts.signTransaction(tx, process.env.REACT_APP_MY_ACCOUNT_PRIVATE_KEY);
+    let signed = await web3.eth.accounts.signTransaction(tx, privateKey);
     let receipt = await web3.eth.sendSignedTransaction(signed.rawTransaction);
 
     console.log('[transfer result]', receipt);
