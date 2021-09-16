@@ -172,6 +172,27 @@ ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
+-- Name: credentials; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.credentials (
+    id integer NOT NULL,
+    "blockchainId" integer,
+    "infuraProjectEndpoint" character varying(255),
+    "walletPublicKey" character varying(255),
+    "walletPrivateKey" character varying(255),
+    "paypalAppClientId" character varying(255),
+    "coinbaseApiKey" character varying(255),
+    "hellosignApiKey" character varying(255),
+    "createdAt" timestamp(6) with time zone,
+    "updatedAt" timestamp(6) with time zone,
+    "hellosignClientId" character varying(255)
+);
+
+
+ALTER TABLE public.credentials OWNER TO postgres;
+
+--
 -- Name: faqs; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -261,7 +282,8 @@ CREATE TABLE public.orders (
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
     "paymentTypeId" integer,
-    details character varying(2550)
+    details character varying(2550),
+    "signatureId" character varying(255)
 );
 
 
@@ -927,6 +949,15 @@ COPY public.comments (id, "userId", "blogId", title, content, "createdAt", "upda
 
 
 --
+-- Data for Name: credentials; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.credentials (id, "blockchainId", "infuraProjectEndpoint", "walletPublicKey", "walletPrivateKey", "paypalAppClientId", "coinbaseApiKey", "hellosignApiKey", "createdAt", "updatedAt", "hellosignClientId") FROM stdin;
+1	42	https://kovan.infura.io/v3/0ede8aedf3974cacba5d510055c752c6	0x94b4c323330f573F32672dD4197872a8a1ec00c9	4c137de80956e795c1a472a39ad1bebb4e9fdafb7cefc962f7d004e90317a41f	EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM	9be4a9b6-29bd-437b-b0e2-88c7d3ca3bbd	0637ada5f85d981d1cd7bf647a9186706fce679de7e2e3b89ff66cd095d8adcb	2021-09-04 07:55:45.438+04	2021-09-15 11:34:26.112+04	5af14302042046e4c7db271fd337d2a2
+\.
+
+
+--
 -- Data for Name: faqs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -948,12 +979,10 @@ COPY public."lifeCustomers" (id, "userId", status, "totalPrice", count, "payment
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.orders (id, "userId", status, "totalPrice", count, "paymentMethod", "createdAt", "updatedAt", "paymentTypeId", details) FROM stdin;
-5	29	complete	20	4	paypal	2021-09-12 11:15:22.184+04	2021-09-12 11:24:17.227+04	\N	[{"tokenAddress":"0x711169eba29367425a45a2b6ee4b7c345befc0ad","tokenQuantity":"4","toAddress":"0x2bA919505Abe61170dd2c67BC5c6BDCb62ad54D7","hash":"0xdecf723c7d4af0f3a062ea542825e7d7577c1c8df0d34ea3437eca24c674643a"}]
-6	29	complete	15	3	paypal	2021-09-12 11:23:24.539+04	2021-09-12 11:24:21.371+04	\N	[{"tokenAddress":"0x711169eba29367425a45a2b6ee4b7c345befc0ad","tokenQuantity":"3","toAddress":"0x2bA919505Abe61170dd2c67BC5c6BDCb62ad54D7","hash":"0xc78310ddeccf4b33fe98eb2a1367ae638ad7f46be2ae1ad46d0c3a389fb63f6b"}]
-7	29	pending	25	5	paypal	2021-09-12 11:28:28.506+04	2021-09-12 11:28:28.506+04	\N	[{"tokenAddress":"0x711169eba29367425a45a2b6ee4b7c345befc0ad","tokenQuantity":"5","toAddress":"0x2bA919505Abe61170dd2c67BC5c6BDCb62ad54D7"}]
-3	29	complete	160	21	paypal	2021-09-11 18:35:44.068+04	2021-09-12 09:51:17.228+04	\N	[{"tokenAddress":"0x711169eba29367425a45a2b6ee4b7c345befc0ad","tokenQuantity":"2","toAddress":"0x2bA919505Abe61170dd2c67BC5c6BDCb62ad54D7","hash":"0x62b712ca435f0b9f6744e58c8e7c7789a0c7861427e9e51b8723c2d68f944d7c"},{"tokenAddress":"0x6570865f7496336D9B68bEAeD40a48be4F31169b","tokenQuantity":"1","toAddress":"0x2bA919505Abe61170dd2c67BC5c6BDCb62ad54D7","hash":"0x43fdd145f17aa0320f4946efd1fb89e00b968a97a01134fcd2cfb3175c5dd676"}]
-4	29	complete	40	8	paypal	2021-09-11 18:45:26.4+04	2021-09-12 09:51:22.317+04	\N	[{"tokenAddress":"0x711169eba29367425a45a2b6ee4b7c345befc0ad","tokenQuantity":"8","toAddress":"0x2bA919505Abe61170dd2c67BC5c6BDCb62ad54D7","hash":"0x094b9b97a749a4fb9fc5a272555641ac38f4be37b467d914525401ef8ed32cc4"}]
+COPY public.orders (id, "userId", status, "totalPrice", count, "paymentMethod", "createdAt", "updatedAt", "paymentTypeId", details, "signatureId") FROM stdin;
+10	29	complete	10	2	paypal	2021-09-14 15:51:21.157+04	2021-09-15 12:53:04.431+04	\N	[{"tokenAddress":"0x711169eba29367425a45a2b6ee4b7c345befc0ad","tokenQuantity":"2","toAddress":"0x2bA919505Abe61170dd2c67BC5c6BDCb62ad54D7","hash":"0x9667726c6d343e3f361475453ec51be52f78fd7f5dc86a65424eabbbcc0595fd"}]	a6bb8d12c485c3db460d352326a9c39c
+11	29	complete	10	2	paypal	2021-09-15 08:35:59.89+04	2021-09-15 12:53:16.845+04	\N	[{"tokenAddress":"0x711169eba29367425a45a2b6ee4b7c345befc0ad","tokenQuantity":"2","toAddress":"0x2bA919505Abe61170dd2c67BC5c6BDCb62ad54D7","hash":"0x390dfc8d1887786803998580ac3e564ca8f8c440e1d1ed2f8539f30dd212c3e4"}]	350cff455721d933db1f2cd6be03c749
+12	29	pending	10	2	paypal	2021-09-15 12:54:37.822+04	2021-09-15 12:54:37.822+04	\N	[{"tokenAddress":"0x711169eba29367425a45a2b6ee4b7c345befc0ad","tokenQuantity":"2","toAddress":"0x2bA919505Abe61170dd2c67BC5c6BDCb62ad54D7"}]	ed714976d59522bf0c2cbb2ead8c59c8
 \.
 
 
@@ -1136,7 +1165,7 @@ SELECT pg_catalog.setval('public."lifeCustomers_id_seq"', 1, false);
 -- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.orders_id_seq', 7, true);
+SELECT pg_catalog.setval('public.orders_id_seq', 12, true);
 
 
 --
@@ -1246,6 +1275,14 @@ ALTER TABLE ONLY public.carts
 
 ALTER TABLE ONLY public.comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: credentials credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.credentials
+    ADD CONSTRAINT credentials_pkey PRIMARY KEY (id);
 
 
 --
