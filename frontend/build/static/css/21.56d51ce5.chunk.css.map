@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/views/FAQ/faq.css"],"names":[],"mappings":"AAAA,yBACE,sCACF,CAEA,6BACE,aAAc,CACd,yBACF","file":"21.56d51ce5.chunk.css","sourcesContent":[".nav-faq.nav-link.active {\r\n  background-color: transparent !important;\r\n}\r\n\r\n.nav-faq.nav-link.active div {\r\n  color: #03ffa4;\r\n  text-decoration: underline;\r\n}"]}
