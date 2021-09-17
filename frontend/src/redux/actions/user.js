@@ -48,3 +48,22 @@ export const actionUserList = (count) => (dispatch) => {
     }
   )
 }
+
+export const actionUserUpdate = (userData) => dispatch => {
+  callPost('/api/admin/user/update', userData, token)
+    .then((response) => {
+      console.log('[res]', response);
+      // dispatch({
+      //   type: ACTION_ORDER_ADD,
+      //   payload: orderData,
+      // })
+    }).catch(err => {
+      console.log(err);
+      Notification.error({
+        title: 'Failed',
+        message: 'Transaction update failed. Please try again.',
+        type: 'Warning',
+      })
+    }
+  )
+}

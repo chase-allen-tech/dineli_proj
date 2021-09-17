@@ -12,12 +12,12 @@ const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey('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')
 
 const sendEmail = (email, subject, content) => {
-    const transport = nodemailer.createTransport({
+  const transport = nodemailer.createTransport({
     host: 'mail.dineli.com',
     port: 465,
     auth: {
       user: 'emailtest@dineli.com',
-      pass: 'dineli_dineli',
+      pass: '/DellD620!',
     }
   })
   let sender = 'emailtest@dineli.com'
@@ -27,24 +27,30 @@ const sendEmail = (email, subject, content) => {
     subject: subject,
     html: content,
   }
-  // console.log(mainOptions)
-  transport.sendMail(mainOptions)
-//   const msg = {
-//     to: email,
-//     from: 'maksovsouse@gmail.com',
-//     subject: subject,
-//     html: content,
-//   }
+  console.log('[MailOptions]', mainOptions)
+  transport.sendMail(mainOptions, (err, info) => {
+    if(err) {
+      console.log('[mail err]', err);
+    }
+    console.log('[mail info]', info);
+  })
+  console.log('[mailsend success]');
+  //   const msg = {
+  //     to: email,
+  //     from: 'maksovsouse@gmail.com',
+  //     subject: subject,
+  //     html: content,
+  //   }
 
-//   sgMail
-//     .send(msg)
-//     .then((response) => {
-//       console.log(response[0].statusCode)
-//       console.log(response[0].headers)
-//     })
-//     .catch((error) => {
-//       console.error(error)
-//     })
+  //   sgMail
+  //     .send(msg)
+  //     .then((response) => {
+  //       console.log(response[0].statusCode)
+  //       console.log(response[0].headers)
+  //     })
+  //     .catch((error) => {
+  //       console.error(error)
+  //     })
 }
 const sendVerifyEmail = (email, string) => {
   sendEmail(email, 'Email confirmation', `Press <a href=https://dineli.com/#/verify/${string}> here </a> to verify your email. Thanks.`)
@@ -52,9 +58,9 @@ const sendVerifyEmail = (email, string) => {
 exports.signup = (req, res) => {
   User.count({}).then(count => {
     if (count === 0) {
-        req.body.roles = ['admin']
+      req.body.roles = ['admin']
     } else {
-        req.body.roles = ['user']
+      req.body.roles = ['user']
     }
     // Save User to Database
     const randString = Math.random().toString(36).substring(2, 16) + Math.random().toString(36).substring(2, 16)
@@ -80,20 +86,20 @@ exports.signup = (req, res) => {
             }
           }).then(roles => {
             user.setRoles(roles).then(() => {
-              res.send({message: 'User registered successfully!'})
+              res.send({ message: 'User registered successfully!' })
             })
           })
         } else {
-            // user role = 1
-            user.setRoles([1]).then(() => {
-              res.send({message: 'User registered successfully!'})
-            })
+          // user role = 1
+          user.setRoles([1]).then(() => {
+            res.send({ message: 'User registered successfully!' })
+          })
         }
       })
       .catch(err => {
-        res.status(500).send({message: err.message})
+        res.status(500).send({ message: err.message })
       })
-    }
+  }
   )
 }
 
@@ -112,65 +118,65 @@ exports.signin = (req, res) => {
         })
           .then(user => {
             if (!user) {
-              return res.status(404).send({message: 'User Not found.'})
+              return res.status(404).send({ message: 'User Not found.' })
             }
             //--------------if username exists,---------------------------
             loginProcess(req, res, user)
           })
-        return res.status(404).send({message: 'User Not found.'})
+        return res.status(404).send({ message: 'User Not found.' })
       }
       //--------------if email exists,---------------------------
       loginProcess(req, res, user)
 
     })
     .catch(err => {
-        res.status(500).send({message: 'Try again'})
+      res.status(500).send({ message: 'Try again' })
     })
 }
 
 loginProcess = (req, res, user) => {
-    var passwordIsValid = bcrypt.compareSync(
-      req.body.password,
-      user.password
-    )
+  var passwordIsValid = bcrypt.compareSync(
+    req.body.password,
+    user.password
+  )
 
-    if (!passwordIsValid) {
-      return res.status(401).send({
-        accessToken: null,
-        message: 'Invalid Password!',
-      })
-    }
-    if (!user.isActive) {
-      return res.status(402).send({
-        accessToken: null,
-        message: 'Not activated yet!'
-      })
-    }
-    var token = jwt.sign({id: user.id}, config.secret, {
-      expiresIn: 86400 // 24 hours
+  if (!passwordIsValid) {
+    return res.status(401).send({
+      accessToken: null,
+      message: 'Invalid Password!',
     })
+  }
+  if (!user.isActive) {
+    return res.status(402).send({
+      accessToken: null,
+      message: 'Not activated yet!'
+    })
+  }
+  var token = jwt.sign({ id: user.id }, config.secret, {
+    expiresIn: 86400 // 24 hours
+  })
 
-    var authorities = [];
-    user.getRoles().then(roles => {
-      for (let i = 0; i < roles.length; i++) {
-        authorities.push(roles[i].name.toUpperCase())
-      }
-      res.status(200).send({
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        phone: user.phone,
-        roles: authorities,
-        accessToken: token,
-        walletAddress: user.walletAddress
-      })
+  var authorities = [];
+  user.getRoles().then(roles => {
+    for (let i = 0; i < roles.length; i++) {
+      authorities.push(roles[i].name.toUpperCase())
+    }
+    res.status(200).send({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      roles: authorities,
+      accessToken: token,
+      walletAddress: user.walletAddress
     })
+  })
 }
 
 exports.verifyEmail = (req, res) => {
   const { verificationString } = req.params;
   User.findOne({
-    where : {
+    where: {
       verificationString: verificationString
     }
   }).then((user) => {
@@ -212,7 +218,7 @@ exports.resetPassword = (req, res) => {
         })
       }
       const randString = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10)
-      console.log('---------',randString)
+      console.log('---------', randString)
       user.password = bcrypt.hashSync(randString, 8)
       user.save()
       sendEmail(user.email, 'Reset Password', `Your password has been changed. Your new password is <b>${randString}</b>`)

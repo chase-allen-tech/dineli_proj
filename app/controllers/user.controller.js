@@ -28,7 +28,7 @@ async function getRole(user) {
       }
       resolve(authorities);
     })
-    .catch(err => reject(err));
+      .catch(err => reject(err));
   });
 }
 
@@ -40,7 +40,7 @@ exports.getUsers = (req, res) => {
   })
     .then(async users => {
       let payload = [];
-      for(let user of users) {
+      for (let user of users) {
         let tmpUser = Object.assign({}, user.dataValues);
         tmpUser['role'] = await getRole(user);
         payload.push(tmpUser);
@@ -88,19 +88,23 @@ exports.createUser = (req, res) => {
     })
 }
 
-  // User.create({
-  //   email: req.body.email,
-  //   walletAddress: req.body.walletAddress,
-  // }).then(site => {
-  //   if (site) {
-  //     res.status(200).send({
-  //       message: 'User created successfully',
-  //     })
-  //   } else {
-  //     res.status(400).send({
-  //       message: 'Please try again',
-  //     })
-  //   }
-  // }).catch(err => {
-  //   res.status(500).send({message: 'Server error'})
-  // })
+exports.saveUser = (req, res) => {
+  User.findOne({
+    where: {
+      id: req.body.id,
+    }
+  }).then(user => {
+    if (!user) {
+      res.status(400).send({
+        message: 'Order not found',
+      })
+    }
+
+    user.walletAddress = req.body.walletAddress;
+
+    user.save()
+    res.status(200).send({
+      message: 'User approved successfully',
+    })
+  })
+}
