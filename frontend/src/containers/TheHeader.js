@@ -12,15 +12,18 @@ class TheHeader extends Component {
     super(props)
     this.state = {
       logged: false,
-      role: 'user'
+      role: 'user',
+      cartCount: 0,
     }
     this.onClickedLogout = this.onClickedLogout.bind(this)
   }
   componentDidMount() {
     const user = JSON.parse(localStorage.getItem('user'));
+    const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
     this.setState({
       logged: this.props.logged,
-      role: user ? user.roles[0] : ''
+      role: user ? user.roles[0] : '',
+      cartCount: cartProducts ? cartProducts.length : 0
     })
   }
 
@@ -73,21 +76,27 @@ class TheHeader extends Component {
                 this.state.logged && (
                   <div className="ms-2">
                     <div className="deskContent align-items-center h-100">
-                      <div className="d-white d-font-bold d-text-nav position-relative hover-bg-dark trans-2 p-2 cursor-pointer" id='navbar-my-account' style={{zIndex: 1}}>
+                      <div className="d-white d-font-bold d-text-nav position-relative hover-bg-dark trans-2 p-2 cursor-pointer" id='navbar-my-account' style={{ zIndex: 1 }}>
                         <div>MY ACCOUNT</div>
-                        <div className="position-absolute bg-dark d-none border border-1 border-secondary" style={{ minWidth: 220, right: 0, top: 40, height: 'fit-content'}} id="navbar-my-account-children">
+                        <div className="position-absolute bg-dark d-none border border-1 border-secondary" style={{ minWidth: 220, right: 0, top: 40, height: 'fit-content' }} id="navbar-my-account-children">
+                          {
+                            this.state.role === 'ADMIN' ?
+                              <Nav.Link href="#admin/dashboard">
+                                <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">ADMIN</div>
+                              </Nav.Link>
+                              :
+                              <Nav.Link href="#my-account">
+                                <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">ACCOUNT</div>
+                              </Nav.Link>
+                          }
+
                           <Nav.Link href="#calculator">
                             <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">CALCULATOR</div>
                           </Nav.Link>
                           <Nav.Link href="#affiliate-dashboard">
                             <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">AFFILIATE DASHBOARD</div>
                           </Nav.Link>
-                          {
-                            this.state.role === 'ADMIN' &&
-                            <Nav.Link href="#admin/dashboard">
-                              <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">ADMIN</div>
-                            </Nav.Link>
-                          }
+
 
                           <Nav.Link onClick={this.onClickedLogout}>
                             <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">LOGOUT</div>
@@ -185,7 +194,7 @@ class TheHeader extends Component {
               <Link to={`/cart/null`}>
                 <div className="position-relative">
                   <img className="img-mobile ms-2" src="imgs/header/myaccount.png" alt="cart" />
-                  <label className="d-text-28 d-font-bold d-white position-absolute" style={{ top: 0, left: 25 }}>5</label>
+                  <label className="d-text-28 d-font-bold d-white position-absolute" style={{ top: 0, left: 25 }}>{this.state.cartCount}</label>
                 </div>
               </Link>
             </div>

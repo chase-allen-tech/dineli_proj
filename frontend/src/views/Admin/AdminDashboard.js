@@ -22,9 +22,7 @@ const AdminDashboard = props => {
   });
 
   const onFormChange = (key, value) => {
-    let formClone = Object.assign({}, form);
-    formClone[key] = value;
-    setForm(formClone);
+    setForm({...form, [key]: value});
   }
   const onSubmit = () => {
     formRef.current.validate(valid => {
@@ -35,7 +33,8 @@ const AdminDashboard = props => {
           title: 'Failed',
           message: 'Password does not match',
           type: 'Warning',
-        })
+        });
+        return;
       }
       
       let payload = {

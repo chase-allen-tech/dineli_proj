@@ -51,9 +51,7 @@ const AdminCredentialNew = props => {
   }, [credentials]);
 
   const onFormChange = (key, value) => {
-    let formClone = Object.assign({}, form);
-    formClone[key] = value;
-    setForm(formClone);
+    setForm({ ...form, [key]: value });
   }
 
   const onSubmit = () => {

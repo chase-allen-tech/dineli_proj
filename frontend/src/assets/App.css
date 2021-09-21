@@ -1037,3 +1037,12 @@ iframe.coinbase-commerce-iframe {
 ._1_Dg2 {
     padding-top: 100px;
 }
+
+.wp-128 {
+    width: 128px !important;
+}
+
+.btn-disabled {
+    background-color: #03CC83 !important;
+    cursor: not-allowed !important;
+}

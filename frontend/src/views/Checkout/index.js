@@ -11,15 +11,16 @@ import { actionOrderCreate } from '../../redux/actions/order';
 import CoinbaseCommerceButton from 'react-coinbase-commerce';
 import { axiosPost } from "../../services/axios";
 import HelloSign from 'hellosign-embedded';
+import { getTotalWithFee } from "../../services/calc";
 
 
 const CRYPTO_MODE = '1', PAYPAL_MODE = '2';
 
 const mapStateToProps = state => {
 	const { credentialData } = state.credential
-  return {
-    credentialData
-  }
+	return {
+		credentialData
+	}
 }
 
 const mapDispatchToProps = { actionPropertyGet, actionOrderCreate }
@@ -63,6 +64,7 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 				street: [{ required: true, message: 'Please input street', trigger: 'blur' }],
 				city: [{ required: true, message: 'Please input Town/City', trigger: 'change' }],
 				// walletAddress: [{ required: true, message: 'Please input wallet address', trigger: 'change' }],
+				isAgree: [{ required: true, message: 'This field is required', trigger: 'change' }]
 			},
 			countryList: [],
 			productItems: [],
@@ -71,13 +73,25 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 			hellosignId: null
 		};
 
+		this.coinbaseRef = React.createRef();
+
 		this.onPaypalSuccess.bind(this);
 		this.onSaveOrder.bind(this);
 	}
 
 	componentDidMount() {
 		// console.log('[checkout]', this.props.credentialData);
-		window.scrollTo(0, 0);
+		// window.scrollTo(0, 0);
+
+		// If there is not wallet address, show notification
+		const user = JSON.parse(localStorage.getItem('user'));
+		if (!user || !user.walletAddress) {
+			Notification.error({
+				title: 'Wallet Required',
+				message: 'Please check wallet in account page!',
+				type: 'Warning',
+			});
+		}
 
 		const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
 
@@ -88,9 +102,9 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 		for (let product of cartProducts) {
 			items.push({
 				"identifier": product.address1,
-				"subtotal": product.tokenValue * Number(product.tokenQuantity)
+				"subtotal": getTotalWithFee(product.tokenValue, Number(product.tokenQuantity)).toFixed(2)
 			});
-			total += Number(product.tokenValue * Number(product.tokenQuantity));
+			total += getTotalWithFee(product.tokenValue, Number(product.tokenQuantity));
 		}
 		this.setState({ productItems: items, totalPrice: total });
 
@@ -137,8 +151,9 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 		this.refs.form.validate((valid) => {
 			// if (!valid) return;
 			// this.props.actionAuthRegister(this.state.form);
-			if (this.state.form.payCard === PAYPAL_MODE) {
-				alert('paypal mode');
+			if (this.state.form.payCard === CRYPTO_MODE) {
+				this.coinbaseRef.handleButtonClick();
+
 			}
 		})
 	}
@@ -217,6 +232,16 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 		const hellosignClient = new HelloSign({ clientId: this.props.credentialData[0]?.hellosignClientId });
 		const user = JSON.parse(localStorage.getItem('user'));
 
+		// If there is no walletaddress, stop propogation
+		if (!user || !user.walletAddress) {
+			Notification.error({
+				title: 'Wallet Required',
+				message: 'Please add wallet in account page',
+				type: 'Warning',
+			});
+			return;
+		}
+
 		axiosPost('/api/hellosign', {
 			email: user.email,
 			name: user.username,
@@ -282,8 +307,6 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 										</Form.Item>
 										<Form.Item label="Country" prop="country" style={{ margin: 15 }}>
 											<Select value={this.state.form.country} placeholder="country name" onChange={this.onChange.bind(this, 'country')} style={{ width: "100%" }}>
-												{/* <Select.Option label="Pakistan" value="Pakistan" />
-												<Select.Option label="United State" value="United State" /> */}
 												{
 													this.state.countryList.map((country, key) =>
 														<Select.Option key={key} label={country} value={country} />
@@ -382,7 +405,7 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 													<tr>
 														<td></td>
 														<td>TOTAL</td>
-														<td>${this.state.totalPrice}</td>
+														<td>$ {this.state.totalPrice.toFixed(2)}</td>
 													</tr>
 
 												</tbody>
@@ -392,57 +415,69 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 								</div>
 							</Layout.Col>
 
-							<Layout.Col span={24} style={{ zIndex: 100 }}>
-								<div className="grid-content"
-									style={{ border: "2px solid #03ffa4", margin: 20, borderRadius: 10 }}>
-									<div style={{ margin: "2%" }}>
-										<Radio value="1" checked={this.state.form.payCard === CRYPTO_MODE} onChange={this.onChangePaycard.bind(this)} className="d-font-bold d-white d-text-28">&nbsp;&nbsp;PAY WITH CRYPTOCURRENCY</Radio>
-										<div className='d-font-book d-text-28 d-highlight'>Pay with cryptocurrency. If you pay in USDC or DAI, you mush pay only on the ETHEREUM network!</div>
-										{
-											this.state.form.payCard === CRYPTO_MODE && this.state.coinbaseId && this.state.hellosignId &&
-											<div>
-												<CoinbaseCommerceButton checkoutId={this.state.coinbaseId}
-													styled={true}
-													onChargeSuccess={() => alert("success")}
-													onChargeFailure={() => console.log("Failure")} />
-											</div>
-										}
-									</div>
-									<div style={{ margin: "2%" }}>
-										<Radio value="2" checked={this.state.form.payCard === PAYPAL_MODE} onChange={this.onChangePaycard.bind(this)} className="d-font-bold d-white d-text-28">&nbsp; &nbsp;PAY WITH PAYPAL</Radio>
-									</div>
-									{
-										this.state.form.payCard == PAYPAL_MODE && this.state.hellosignId &&
-										<div className="d-flex justify-content-center">
-											<div className="w-100" style={{ maxWidth: 400 }}>
-												<PayPalButton
-													amount={this.state.totalPrice}
-													onSuccess={(details, data) => { this.onPaypalSuccess(details, data) }}
-													options={{
-														clientId: this.props.credentialData[0]?.paypalAppClientId
-													}}
-												/>
-											</div>
-										</div>
-									}
+							{
+								// this.state.hellosignId &&
+								<Layout.Col span={24} style={{ zIndex: 100 }}>
+									<div className="grid-content"
+										style={{ border: "2px solid #03ffa4", margin: 20, borderRadius: 10 }}>
+										<div style={{ margin: "2%" }}>
+											<Radio value="1" checked={this.state.form.payCard === CRYPTO_MODE} onChange={this.onChangePaycard.bind(this)} className="d-font-bold d-white d-text-28">&nbsp;&nbsp;PAY WITH CRYPTOCURRENCY</Radio>
+											<div className='d-font-book d-text-28 d-highlight'>Pay with cryptocurrency. If you pay in USDC or DAI, you mush pay only on the ETHEREUM network!</div>
+											{
+												// this.state.form.payCard === CRYPTO_MODE && this.state.coinbaseId && this.state.hellosignId &&
+												<div className="position-relative">
+													<div className="position-absolute">
+														<CoinbaseCommerceButton
+															ref={elem => this.coinbaseRef = elem}
+															checkoutId={this.state.coinbaseId}
+															styled={false}
+															onChargeSuccess={() => alert("success")}
+															onChargeFailure={() => console.log("Failure")} />
+													</div>
+													<div className="position-absolute w-100" style={{ height: 50, backgroundColor: 'black' }}>
 
-									<div className="d-font-book d-text-30 d-white" style={{ margin: "2%" }}>
-										<div>Your proposal data will be used to process your order, support your experience
-											throughout this website, and for other purposes described in our &nbsp;</div>
-										<button type="button" className="d-highlight">Privacy Policy</button>
-									</div>
-									<div style={{ textAlign: "right", marginRight: "3%" }}>
-										<Checkbox.Group value={this.state.form.isAgree} onChange={this.onChange.bind(this, 'isAgree')}>
-											<Checkbox label=" &nbsp; I HAVE READ AND AGREE TO THE WEBSITE TEAMS AND CONDITIONS" name="isAgree" className="d-font-bold d-white" style={{ fontSize: "2em" }} />
-										</Checkbox.Group>
-									</div>
-									<div className="block" style={{ marginTop: 30 }}>
-										<div className="wrapper" style={{ textAlign: "right", margin: "3% 3% 3% 0" }}>
-											<Button onClick={this.handleSubmit.bind(this)} type="success" className="d-font-bold d-text-28" style={{ width: "50%", background: "#03ffa4", color: "black", borderRadius: 10 }}>PLACE ORDER</Button>
+													</div>
+												</div>
+											}
+										</div>
+										<div style={{ margin: "2%" }}>
+											<Radio value="2" checked={this.state.form.payCard === PAYPAL_MODE} onChange={this.onChangePaycard.bind(this)} className="d-font-bold d-white d-text-28">&nbsp; &nbsp;PAY WITH PAYPAL</Radio>
+										</div>
+
+										<div className="d-font-book d-text-30 d-white" style={{ margin: "2%" }}>
+											<div>Your proposal data will be used to process your order, support your experience
+												throughout this website, and for other purposes described in our &nbsp;</div>
+											<button type="button" className="d-highlight">Privacy Policy</button>
+										</div>
+										<div className="d-flex">
+											<Form.Item label="" prop="" className="ms-auto me-4">
+												<Checkbox checked={this.state.form.isAgree} onChange={this.onChange.bind(this, 'isAgree')} label=" &nbsp; I HAVE READ AND AGREE TO THE WEBSITE TEAMS AND CONDITIONS" name="isAgree" className="d-font-bold d-white" style={{ fontSize: "2em" }} />
+											</Form.Item>
+										</div>
+										<div className="block" style={{ marginTop: 30 }}>
+											<div className="wrapper position-relative" style={{ textAlign: "right", margin: "3% 3% 3% 0" }}>
+												<Button onClick={this.handleSubmit.bind(this)} type="success" className={`d-font-bold d-text-28 w-50 text-dark`} style={{ background: "#03ffa4", borderRadius: 10 }} disabled={!this.state.form.isAgree}>PLACE ORDER</Button>
+												{
+													this.state.form.payCard == PAYPAL_MODE && this.state.form.isAgree &&
+													<div className="position-absolute top-0 end-0 w-50 opacity-0">
+														<PayPalButton
+															amount={this.state.totalPrice}
+															onSuccess={(details, data) => { this.onPaypalSuccess(details, data) }}
+															options={{
+																clientId: this.props.credentialData[0]?.paypalAppClientId
+															}}
+														/>
+													</div>
+												}
+
+
+											</div>
 										</div>
 									</div>
-								</div>
-							</Layout.Col>
+								</Layout.Col>
+							}
+
+
 
 						</Layout.Row>
 					</Form>

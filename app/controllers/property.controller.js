@@ -17,10 +17,11 @@ exports.getProperties = (req, res) => {
         let token = await Token.findOne({ where: { propertyId: item.id}});
         if(token) {
           token = token.dataValues;
+          let tokenId = token.id;
           delete token.id;
           delete token.createdAt;
           delete token.updatedAt;
-          data.push({...item, ...token});
+          data.push({...item, ...token, tokenId: tokenId });
         }
       }
       

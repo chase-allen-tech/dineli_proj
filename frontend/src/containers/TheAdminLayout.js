@@ -18,37 +18,45 @@ class TheAdminLayout extends Component {
 
   componentDidMount() {
     const user = JSON.parse(localStorage.getItem('user'));
-    if(user) {
-      if(user.roles[0] !== 'ADMIN') {
+    if (user) {
+      if (user.roles[0] !== 'ADMIN') {
         this.setState({ logged: false });
       }
     }
   }
 
   render() {
-    return (
-      <div>
-        {
-          this.state.logged ?
-            <Layout.Row className='d-flex'>
-              <div className="w-100">
-                <div className="container-fluid">
-                  <div className="row flex-nowrap">
-                    <div className="col-auto col-md-3 col-xl-2 px-0 bg-dark position-relative min-vh-100" style={{ borderRight: '2px solid gray' }}>
-                      <AdminSidebar />
-                    </div>
-                    <div className="col col-md-9 col-xl-10 py-5 overflow-auto">
-                      <TheContent />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Layout.Row>
-            :
-            <Redirect to="/home" />
-        }
+    const passed = localStorage.getItem('passed');
 
-      </div>
+    return (
+      <>
+        {
+          passed === 'true' ?
+            <div>
+              {
+                this.state.logged ?
+                  <Layout.Row className='d-flex'>
+                    <div className="w-100">
+                      <div className="container-fluid">
+                        <div className="row flex-nowrap">
+                          <div className="col-auto col-md-3 col-xl-2 px-0 bg-dark position-relative min-vh-100" style={{ borderRight: '2px solid gray' }}>
+                            <AdminSidebar />
+                          </div>
+                          <div className="col col-md-9 col-xl-10 py-5 overflow-auto">
+                            <TheContent />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Layout.Row>
+                  :
+                  <Redirect to="/home" />
+              }
+
+            </div> :
+            <Redirect to="/get-access" />
+        }
+      </>
     )
   }
 }

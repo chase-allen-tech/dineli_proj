@@ -6,6 +6,7 @@ import './Cart.css';
 import { Button, Input } from "element-react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionPropertyGet } from "../../redux/actions/property";
+import { getFee, getTotalWithFee } from "../../services/calc";
 
 const Cart = props => {
 
@@ -114,7 +115,7 @@ const Cart = props => {
 					<tr>
 						<th className="bg-secondary"></th>
 						<th className="bg-secondary">Asset Price</th>
-						<th className="bg-secondary" style={{ minWidth: 100 }}>Token Price</th>
+						<th className="bg-secondary" style={{ minWidth: 100 }}>Asset Price</th>
 						<th className="bg-secondary" style={{ minWidth: 100 }}>Total Fees</th>
 						<th className="bg-secondary" style={{ minWidth: 100 }}>Purchase Price</th>
 						<th className="bg-secondary" style={{ minWidth: 200 }}>Quantity</th>
@@ -134,10 +135,10 @@ const Cart = props => {
 									<img src={`${process.env.REACT_APP_API_ENDPOINT}/public/${item.imageData[0]}`} alt="img" width="100" />
 								</td>
 								<td>${item?.assetPrice}</td>
-								<td>{item?.monthlyCosts}</td>
-								<td>${item?.tokenValue}</td>
+								<td>${getFee(item?.tokenValue, quantityValues[item.id.toString()]).toFixed(2)}</td>
+								<td>${item?.tokenValue.toFixed(2)}</td>
 								<td><Input type="number" value={quantityValues[item.id.toString()]} onChange={val => onInputChange(item.id.toString(), val)} /></td>
-								<td>${item?.tokenValue * quantityValues[item.id.toString()]}</td>
+								<td>${getTotalWithFee(item?.tokenValue, quantityValues[item.id.toString()]).toFixed(2)}</td>
 							</tr>
 						)
 					}
@@ -150,12 +151,7 @@ const Cart = props => {
 					<div className="grid-content">
 						<div className="block">
 							<span className="wrapper">
-								<Button type="success" className="d-font-bold d-text-28"
-									style={{
-										background: "#03ffa4",
-										color: "black",
-										borderRadius: 10
-									}}>UPDATE CART</Button>
+								{/* <Button type="success" className="d-font-bold d-text-28" style={{ background: "#03ffa4", color: "black", borderRadius: 10 }}>UPDATE CART</Button> */}
 							</span>
 						</div>
 
@@ -180,7 +176,8 @@ const Cart = props => {
 							</Layout.Col>
 							<Layout.Col span="12">
 								<div className="grid-content d-font-bold d-text-28 d-white"
-									style={{ textAlign: "right" }}>$51.67
+									style={{ textAlign: "right" }}>
+										${products.reduce((a, b) => a + getTotalWithFee(b?.tokenValue, quantityValues[b.id.toString()]), 0)}
 								</div>
 							</Layout.Col>
 						</Layout.Row>

@@ -45,9 +45,31 @@ db.referral = require('../models/referral.model.js')(sequelize, Sequelize)
 db.payout = require('../models/payout.model.js')(sequelize, Sequelize)
 db.paymentType = require('../models/paymentType.model.js')(sequelize, Sequelize)
 db.setting = require('../models/setting.model.js')(sequelize, Sequelize)
-db.lifeCustomer = require('../models/lifeCustomer.model.js')(sequelize, Sequelize)
+db.lifeCustomer = require('../models/lifeCustomer.model.js')(sequelize, Sequelize);
+db.refund = require('../models/refund.model.js')(sequelize, Sequelize);
 
-// user relation
+/******************* Refund **********************/
+db.user.hasMany(db.refund, {
+  foreignKey: 'userId',
+  sourceKey: 'id',
+});
+
+db.refund.belongsTo(db.user, {
+  foreignKey: 'userId',
+  sourceKey: 'id'
+});
+
+db.token.hasMany(db.refund, {
+  foreignKey: 'tokenId',
+  sourceKey: 'id'
+});
+
+db.refund.belongsTo(db.token, {
+  foreignKey: 'tokenId',
+  sourceKey: 'id'
+});
+
+/******************* User **********************/
 // with role
 db.role.belongsToMany(db.user, {
   through: 'user_roles',
@@ -60,7 +82,8 @@ db.user.belongsToMany(db.role, {
   foreignKey: 'userId',
   otherKey: 'roleId',
 })
-// blog relation
+
+/******************* Blog **********************/
 // with user
 db.user.hasMany(db.blog, {
   foreignKey: 'userId',
@@ -79,7 +102,8 @@ db.comment.belongsTo(db.blog, {
   foreignKey: 'blogId',
   targetKey: 'id',
 })
-// token relation
+
+/******************* Token **********************/
 // with property
 db.property.hasMany(db.token, {
   foreignKey: 'propertyId',
@@ -89,7 +113,8 @@ db.token.belongsTo(db.property, {
   foreignKey: 'propertyId',
   targetKey: 'id',
 })
-// cart relation
+
+/******************* Cart **********************/
 // with user
 db.user.hasMany(db.cart, {
   foreignKey: 'userId',
@@ -108,7 +133,8 @@ db.cart.belongsTo(db.property, {
   foreignKey: 'userId',
   targetKey: 'id',
 })
-// orders relation
+
+/******************* Others **********************/
 // with payment method
 db.paymentType.hasMany(db.order, {
   foreignKey: 'paymentTypeId',
