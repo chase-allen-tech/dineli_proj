@@ -416,7 +416,7 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 							</Layout.Col>
 
 							{
-								// this.state.hellosignId &&
+								this.state.hellosignId &&
 								<Layout.Col span={24} style={{ zIndex: 100 }}>
 									<div className="grid-content"
 										style={{ border: "2px solid #03ffa4", margin: 20, borderRadius: 10 }}>
