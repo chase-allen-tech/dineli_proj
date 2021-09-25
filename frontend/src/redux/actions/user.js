@@ -2,6 +2,7 @@ import {
   ACTION_USER_ADD,
   ACTION_USER_LIST,
   ACTION_USER_LIST_FAIL,
+  ACTION_USER_UPDATE_ROLE_TYPE
 } from '../actionTypes/user'
 
 import { callGet, callPost, } from '../../services/axios'
@@ -57,6 +58,30 @@ export const actionUserUpdate = (userData) => dispatch => {
       //   type: ACTION_ORDER_ADD,
       //   payload: orderData,
       // })
+    }).catch(err => {
+      console.log(err);
+      Notification.error({
+        title: 'Failed',
+        message: 'Transaction update failed. Please try again.',
+        type: 'Warning',
+      })
+    }
+  )
+}
+
+export const actionUserUpdateRoleType = (userData) => dispatch => {
+  callPost('/api/admin/user/updateroletype', userData, token)
+    .then((response) => {
+      console.log('[res]', response);
+      Notification.success({
+        title: 'Success',
+        message: 'User\'s role and type changed Success!',
+        type: 'success',
+      })
+      dispatch({
+        type: ACTION_USER_UPDATE_ROLE_TYPE,
+        payload: userData,
+      })
     }).catch(err => {
       console.log(err);
       Notification.error({

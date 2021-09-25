@@ -4,6 +4,7 @@ import {
   ACTION_ORDER_LIST_FAIL,
   ACTION_ORDER_GET,
   ACTION_ORDER_GET_FAIL,
+  ACTION_USER_ORDER_GET,
 } from '../actionTypes/order'
 
 import { callGet, callPost, } from '../../services/axios'
@@ -58,6 +59,28 @@ export const actionOrderGet = (ID) => (dispatch) => {
       let result = response.data
       return dispatch({
         type: ACTION_ORDER_GET,
+        payload: result,
+      })
+    })
+    .catch((error) => {
+      return dispatch({
+        type: ACTION_ORDER_GET_FAIL,
+      })
+    }
+  )
+}
+
+export const actionUserOrderGet = (ID) => (dispatch) => {
+  return callGet(`/api/order/uid?ID=${ID}`)
+    .then(function (response) {
+      let result = response.data
+      result = result.map(res=>{
+        return{...res, details:JSON.parse(res.details)}
+      })
+      // console.log('userOrder', ID, result);
+
+      return dispatch({
+        type: ACTION_USER_ORDER_GET,
         payload: result,
       })
     })

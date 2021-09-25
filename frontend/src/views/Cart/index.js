@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Icon } from 'element-react';
+import { Layout, Icon, Notification } from 'element-react';
 import { Link, useHistory, useParams } from "react-router-dom";
 import { Table as TableBs } from 'react-bootstrap';
 import './Cart.css';
 import { Button, Input } from "element-react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionPropertyGet } from "../../redux/actions/property";
+import { actionUserOrderGet } from "../../redux/actions/order";
 import { getFee, getTotalWithFee } from "../../services/calc";
+
+const TYPES = ['', 'basic', 'gold', 'premium'];
 
 const Cart = props => {
 
@@ -15,13 +18,16 @@ const Cart = props => {
 	const { productID } = useParams();
 	const dispatch = useDispatch();
 	const product = useSelector(state => state.property.currentHouse);
-	console.log('product]', product);
+	const user = useSelector(state => state.auth.user);
+	const userOrder = useSelector(state => state.order.userOrder);
+	// console.log('product', product);
+	// console.log('user', user);
 	const [products, setProducts] = useState([]);
 	const [quantityValues, setQuantityValues] = useState({});
 
 	useEffect(() => {
 		const user = localStorage.getItem('user');
-		if(!user) {
+		if (!user) {
 			localStorage.removeItem('cartProducts');
 			history.goBack();
 		}
@@ -29,7 +35,9 @@ const Cart = props => {
 	}, []);
 
 	useEffect(() => {
+		// console.log('user', user);
 		dispatch(actionPropertyGet(productID));
+		dispatch(actionUserOrderGet(user.id));
 	}, [productID]);
 
 	useEffect(() => {
@@ -93,6 +101,38 @@ const Cart = props => {
 		// history.push('/cart/null');
 	}
 
+	const onProceed = () => {
+		// console.log('user', user);
+		// console.log('userOrder', userOrder);
+		// console.log('cartproducts', products);
+		// console.log('quantityValues', quantityValues);
+		let tokenCount = 0;
+		let userType = TYPES[user.type || 0];
+		console.log(user.type);
+		if (products.length && userType) {
+			for (let i = 0; i < products.length; i++) {
+				tokenCount = 0;
+				if (userOrder.length > 0) {
+					for (let j = 0; j < userOrder.length; j++) {
+						if (products[i].tokenAddress === userOrder[j].details[0].tokenAddress) {
+							tokenCount += Number(userOrder[j].details[0].tokenQuantity);
+						}
+					}
+				}
+				// console.log('total',tokenCount + Number(quantityValues[products[i].id]));
+				if(tokenCount + Number(quantityValues[products[i].id]) > products[i][userType]){
+					Notification.error({
+						title: 'Proceed to checkout failed',
+						message: `You can buy up to ${products[i][userType]} ${products[i].tokenSymbol} Token`,
+						type: 'Warning',
+					})
+					return;
+				}
+			}
+		}
+		history.push('/checkout');
+	}
+
 	return (
 		<div style={{ margin: "3% 12%", border: "none", }}>
 			<Layout.Row>
@@ -114,7 +154,7 @@ const Cart = props => {
 				<thead>
 					<tr>
 						<th className="bg-secondary"></th>
-						<th className="bg-secondary">Asset Price</th>
+						<th className="bg-secondary">Asset</th>
 						<th className="bg-secondary" style={{ minWidth: 100 }}>Asset Price</th>
 						<th className="bg-secondary" style={{ minWidth: 100 }}>Total Fees</th>
 						<th className="bg-secondary" style={{ minWidth: 100 }}>Purchase Price</th>
@@ -177,22 +217,24 @@ const Cart = props => {
 							<Layout.Col span="12">
 								<div className="grid-content d-font-bold d-text-28 d-white"
 									style={{ textAlign: "right" }}>
-										${products.reduce((a, b) => a + getTotalWithFee(b?.tokenValue, quantityValues[b.id.toString()]), 0)}
+									${products.reduce((a, b) => a + getTotalWithFee(b?.tokenValue, quantityValues[b.id.toString()]), 0)}
 								</div>
 							</Layout.Col>
 						</Layout.Row>
 						<div className="block" style={{ marginTop: 30 }}>
 							<span className="wrapper">
-								<Link to={'/checkout'}>
-									<Button type="success" className="d-font-bold d-text-28"
-										style={{
-											width: "100%",
-											background: "#03ffa4",
-											color: "black",
-											borderRadius: 10
-										}}>PROCEED TO CHECKOUT
-									</Button>
-								</Link>
+								{/* <Link to={'/checkout'}> */}
+								<Button type="success" className="d-font-bold d-text-28"
+									style={{
+										width: "100%",
+										background: "#03ffa4",
+										color: "black",
+										borderRadius: 10
+									}}
+									onClick={onProceed}
+								>PROCEED TO CHECKOUT
+								</Button>
+								{/* </Link> */}
 							</span>
 						</div>
 						<div style={{ border: "1px solid #03ffa4", marginTop: 20 }}>
