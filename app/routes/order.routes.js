@@ -13,4 +13,5 @@ module.exports = function (app) {
   app.post('/api/admin/order/update', [authJwt.verifyToken], controller.saveOrder)
   app.post('/api/admin/order', [authJwt.verifyToken], controller.createOrder)
   app.get('/api/order', controller.getOrders)
+  app.get('/api/order/:uid', controller.getUserOrder)
 }

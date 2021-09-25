@@ -61,6 +61,9 @@ const AdminProperty = props => {
                     <th className="bg-secondary" style={{ minWidth: 170 }}>Monthly Gross Rent</th>
                     <th className="bg-secondary" style={{ minWidth: 130 }}>Monthly Costs</th>
                     <th className="bg-secondary">Taxes</th>
+                    <th className="bg-secondary">Basic</th>
+                    <th className="bg-secondary">Gold</th>
+                    <th className="bg-secondary">Premium</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -87,6 +90,9 @@ const AdminProperty = props => {
                         <td>${item.monthlyGrossRent}</td>
                         <td>${item.monthlyCosts}</td>
                         <td>${item.tax}</td>
+                        <td>{item.basic}</td>
+                        <td>{item.gold}</td>
+                        <td>{item.premium}</td>
                       </tr>
                     )
                   }

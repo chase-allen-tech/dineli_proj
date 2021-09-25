@@ -1,4 +1,6 @@
 const db = require('../models')
+const sendEMail = require('./auth.controller').sendEmail;
+
 const User = db.user;
 const Role = db.role;
 const Op = db.Sequelize.Op;
@@ -73,6 +75,8 @@ exports.createUser = (req, res) => {
           console.log(roles);
           user.setRoles(roles).then(() => {
             res.send({ message: 'User registered successfully!' })
+            console.log('user registerd', req.body.email);
+            sendEMail(req.body.email, 'User Registered', `User(${req.body.email} registerd succesfully!)`);
           })
         })
       } else {
@@ -108,3 +112,26 @@ exports.saveUser = (req, res) => {
     })
   })
 }
+
+exports.updateRoleType = (req, res) => {
+  User.findOne({
+    where: {
+      id: req.body.id,
+    }
+  }).then(user => {
+    if (!user) {
+      res.status(400).send({
+        message: 'Order not found',
+      })
+    }
+
+    user.type = req.body.type;
+    user.save()
+    user.setRoles([req.body.role]).then(() => {
+      res.status(200).send({
+        message: 'User approved successfully',
+      })
+    })
+  })
+}
+

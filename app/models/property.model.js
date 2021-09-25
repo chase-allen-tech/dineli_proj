@@ -36,6 +36,10 @@ module.exports = (sequelize, Sequelize) => {
     assetPrice: { type: Sequelize.FLOAT },
     fee: { type: Sequelize.FLOAT },
     initMaintainanceReserve: { type: Sequelize.FLOAT },   //--------------------3
+
+    basic: {type:Sequelize.INTEGER},
+    gold: {type:Sequelize.INTEGER},
+    premium: {type:Sequelize.INTEGER},
   })
   return Property
 }

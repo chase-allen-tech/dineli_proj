@@ -38,6 +38,7 @@ export const actionPropertyList = (count) => (dispatch) => {
   return callGet(`/api/property?count=${count}`)
     .then(function (response) {
       let result = response.data
+      // console.log("result",result);
       for (let i = 0; i < result.length; i++) {
         result[i].monthlyNetRent = result[i].monthlyGrossRent - result[i].monthlyCosts;
         result[i].yearlyNetRent = (result[i].monthlyGrossRent - result[i].monthlyCosts) * 12

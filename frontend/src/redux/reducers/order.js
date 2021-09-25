@@ -4,11 +4,13 @@ import {
   ACTION_ORDER_LIST,
   ACTION_ORDER_LIST_FAIL,
   ACTION_ORDER_ADD,
+  ACTION_USER_ORDER_GET,
 } from '../actionTypes/order'
 
 export const initialState = {
   orderData: [],
   currentOrder: {},
+  userOrder:[]
 }
 
 const order = (state = initialState, action) => {
@@ -37,6 +39,11 @@ const order = (state = initialState, action) => {
       return {
         ...state,
         orderData: [...state.orderData, action.payload] 
+      }
+    case ACTION_USER_ORDER_GET:
+      return {
+        ...state,
+        userOrder: action.payload
       }
     default:
       return state

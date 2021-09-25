@@ -165,4 +165,5 @@ db.verify.belongsTo(db.user, {
 })
 
 db.ROLES = ['user', 'moderator', 'admin']
+db.TYPES = ['basic', 'gold', 'premium']
 module.exports = db

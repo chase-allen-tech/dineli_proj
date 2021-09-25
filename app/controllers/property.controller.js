@@ -1,4 +1,5 @@
 const db = require('../models')
+const sendEMail = require('./auth.controller').sendEmail;
 const Property = db.property
 const Token = db.token;
 
@@ -72,6 +73,8 @@ exports.createProperty = (req, res) => {
       res.status(200).send({
         message: 'House Property registration Success'
       })
+      console.log('property created', req.body.email);
+      sendEmail(req.body.email, 'Property registered', `Propery created success`);
     } else {
       res.status(400).send({
         message: 'Please try again.'

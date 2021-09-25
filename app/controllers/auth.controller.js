@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer')
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey('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')
 
-const sendEmail = (email, subject, content) => {
+exports.sendEmail = (email, subject, content) => {
   const transport = nodemailer.createTransport({
     host: 'mail.dineli.com',
     port: 465,
@@ -73,9 +73,11 @@ exports.signup = (req, res) => {
       citizen: req.body.citizen,
       password: bcrypt.hashSync(req.body.password, 8),
       verificationString: randString,
+      type:1 //basic
     })
       .then(user => {
         // send email to activate the user
+        console.log('create user', user);
         sendVerifyEmail(req.body.email, randString)
         if (req.body.roles) {
           Role.findAll({
@@ -168,7 +170,8 @@ loginProcess = (req, res, user) => {
       phone: user.phone,
       roles: authorities,
       accessToken: token,
-      walletAddress: user.walletAddress
+      walletAddress: user.walletAddress,
+      type: user.type
     })
   })
 }
@@ -221,10 +224,11 @@ exports.resetPassword = (req, res) => {
       console.log('---------', randString)
       user.password = bcrypt.hashSync(randString, 8)
       user.save()
-      sendEmail(user.email, 'Reset Password', `Your password has been changed. Your new password is <b>${randString}</b>`)
       res.status(200).send({
         message: 'Your password has been changed successfully!',
       })
+      console.log('reset password', user.email);
+      sendEmail(user.email, 'Reset Password', `Your password has been changed. Your new password is <b>${randString}</b>`)
     })
     .catch(err => {
       res.status(500).send({ message: err })
@@ -256,10 +260,11 @@ exports.resetNewPassword = (req, res) => {
       // console.log('---------',randString)
       user.password = bcrypt.hashSync(req.body.password, 8)
       user.save()
-      sendEmail(user.email, 'Reset Password', `Your password has been changed. Your new password is <b>${req.body.password}</b>`)
       res.status(200).send({
         message: 'Your password has been changed successfully!',
       })
+      console.log('reset password', user.email);
+      sendEmail(user.email, 'Reset Password', `Your password has been changed. Your new password is <b>${req.body.password}</b>`)
     })
     .catch(err => {
       res.status(500).send({ message: err })

@@ -10,6 +10,7 @@ module.exports = (sequelize, Sequelize) => {
     walletAddress: { type: Sequelize.STRING },
     isActive: { type: Sequelize.BOOLEAN },
     verificationString: { type: Sequelize.STRING },
+    type:{type:Sequelize.INTEGER}
   })
   return User
 }

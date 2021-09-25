@@ -29,6 +29,9 @@ const rules = {
   assetPrice: [{ required: true, message: 'This field is required', trigger: 'blur' }],
   fee: [{ required: true, message: 'This field is required', trigger: 'blur' }],
   initMaintainanceReserve: [{ required: true, message: 'This field is required', trigger: 'blur' }],
+  basic: [{ required: true, message: 'This field is required', trigger: 'blur' }],
+  gold: [{ required: true, message: 'This field is required', trigger: 'blur' }],
+  premium: [{ required: true, message: 'This field is required', trigger: 'blur' }],
 };
 
 const typeOptions = [
@@ -87,6 +90,9 @@ const AdminPropertyNew = props => {
     assetPrice: 0,
     fee: 0,
     initMaintainanceReserve: 0,
+    basic: 3,
+    gold: 5,
+    premium: 7
   });
 
   const dispatch = useDispatch();
@@ -319,6 +325,23 @@ const AdminPropertyNew = props => {
                 <div className="col-md-3 mt-4">
                   <Form.Item label="Token Value" prop="tokenValue">
                     <Input type="number" value={form.tokenValue} onChange={val => onFormChange('tokenValue', val)} disabled />
+                  </Form.Item>
+                </div>
+                {/* **************************** Row 8 ******************************* */}
+                <div className="col-md-12"><hr style={{ color: 'white' }} /></div>
+                <div className="col-md-4 mt-4">
+                  <Form.Item label="basic" prop="basic">
+                    <Input type="number" value={form.basic} onChange={val => onFormChange('basic', val)} />
+                  </Form.Item>
+                </div>
+                <div className="col-md-4 mt-4">
+                  <Form.Item label="gold" prop="gold">
+                    <Input type="number" value={form.gold} onChange={val => onFormChange('gold', val)}/>
+                  </Form.Item>
+                </div>
+                <div className="col-md-4 mt-4">
+                  <Form.Item label="premium" prop="premium">
+                    <Input type="number" value={form.premium} onChange={val => onFormChange('premium', val)}  />
                   </Form.Item>
                 </div>
               </div>
