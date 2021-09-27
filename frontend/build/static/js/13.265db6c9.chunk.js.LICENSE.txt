@@ -1,0 +1,350 @@
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+/*! !../../node_modules/css-loader/dist/cjs.js!../../node_modules/sass-loader/lib/loader.js!./embedded.scss */
+
+/*! ../../node_modules/css-loader/dist/runtime/api.js */
+
+/*! ../../node_modules/style-loader/lib/addStyles.js */
+
+/*! ../TemplateTag */
+
+/*! ../html */
+
+/*! ../inlineArrayTransformer */
+
+/*! ../removeNonPrintingValuesTransformer */
+
+/*! ../replaceResultTransformer */
+
+/*! ../replaceSubstitutionTransformer */
+
+/*! ../splitStringTransformer */
+
+/*! ../stripIndentTransformer */
+
+/*! ../trimResultTransformer */
+
+/*! ./../../process/browser.js */
+
+/*! ./../webpack/buildin/global.js */
+
+/*! ./TemplateTag */
+
+/*! ./_a-function */
+
+/*! ./_add-to-unscopables */
+
+/*! ./_advance-string-index */
+
+/*! ./_an-object */
+
+/*! ./_array-includes */
+
+/*! ./_classof */
+
+/*! ./_cof */
+
+/*! ./_core */
+
+/*! ./_create-property */
+
+/*! ./_ctx */
+
+/*! ./_defined */
+
+/*! ./_descriptors */
+
+/*! ./_dom-create */
+
+/*! ./_enum-bug-keys */
+
+/*! ./_enum-keys */
+
+/*! ./_export */
+
+/*! ./_fails */
+
+/*! ./_fails-is-regexp */
+
+/*! ./_fix-re-wks */
+
+/*! ./_flags */
+
+/*! ./_function-to-string */
+
+/*! ./_global */
+
+/*! ./_has */
+
+/*! ./_hide */
+
+/*! ./_html */
+
+/*! ./_ie8-dom-define */
+
+/*! ./_inherit-if-required */
+
+/*! ./_iobject */
+
+/*! ./_is-array */
+
+/*! ./_is-array-iter */
+
+/*! ./_is-object */
+
+/*! ./_is-regexp */
+
+/*! ./_iter-call */
+
+/*! ./_iter-create */
+
+/*! ./_iter-define */
+
+/*! ./_iter-detect */
+
+/*! ./_iter-step */
+
+/*! ./_iterators */
+
+/*! ./_library */
+
+/*! ./_meta */
+
+/*! ./_object-create */
+
+/*! ./_object-dp */
+
+/*! ./_object-dps */
+
+/*! ./_object-gopd */
+
+/*! ./_object-gopn */
+
+/*! ./_object-gopn-ext */
+
+/*! ./_object-gops */
+
+/*! ./_object-gpo */
+
+/*! ./_object-keys */
+
+/*! ./_object-keys-internal */
+
+/*! ./_object-pie */
+
+/*! ./_object-sap */
+
+/*! ./_property-desc */
+
+/*! ./_redefine */
+
+/*! ./_regexp-exec */
+
+/*! ./_regexp-exec-abstract */
+
+/*! ./_same-value */
+
+/*! ./_set-proto */
+
+/*! ./_set-species */
+
+/*! ./_set-to-string-tag */
+
+/*! ./_shared */
+
+/*! ./_shared-key */
+
+/*! ./_species-constructor */
+
+/*! ./_string-at */
+
+/*! ./_string-context */
+
+/*! ./_string-trim */
+
+/*! ./_string-ws */
+
+/*! ./_to-absolute-index */
+
+/*! ./_to-integer */
+
+/*! ./_to-iobject */
+
+/*! ./_to-length */
+
+/*! ./_to-object */
+
+/*! ./_to-primitive */
+
+/*! ./_uid */
+
+/*! ./_wks */
+
+/*! ./_wks-define */
+
+/*! ./_wks-ext */
+
+/*! ./codeBlock */
+
+/*! ./commaLists */
+
+/*! ./commaListsAnd */
+
+/*! ./commaListsOr */
+
+/*! ./common */
+
+/*! ./core.get-iterator-method */
+
+/*! ./defaults */
+
+/*! ./es6.array.iterator */
+
+/*! ./es6.regexp.exec */
+
+/*! ./es6.regexp.flags */
+
+/*! ./html */
+
+/*! ./inlineArrayTransformer */
+
+/*! ./inlineLists */
+
+/*! ./oneLine */
+
+/*! ./oneLineCommaLists */
+
+/*! ./oneLineCommaListsAnd */
+
+/*! ./oneLineCommaListsOr */
+
+/*! ./oneLineInlineLists */
+
+/*! ./oneLineTrim */
+
+/*! ./removeNonPrintingValuesTransformer */
+
+/*! ./replaceResultTransformer */
+
+/*! ./replaceStringTransformer */
+
+/*! ./replaceSubstitutionTransformer */
+
+/*! ./safeHtml */
+
+/*! ./settings */
+
+/*! ./source */
+
+/*! ./splitStringTransformer */
+
+/*! ./src/embedded.js */
+
+/*! ./src/sass/embedded.scss */
+
+/*! ./stripIndent */
+
+/*! ./stripIndentTransformer */
+
+/*! ./stripIndents */
+
+/*! ./trimResultTransformer */
+
+/*! ./urls */
+
+/*! ./utils/debug */
+
+/*! common-tags */
+
+/*! core-js/modules/es6.array.from */
+
+/*! core-js/modules/es6.array.iterator */
+
+/*! core-js/modules/es6.date.to-string */
+
+/*! core-js/modules/es6.function.name */
+
+/*! core-js/modules/es6.number.constructor */
+
+/*! core-js/modules/es6.number.is-nan */
+
+/*! core-js/modules/es6.object.freeze */
+
+/*! core-js/modules/es6.object.keys */
+
+/*! core-js/modules/es6.object.set-prototype-of */
+
+/*! core-js/modules/es6.reflect.get */
+
+/*! core-js/modules/es6.regexp.constructor */
+
+/*! core-js/modules/es6.regexp.match */
+
+/*! core-js/modules/es6.regexp.replace */
+
+/*! core-js/modules/es6.regexp.search */
+
+/*! core-js/modules/es6.regexp.split */
+
+/*! core-js/modules/es6.regexp.to-string */
+
+/*! core-js/modules/es6.string.includes */
+
+/*! core-js/modules/es6.string.iterator */
+
+/*! core-js/modules/es6.symbol */
+
+/*! core-js/modules/es7.array.includes */
+
+/*! core-js/modules/es7.symbol.async-iterator */
+
+/*! core-js/modules/web.dom.iterable */
+
+/*! debug */
+
+/*! ms */
+
+/*! tiny-emitter */
+
+/*! url-polyfill */
+
+/*! url-search-params-polyfill */
+
+/**
+           *
+           *
+           * @author Jerry Bendy <jerry@icewingcc.com>
+           * @licence MIT
+           *
+           */
+
+/** @license React v0.20.2
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
