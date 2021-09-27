@@ -1,13 +1,15 @@
 import React, { useEffect } from "react"
 import { Button, Layout } from "element-react"
+import { useHistory } from "react-router-dom";
 import Fade from "react-reveal/Fade"
 import { Table as TableBs } from 'react-bootstrap';
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import { actionPropertyList } from "../../redux/actions/property";
+import { actionPropertyList, actionPropertyGet} from "../../redux/actions/property";
+import property from "../../redux/reducers/property";
 
 const AdminProperty = props => {
-
+  let history = useHistory();
   const dispatch = useDispatch();
   const properties = useSelector(state => state.property.propertyData);
 
@@ -15,10 +17,16 @@ const AdminProperty = props => {
 
   useEffect(() => {
     dispatch(actionPropertyList());
-  }, []);
+  }, [properties]);
 
   const onNewClicked = () => {
 
+  }
+
+  const onPropertyClicked = (e, index) => {
+    // console.log('index', index);
+    dispatch(actionPropertyGet(index));
+    history.push('/admin/properties/update');
   }
 
   return (
@@ -69,7 +77,7 @@ const AdminProperty = props => {
                 <tbody>
                   {
                     properties.map((item, key) =>
-                      <tr key={key}>
+                      <tr key={key} onClick={(e)=>onPropertyClicked(e,item.id)}>
                         <td>{key + 1}</td>
                         <td>
                           {

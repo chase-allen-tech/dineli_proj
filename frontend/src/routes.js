@@ -24,6 +24,7 @@ const AdminDashboard = React.lazy(() => import('./views/Admin/AdminDashboard'));
 const AdminSiteSetting = React.lazy(() => import('./views/Admin/AdminSiteSetting'));
 const AdminProperty = React.lazy(() => import('./views/Admin/AdminProperty'));
 const AdminPropertyNew = React.lazy(() => import('./views/Admin/AdminPropertyNew'));
+const AdminPropertyUpdate = React.lazy(() => import('./views/Admin/AdminPropertyUpdate'));
 const AdminToken = React.lazy(() => import('./views/Admin/AdminToken'));
 const AdminTokenNew = React.lazy(() => import('./views/Admin/AdminTokenNew'));
 const AdminUser = React.lazy(() => import('./views/Admin/AdminUser'));
@@ -65,6 +66,7 @@ const routes = [
   { path: '/admin/site_settings', name: 'AdminSiteSetting', component: AdminSiteSetting },
   { path: '/admin/properties', name: 'AdminProperty', component: AdminProperty, exact: true },
   { path: '/admin/properties/new', name: 'AdminPropertyNew', component: AdminPropertyNew, exact: true },
+  { path: '/admin/properties/update', name: 'AdminPropertyUpdate', component: AdminPropertyUpdate, exact: true },
   { path: '/admin/tokens', name: 'AdminToken', component: AdminToken, exact: true },
   { path: '/admin/tokens/new', name: 'AdminTokenNew', component: AdminTokenNew, exact: true },
   { path: '/admin/users', name: 'AdminUser', component: AdminUser, exact: true },

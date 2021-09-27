@@ -1,5 +1,6 @@
 import {
   ACTION_PROPERTY_ADD,
+  ACTION_PROPERTY_UPDATE,
   ACTION_PROPERTY_LIST,
   ACTION_PROPERTY_LIST_FAIL,
   ACTION_PROPERTY_GET,
@@ -21,6 +22,29 @@ export const actionPropertyCreate = (propertyData) => (dispatch) => {
       })
       dispatch({
         type: ACTION_PROPERTY_ADD,
+        payload: propertyData,
+      })
+    }).catch(err => {
+      console.log(err);
+      Notification.error({
+        title: 'Failed',
+        message: 'Please try again.',
+        type: 'Warning',
+      })
+    }
+  )
+}
+
+export const actionPropertyUpdate = (propertyData) => (dispatch) => {
+  callPost('/api/admin/property/update', propertyData, token)
+    .then((response) => {
+      Notification.success({
+        title: 'Success',
+        message: 'House Properties Update Success!',
+        type: 'success',
+      })
+      dispatch({
+        type: ACTION_PROPERTY_UPDATE,
         payload: propertyData,
       })
     }).catch(err => {

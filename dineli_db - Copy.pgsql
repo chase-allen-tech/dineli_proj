@@ -33,7 +33,7 @@ CREATE TABLE public."affUrls" (
 );
 
 
-ALTER TABLE public."affUrls" OWNER TO postgres;
+ALTER TABLE public."affUrls" OWNER TO dineli;
 
 --
 -- Name: affUrls_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -47,7 +47,7 @@ CREATE SEQUENCE public."affUrls_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."affUrls_id_seq" OWNER TO postgres;
+ALTER TABLE public."affUrls_id_seq" OWNER TO dineli;
 
 --
 -- Name: affUrls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -72,7 +72,7 @@ CREATE TABLE public.blogs (
 );
 
 
-ALTER TABLE public.blogs OWNER TO postgres;
+ALTER TABLE public.blogs OWNER TO dineli;
 
 --
 -- Name: blogs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -86,7 +86,7 @@ CREATE SEQUENCE public.blogs_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.blogs_id_seq OWNER TO postgres;
+ALTER TABLE public.blogs_id_seq OWNER TO dineli;
 
 --
 -- Name: blogs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -110,7 +110,7 @@ CREATE TABLE public.carts (
 );
 
 
-ALTER TABLE public.carts OWNER TO postgres;
+ALTER TABLE public.carts OWNER TO dineli;
 
 --
 -- Name: carts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -124,7 +124,7 @@ CREATE SEQUENCE public.carts_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.carts_id_seq OWNER TO postgres;
+ALTER TABLE public.carts_id_seq OWNER TO dineli;
 
 --
 -- Name: carts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -148,7 +148,7 @@ CREATE TABLE public.comments (
 );
 
 
-ALTER TABLE public.comments OWNER TO postgres;
+ALTER TABLE public.comments OWNER TO dineli;
 
 --
 -- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -162,7 +162,7 @@ CREATE SEQUENCE public.comments_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.comments_id_seq OWNER TO postgres;
+ALTER TABLE public.comments_id_seq OWNER TO dineli;
 
 --
 -- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -190,7 +190,7 @@ CREATE TABLE public.credentials (
 );
 
 
-ALTER TABLE public.credentials OWNER TO postgres;
+ALTER TABLE public.credentials OWNER TO dineli;
 
 --
 -- Name: faqs; Type: TABLE; Schema: public; Owner: postgres
@@ -205,7 +205,7 @@ CREATE TABLE public.faqs (
 );
 
 
-ALTER TABLE public.faqs OWNER TO postgres;
+ALTER TABLE public.faqs OWNER TO dineli;
 
 --
 -- Name: faqs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -220,7 +220,7 @@ CREATE SEQUENCE public.faqs_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.faqs_id_seq OWNER TO postgres;
+ALTER TABLE public.faqs_id_seq OWNER TO dineli;
 
 --
 -- Name: faqs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -245,7 +245,7 @@ CREATE TABLE public."lifeCustomers" (
 );
 
 
-ALTER TABLE public."lifeCustomers" OWNER TO postgres;
+ALTER TABLE public."lifeCustomers" OWNER TO dineli;
 
 --
 -- Name: lifeCustomers_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -259,7 +259,7 @@ CREATE SEQUENCE public."lifeCustomers_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."lifeCustomers_id_seq" OWNER TO postgres;
+ALTER TABLE public."lifeCustomers_id_seq" OWNER TO dineli;
 
 --
 -- Name: lifeCustomers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -287,7 +287,7 @@ CREATE TABLE public.orders (
 );
 
 
-ALTER TABLE public.orders OWNER TO postgres;
+ALTER TABLE public.orders OWNER TO dineli;
 
 --
 -- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -301,7 +301,7 @@ CREATE SEQUENCE public.orders_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.orders_id_seq OWNER TO postgres;
+ALTER TABLE public.orders_id_seq OWNER TO dineli;
 
 --
 -- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -323,7 +323,7 @@ CREATE TABLE public."paymentTypes" (
 );
 
 
-ALTER TABLE public."paymentTypes" OWNER TO postgres;
+ALTER TABLE public."paymentTypes" OWNER TO dineli;
 
 --
 -- Name: paymentTypes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -337,7 +337,7 @@ CREATE SEQUENCE public."paymentTypes_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."paymentTypes_id_seq" OWNER TO postgres;
+ALTER TABLE public."paymentTypes_id_seq" OWNER TO dineli;
 
 --
 -- Name: paymentTypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -361,7 +361,7 @@ CREATE TABLE public.payouts (
 );
 
 
-ALTER TABLE public.payouts OWNER TO postgres;
+ALTER TABLE public.payouts OWNER TO dineli;
 
 --
 -- Name: payouts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -375,7 +375,7 @@ CREATE SEQUENCE public.payouts_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.payouts_id_seq OWNER TO postgres;
+ALTER TABLE public.payouts_id_seq OWNER TO dineli;
 
 --
 -- Name: payouts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -425,7 +425,7 @@ CREATE TABLE public.properties (
 );
 
 
-ALTER TABLE public.properties OWNER TO postgres;
+ALTER TABLE public.properties OWNER TO dineli;
 
 --
 -- Name: properties_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -439,7 +439,7 @@ CREATE SEQUENCE public.properties_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.properties_id_seq OWNER TO postgres;
+ALTER TABLE public.properties_id_seq OWNER TO dineli;
 
 --
 -- Name: properties_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -464,7 +464,7 @@ CREATE TABLE public.referrals (
 );
 
 
-ALTER TABLE public.referrals OWNER TO postgres;
+ALTER TABLE public.referrals OWNER TO dineli;
 
 --
 -- Name: referrals_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -478,7 +478,7 @@ CREATE SEQUENCE public.referrals_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.referrals_id_seq OWNER TO postgres;
+ALTER TABLE public.referrals_id_seq OWNER TO dineli;
 
 --
 -- Name: referrals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -503,7 +503,7 @@ CREATE TABLE public.refunds (
 );
 
 
-ALTER TABLE public.refunds OWNER TO postgres;
+ALTER TABLE public.refunds OWNER TO dineli;
 
 --
 -- Name: refunds_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -518,7 +518,7 @@ CREATE SEQUENCE public.refunds_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.refunds_id_seq OWNER TO postgres;
+ALTER TABLE public.refunds_id_seq OWNER TO dineli;
 
 --
 -- Name: refunds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -539,7 +539,7 @@ CREATE TABLE public.roles (
 );
 
 
-ALTER TABLE public.roles OWNER TO postgres;
+ALTER TABLE public.roles OWNER TO dineli;
 
 --
 -- Name: settings; Type: TABLE; Schema: public; Owner: postgres
@@ -555,7 +555,7 @@ CREATE TABLE public.settings (
 );
 
 
-ALTER TABLE public.settings OWNER TO postgres;
+ALTER TABLE public.settings OWNER TO dineli;
 
 --
 -- Name: settings_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -569,7 +569,7 @@ CREATE SEQUENCE public.settings_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.settings_id_seq OWNER TO postgres;
+ALTER TABLE public.settings_id_seq OWNER TO dineli;
 
 --
 -- Name: settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -595,7 +595,7 @@ CREATE TABLE public.sites (
 );
 
 
-ALTER TABLE public.sites OWNER TO postgres;
+ALTER TABLE public.sites OWNER TO dineli;
 
 --
 -- Name: sites_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -609,7 +609,7 @@ CREATE SEQUENCE public.sites_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.sites_id_seq OWNER TO postgres;
+ALTER TABLE public.sites_id_seq OWNER TO dineli;
 
 --
 -- Name: sites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -633,7 +633,7 @@ CREATE TABLE public.teams (
 );
 
 
-ALTER TABLE public.teams OWNER TO postgres;
+ALTER TABLE public.teams OWNER TO dineli;
 
 --
 -- Name: teams_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -647,7 +647,7 @@ CREATE SEQUENCE public.teams_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.teams_id_seq OWNER TO postgres;
+ALTER TABLE public.teams_id_seq OWNER TO dineli;
 
 --
 -- Name: teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -674,7 +674,7 @@ CREATE TABLE public.tokens (
 );
 
 
-ALTER TABLE public.tokens OWNER TO postgres;
+ALTER TABLE public.tokens OWNER TO dineli;
 
 --
 -- Name: tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -688,7 +688,7 @@ CREATE SEQUENCE public.tokens_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tokens_id_seq OWNER TO postgres;
+ALTER TABLE public.tokens_id_seq OWNER TO dineli;
 
 --
 -- Name: tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -709,7 +709,7 @@ CREATE TABLE public.user_roles (
 );
 
 
-ALTER TABLE public.user_roles OWNER TO postgres;
+ALTER TABLE public.user_roles OWNER TO dineli;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
@@ -733,7 +733,7 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO postgres;
+ALTER TABLE public.users OWNER TO dineli;
 
 --
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -747,7 +747,7 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO postgres;
+ALTER TABLE public.users_id_seq OWNER TO dineli;
 
 --
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -770,7 +770,7 @@ CREATE TABLE public.verifies (
 );
 
 
-ALTER TABLE public.verifies OWNER TO postgres;
+ALTER TABLE public.verifies OWNER TO dineli;
 
 --
 -- Name: verifies_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -784,7 +784,7 @@ CREATE SEQUENCE public.verifies_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.verifies_id_seq OWNER TO postgres;
+ALTER TABLE public.verifies_id_seq OWNER TO dineli;
 
 --
 -- Name: verifies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -808,7 +808,7 @@ CREATE TABLE public.visits (
 );
 
 
-ALTER TABLE public.visits OWNER TO postgres;
+ALTER TABLE public.visits OWNER TO dineli;
 
 --
 -- Name: visits_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -822,7 +822,7 @@ CREATE SEQUENCE public.visits_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.visits_id_seq OWNER TO postgres;
+ALTER TABLE public.visits_id_seq OWNER TO dineli;
 
 --
 -- Name: visits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres

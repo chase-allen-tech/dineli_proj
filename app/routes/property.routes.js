@@ -33,6 +33,7 @@ module.exports = function (app) {
   })
 
   app.post('/api/admin/property', [authJwt.verifyToken, authJwt.isAdmin], controller.createProperty)
+  app.post('/api/admin/property/update', [authJwt.verifyToken, authJwt.isAdmin], controller.updateProperty)
   app.get('/api/property', controller.getProperties)
   app.get('/api/property/id', controller.getPropertyById)
 }

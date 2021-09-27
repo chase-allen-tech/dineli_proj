@@ -14,55 +14,55 @@ exports.getProperties = (req, res) => {
       let payload = result.map(item => item.dataValues);
       let data = [];
 
-      for(let item of payload) {
-        let token = await Token.findOne({ where: { propertyId: item.id}});
-        if(token) {
+      for (let item of payload) {
+        let token = await Token.findOne({ where: { propertyId: item.id } });
+        if (token) {
           token = token.dataValues;
           let tokenId = token.id;
           delete token.id;
           delete token.createdAt;
           delete token.updatedAt;
-          data.push({...item, ...token, tokenId: tokenId });
+          data.push({ ...item, ...token, tokenId: tokenId });
         }
       }
-      
+
       res.status(200).json(data)
     })
     .catch(err => {
-      res.status(500).json({message: err.message})
+      res.status(500).json({ message: err.message })
     })
 }
 
 exports.getPropertyById = (req, res) => {
   const ID = req.query.ID
-  let option = {id: ID}
+  let option = { id: ID }
 
   console.log('[getPropById]', option);
 
-  Property.findOne({where: option})
+  Property.findOne({ where: option })
     .then(async result => {
-        result = result.dataValues;
+      result = result.dataValues;
 
-        let token = await Token.findOne({ where: { propertyId: result.id }});
-        token = token.dataValues;
+      let token = await Token.findOne({ where: { propertyId: result.id } });
+      token = token.dataValues;
 
 
-        if(token) {
-          delete token.id;
-          delete token.createdAt;
-          delete token.updatedAt;
-  
-          let payload = {...result, ...token};
+      if (token) {
+        delete token.id;
+        delete token.createdAt;
+        delete token.updatedAt;
 
-          res.status(200).json(payload)
-        } else {
-          res.status(200).json(result);
-        }
-        
+        let payload = { ...result, ...token };
+
+        res.status(200).json(payload)
+      } else {
+        res.status(200).json(result);
+      }
+
     })
     .catch(err => {
       // console.log(err.message)
-      res.status(500).json({message: err.message})
+      res.status(500).json({ message: err.message })
     })
 }
 
@@ -81,7 +81,66 @@ exports.createProperty = (req, res) => {
       })
     }
   }).catch(err => {
-    res.status(500).send({message: 'Server error'})
+    res.status(500).send({ message: 'Server error' })
+
+  })
+}
+
+exports.updateProperty = (req, res) => {
+  if (req.body.imageData)
+    req.body.imageData = req.body.imageData.join(',') // converting imageData into String
+  Property.findOne({
+    where: {
+      id: req.body.id,
+    }
+  }).then(property => {
+    // console.log('property', property)
+    if (!property) {
+      res.status(400).send({
+        message: 'Please try again.'
+      })
+    }
+    // property = { ...property, ...req.body.data };
+    property.address1 = req.body.address1;
+    property.address2 = req.body.address2;
+    property.pos_latitude = req.body.pos_latitude;
+    property.pos_longitude = req.body.pos_longitude;
+    if (req.body.imageData) {
+      property.imageData = req.body.imageData
+    }
+    property.rentStartsDate = req.body.rentStartsDate;
+    property.monthlyRentPerToken = req.body.monthlyRentPerToken;
+    property.tokenValue = req.body.tokenValue;
+    property.generatedToken = req.body.generatedToken;
+    property.propertyType = req.body.propertyType;
+    property.neighborhood = req.body.neighborhood;
+    property.squareFeet = req.body.squareFeet;
+    property.lotSize = req.body.lotSize;
+    property.bedroomOrBath = req.body.bedroomOrBath;
+    property.constructionYear = req.body.constructionYear;
+    property.currentStatusOfProperty = req.body.currentStatusOfProperty;
+    property.section8 = req.body.section8;
+
+    property.monthlyGrossRent = req.body.monthlyGrossRent;
+    property.monthlyCosts = req.body.monthlyCosts;
+    property.propertyManagementFee = req.body.propertyManagementFee;
+    property.platformFee = req.body.platformFee;
+    property.tax = req.body.tax;
+    property.insuranceFee = req.body.insuranceFee;
+    property.utility = req.body.utility;
+    property.assetPrice = req.body.assetPrice;
+    property.fee = req.body.fee;
+    property.initMaintainanceReserve = req.body.initMaintainanceReserve;
+    property.basic = req.body.basic;
+    property.gold = req.body.gold;
+    property.premium = req.body.premium;
+
+    property.save()
+    res.status(200).send({
+      message: 'House Property update Success'
+    })
+  }).catch(err => {
+    res.status(500).send({ message: 'Server error' })
 
   })
 }

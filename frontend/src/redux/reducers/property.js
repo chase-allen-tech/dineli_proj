@@ -4,6 +4,7 @@ import {
   ACTION_PROPERTY_LIST,
   ACTION_PROPERTY_LIST_FAIL,
   ACTION_PROPERTY_ADD,
+  ACTION_PROPERTY_UPDATE
 } from '../actionTypes/property'
 
 export const initialState = {
@@ -37,6 +38,17 @@ const property = (state = initialState, action) => {
       return {
         ...state,
         propertyData: [action.payload, ...state.propertyData] //state.propertyData.push(action.payload),
+      }
+    case ACTION_PROPERTY_UPDATE:
+      return {
+        ...state,
+        propertyData: state.propertyData.map(property=>{
+          if(property.id===action.payload.id){
+            // console.log('updateid', action.payload.id);
+            return {...property, ...action.payload};
+          }
+          return property;
+        })
       }
     default:
       return state
