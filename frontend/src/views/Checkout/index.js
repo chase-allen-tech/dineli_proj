@@ -4,6 +4,7 @@ import Fade from "react-reveal/Fade"
 import { Table as TableBs } from 'react-bootstrap';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { connect } from 'react-redux'
+import countryList from 'react-select-country-list';
 
 import { actionPropertyGet } from '../../redux/actions/property';
 import { actionOrderCreate } from '../../redux/actions/order';
@@ -74,7 +75,6 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 		};
 
 		this.coinbaseRef = React.createRef();
-
 		this.onPaypalSuccess.bind(this);
 		this.onSaveOrder.bind(this);
 	}
@@ -137,12 +137,16 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 		});
 
 		// Get country list
-		fetch('https://restcountries.eu/rest/v2/').then(async res => {
-			const resJson = await res.json();
-			const countryList = resJson.map(item => item.name);
-			this.setState({ countryList: countryList });
+		// fetch('https://restcountries.eu/rest/v2/').then(async res => {
+		// 	const resJson = await res.json();
+		// 	const countryList = resJson.map(item => item.name);
+		// 	this.setState({ countryList: countryList });
 
-		}).catch(err => { console.log('[country err]', err) });
+		// }).catch(err => { console.log('[country err]', err) });
+		let countries = countryList().getData();
+		countries = countries.map(country=>country.label);
+		console.log('countries', countries);
+		this.setState({ countryList: countries });
 	}
 
 	handleSubmit(e) {
