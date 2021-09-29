@@ -1,5 +1,5 @@
 const db = require('../models')
-const sendEMail = require('./auth.controller').sendEmail;
+const sendEmail = require('./auth.controller').sendEmail;
 
 const User = db.user;
 const Role = db.role;
@@ -76,7 +76,7 @@ exports.createUser = (req, res) => {
           user.setRoles(roles).then(() => {
             res.send({ message: 'User registered successfully!' })
             console.log('user registerd', req.body.email);
-            sendEMail(req.body.email, 'User Registered', `User(${req.body.email} registerd succesfully!)`);
+            sendEmail(req.body.email, 'User Registered', `User(${req.body.email} registerd succesfully!)`);
           })
         })
       } else {

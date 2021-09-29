@@ -1,5 +1,5 @@
 const db = require('../models')
-const sendEMail = require('./auth.controller').sendEmail;
+const sendEmail = require('./auth.controller').sendEmail;
 const Order = db.order
 const User = db.user
 

@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer')
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey('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')
 
-exports.sendEmail = (email, subject, content) => {
+const sendEmail = (email, subject, content) => {
   const transport = nodemailer.createTransport({
     host: 'mail.dineli.com',
     port: 465,
@@ -52,7 +52,11 @@ exports.sendEmail = (email, subject, content) => {
   //       console.error(error)
   //     })
 }
+
+exports.sendEmail = sendEmail;
+
 const sendVerifyEmail = (email, string) => {
+  // console.log('verify email');
   sendEmail(email, 'Email confirmation', `Press <a href=https://dineli.com/#/verify/${string}> here </a> to verify your email. Thanks.`)
 }
 exports.signup = (req, res) => {
@@ -77,7 +81,7 @@ exports.signup = (req, res) => {
     })
       .then(user => {
         // send email to activate the user
-        console.log('create user', user);
+        // console.log('create user', user);
         sendVerifyEmail(req.body.email, randString)
         if (req.body.roles) {
           Role.findAll({
@@ -89,6 +93,7 @@ exports.signup = (req, res) => {
           }).then(roles => {
             user.setRoles(roles).then(() => {
               res.send({ message: 'User registered successfully!' })
+              sendEMail(req.body.email, 'User Registered', `User(${req.body.email} registerd succesfully!)`);
             })
           })
         } else {

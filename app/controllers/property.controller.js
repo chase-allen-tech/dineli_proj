@@ -1,5 +1,5 @@
 const db = require('../models')
-const sendEMail = require('./auth.controller').sendEmail;
+const sendEmail = require('./auth.controller').sendEmail;
 const Property = db.property
 const Token = db.token;
 
@@ -87,6 +87,7 @@ exports.createProperty = (req, res) => {
 }
 
 exports.updateProperty = (req, res) => {
+  // console.log('update');
   if (req.body.imageData)
     req.body.imageData = req.body.imageData.join(',') // converting imageData into String
   Property.findOne({
@@ -139,7 +140,9 @@ exports.updateProperty = (req, res) => {
     res.status(200).send({
       message: 'House Property update Success'
     })
+    sendEmail(req.body.email, 'Property updated', `Propery updated success`);
   }).catch(err => {
+    console.log(err);
     res.status(500).send({ message: 'Server error' })
 
   })
