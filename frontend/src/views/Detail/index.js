@@ -115,7 +115,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
       currency: 'USD',
     })
     let expectedYield = Number(product.expectedYield).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-
+    // console.log('product detail', product);
     return <>
       <div style={{margin: '2% 9% 2% 9%'}}>
         <div style={{marginBottom: 100}}>

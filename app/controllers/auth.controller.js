@@ -93,7 +93,7 @@ exports.signup = (req, res) => {
           }).then(roles => {
             user.setRoles(roles).then(() => {
               res.send({ message: 'User registered successfully!' })
-              sendEMail(req.body.email, 'User Registered', `User(${req.body.email} registerd succesfully!)`);
+              sendEmail(req.body.email, 'User Registered', `User(${req.body.email} registerd succesfully!)`);
             })
           })
         } else {

@@ -108,7 +108,7 @@ const Cart = props => {
 		// console.log('quantityValues', quantityValues);
 		let tokenCount = 0;
 		let userType = TYPES[user.type || 0];
-		console.log(user.type);
+		// console.log('usertype',user.type);
 		if (products.length && userType) {
 			for (let i = 0; i < products.length; i++) {
 				tokenCount = 0;

@@ -16,6 +16,27 @@ import { getTotalWithFee } from "../../services/calc";
 
 
 const CRYPTO_MODE = '1', PAYPAL_MODE = '2';
+var BILING_DETAILS = {
+	firstname: '',
+	lastname: '',
+	email: '',
+	phone: '',
+	country: '',
+	street: '',
+	city: '',
+	postCode: '',
+
+	isGift: '',
+	description: '',
+
+	payCard: CRYPTO_MODE,
+	cardNumber: '',
+	expiration: '',
+	securityCode: '',
+	isAgree: '',
+
+	walletAddress: '',
+};
 
 const mapStateToProps = state => {
 	const { credentialData } = state.credential
@@ -32,27 +53,7 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 		super(props)
 
 		this.state = {
-			form: {
-				firstname: '',
-				lastname: '',
-				email: '',
-				phone: '',
-				country: '',
-				street: '',
-				city: '',
-				postCode: '',
-
-				isGift: '',
-				description: '',
-
-				payCard: CRYPTO_MODE,
-				cardNumber: '',
-				expiration: '',
-				securityCode: '',
-				isAgree: '',
-
-				walletAddress: '',
-			},
+			form: BILING_DETAILS,
 			rules: {
 				firstname: [{ required: true, message: 'Please input first name', trigger: 'blur' }],
 				lastname: [{ required: true, message: 'Please input last name', trigger: 'blur' }],
@@ -73,7 +74,10 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 			coinbaseId: null,
 			hellosignId: null
 		};
-
+		// this.setState({ form: { ...this.state.form, ...BILING_DETAILS } });
+		// this.setState({
+		// 	form: Object.assign({}, BILING_DETAILS)
+		// });
 		this.coinbaseRef = React.createRef();
 		this.onPaypalSuccess.bind(this);
 		this.onSaveOrder.bind(this);
@@ -144,8 +148,8 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 
 		// }).catch(err => { console.log('[country err]', err) });
 		let countries = countryList().getData();
-		countries = countries.map(country=>country.label);
-		console.log('countries', countries);
+		countries = countries.map(country => country.label);
+		// console.log('countries', countries);
 		this.setState({ countryList: countries });
 	}
 
@@ -232,6 +236,7 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 	}
 
 	async onHelloSign() {
+		BILING_DETAILS = Object.assign({}, this.state.form);
 
 		const hellosignClient = new HelloSign({ clientId: this.props.credentialData[0]?.hellosignClientId });
 		const user = JSON.parse(localStorage.getItem('user'));
@@ -420,7 +425,7 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 							</Layout.Col>
 
 							{
-								this.state.hellosignId &&
+								(this.state.hellosignId || true) &&
 								<Layout.Col span={24} style={{ zIndex: 100 }}>
 									<div className="grid-content"
 										style={{ border: "2px solid #03ffa4", margin: 20, borderRadius: 10 }}>
