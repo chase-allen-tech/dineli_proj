@@ -73,8 +73,7 @@ exports.createProperty = (req, res) => {
       res.status(200).send({
         message: 'House Property registration Success'
       })
-      console.log('property created', req.body.email);
-      sendEmail(req.body.email, 'Property registered', `Propery created success`);
+      sendEmail(req.email, 'Property registered', `Propery created success`);
     } else {
       res.status(400).send({
         message: 'Please try again.'
@@ -140,7 +139,7 @@ exports.updateProperty = (req, res) => {
     res.status(200).send({
       message: 'House Property update Success'
     })
-    sendEmail(req.body.email, 'Property updated', `Propery updated success`);
+    sendEmail(req.email, 'Property updated', `Propery updated success`);
   }).catch(err => {
     console.log(err);
     res.status(500).send({ message: 'Server error' })

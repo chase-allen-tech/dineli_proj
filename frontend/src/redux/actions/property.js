@@ -36,6 +36,7 @@ export const actionPropertyCreate = (propertyData) => (dispatch) => {
 }
 
 export const actionPropertyUpdate = (propertyData) => (dispatch) => {
+  // console.log('token', token);
   callPost('/api/admin/property/update', propertyData, token)
     .then((response) => {
       Notification.success({

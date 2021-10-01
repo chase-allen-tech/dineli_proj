@@ -6,19 +6,16 @@ import { Table as TableBs } from 'react-bootstrap';
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { actionPropertyList, actionPropertyGet} from "../../redux/actions/property";
-import property from "../../redux/reducers/property";
 
 const AdminProperty = props => {
   let history = useHistory();
   const dispatch = useDispatch();
   const properties = useSelector(state => state.property.propertyData);
 
-  console.log(properties);
-
-  useEffect(() => {
-    dispatch(actionPropertyList());
-  }, [properties]);
-
+  useEffect(()=>{
+    if(!properties)
+      dispatch(actionPropertyList());
+  },[])
   const onNewClicked = () => {
 
   }

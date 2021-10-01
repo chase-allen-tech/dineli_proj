@@ -2,8 +2,10 @@ import {
   ACTION_USER_ADD,
   ACTION_USER_LIST,
   ACTION_USER_LIST_FAIL,
-  ACTION_USER_UPDATE_ROLE_TYPE
+  ACTION_USER_SET_CURRENT,
+  ACTION_USER_UPDATE
 } from '../actionTypes/user'
+import { actionAuthUpdateCard } from './auth'
 
 import { callGet, callPost, } from '../../services/axios'
 import { Notification } from 'element-react'
@@ -54,32 +56,13 @@ export const actionUserUpdate = (userData) => dispatch => {
   callPost('/api/admin/user/update', userData, token)
     .then((response) => {
       console.log('[res]', response);
-      // dispatch({
-      //   type: ACTION_ORDER_ADD,
-      //   payload: orderData,
-      // })
-    }).catch(err => {
-      console.log(err);
-      Notification.error({
-        title: 'Failed',
-        message: 'Transaction update failed. Please try again.',
-        type: 'Warning',
-      })
-    }
-  )
-}
-
-export const actionUserUpdateRoleType = (userData) => dispatch => {
-  callPost('/api/admin/user/updateroletype', userData, token)
-    .then((response) => {
-      console.log('[res]', response);
       Notification.success({
         title: 'Success',
-        message: 'User\'s role and type changed Success!',
+        message: response.data.message,
         type: 'success',
       })
       dispatch({
-        type: ACTION_USER_UPDATE_ROLE_TYPE,
+        type: ACTION_USER_UPDATE,
         payload: userData,
       })
     }).catch(err => {
@@ -91,4 +74,32 @@ export const actionUserUpdateRoleType = (userData) => dispatch => {
       })
     }
   )
+}
+
+export const actionUserUpdateCard = (cardData) => dispatch => {
+  callPost('/api/admin/user/update/card', cardData, token)
+    .then((response) => {
+      console.log('[res]', response);
+      Notification.success({
+        title: 'Success',
+        message: response.data.message,
+        type: 'success',
+      })
+      dispatch(actionAuthUpdateCard(cardData.card));
+    }).catch(err => {
+      console.log(err);
+      Notification.error({
+        title: 'Failed',
+        message: 'Transaction update failed. Please try again.',
+        type: 'Warning',
+      })
+    }
+  )
+} 
+
+export const actionUserSetCurrent = (user) => dispatch => {
+  dispatch({
+    type:ACTION_USER_SET_CURRENT,
+    payload: user
+  })
 }

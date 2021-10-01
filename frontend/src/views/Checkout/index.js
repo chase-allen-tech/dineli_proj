@@ -467,7 +467,7 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 											<div className="wrapper position-relative" style={{ textAlign: "right", margin: "3% 3% 3% 0" }}>
 												<Button onClick={this.handleSubmit.bind(this)} type="success" className={`d-font-bold d-text-28 w-50 text-dark`} style={{ background: "#03ffa4", borderRadius: 10 }} disabled={!this.state.form.isAgree}>PLACE ORDER</Button>
 												{
-													this.state.form.payCard == PAYPAL_MODE && this.state.form.isAgree &&
+													this.state.form.payCard === PAYPAL_MODE && this.state.form.isAgree &&
 													<div className="position-absolute top-0 end-0 w-50 opacity-0">
 														<PayPalButton
 															amount={this.state.totalPrice}

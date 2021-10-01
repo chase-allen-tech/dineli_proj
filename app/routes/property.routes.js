@@ -13,7 +13,7 @@ module.exports = function (app) {
     next()
   })
 
-  app.post('/api/admin/image/upload', [authJwt.verifyToken, authJwt.isAdmin], function (req, res) {
+  app.post('/api/admin/image/upload', [authJwt.verifyToken], function (req, res) {
     console.log('[uploading image]');
     var rootPath = __dirname.slice(0, -11)
     var file = JSON.parse(JSON.stringify(req.files))

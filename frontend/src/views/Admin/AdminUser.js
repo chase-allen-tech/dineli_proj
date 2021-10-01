@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from "react"
-import { Button, Layout, Notification } from "element-react"
+import React, { useEffect } from "react"
+import { useHistory } from "react-router-dom";
+import { Layout, Notification } from "element-react"
 import Fade from "react-reveal/Fade"
-import { Modal, Table as TableBs } from 'react-bootstrap';
+import { Table as TableBs } from 'react-bootstrap';
 
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { actionUserList, actionUserUpdateRoleType } from "../../redux/actions/user";
-import { actionTokenList } from "../../redux/actions/token";
+import { actionUserList, actionUserSetCurrent } from "../../redux/actions/user";
 
 // import { CONTRACT_ABI } from '../../config/abi';
-import { transferToken } from "../../services/crypto";
 
 const TYPES = ['NONE', 'BASIC', 'GOLD', 'PREMIUM'];
-const ROLES = ['NONE', 'USER', 'MODERATOR', 'ADMIN'];
 
 const AdminUser = props => {
 
   const dispatch = useDispatch();
-  const [modalIndex, setModalIndex] = useState(-1);
 
   const users = useSelector(state => state.user.userData);
-  const tokens = useSelector(state => state.token.tokenData);
-  const credentials = useSelector(state => state.credential.credentialData);
-  useEffect(() => {
-    dispatch(actionUserList());
-    dispatch(actionTokenList());
-  }, []);
+  const history = useHistory();
+
+  useEffect(()=>{
+    if(!users)
+      dispatch(actionUserList());
+  },[]);
 
   const successMsg = (msg) => {
     Notification.success({
@@ -43,16 +39,10 @@ const AdminUser = props => {
     });
   }
 
-  const onTransferSubmit = async (e) => {
-    e.preventDefault();
-
-    const payload = {
-      id: users[modalIndex].id,
-      role: e.target.role.value,
-      type: e.target.type.value,
-    }
-    setModalIndex(-1);
-    dispatch(actionUserUpdateRoleType(payload));
+  const onUserClick = (e, key) => {
+    console.log('user click', key);
+    dispatch(actionUserSetCurrent(users[key]));
+    history.push('/admin/users/update');
   }
   // const onTransferSubmit = async (e) => {
   //   e.preventDefault();
@@ -109,10 +99,7 @@ const AdminUser = props => {
                 <tbody>
                   {
                     users.map((user, key) =>
-                      <tr key={key} onClick={(e) => {
-                        console.log("user",users[key]);
-                        setModalIndex(key)
-                      }} style={{ cursor: 'pointer' }}>
+                      <tr key={key} onClick={(e) => onUserClick(e, key)} style={{ cursor: 'pointer' }}>
                         <td>{key + 1}</td>
                         <td>{user.email}</td>
                         <td>{user.walletAddress}</td>
@@ -127,75 +114,6 @@ const AdminUser = props => {
           </div>
         </Fade>
       </div>
-      <Modal show={modalIndex >= 0} onHide={() => setModalIndex(-1)}>
-        <Modal.Header>
-          <Modal.Title>Change Role or Type</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={onTransferSubmit}>
-            <div className="form-group">
-              {users[modalIndex]?.email}
-            </div>
-            <div className="form-group mt-2">
-              <label>Role:</label>
-              <select className="form-select" name="role" defaultValue={ROLES.indexOf(users[modalIndex]?.role[0])}>
-                {
-                  ROLES?.map((role, key) => <option key={key} value={key}>{role}</option>)
-                }
-              </select>
-            </div>
-            <div className="form-group mt-2">
-              <label>Type:</label>
-              <select className="form-select" name="type" defaultValue={users[modalIndex]?.type}>
-                {
-                  TYPES?.map((type, key) => <option key={key} value={key}>{type}</option>)
-                }
-              </select>
-            </div>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setModalIndex(-1)}>Close</Button>
-              <button type="submit" className="btn btn-secondary ms-2" >Change</button>
-            </Modal.Footer>
-          </form>
-        </Modal.Body>
-
-      </Modal>
-
-      {/* <Modal show={modalIndex >= 0} onHide={() => setModalIndex(-1)}>
-        <Modal.Header>
-          <Modal.Title>Transfer Token</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={onTransferSubmit}>
-            <div className="form-group">
-              <div><b>From:</b> {credentials[0]?.walletPublicKey}</div>
-              <div><b>To:</b> {users[modalIndex]?.walletAddress}</div>
-
-              <input name="fromAddress" value={credentials[0]?.walletPublicKey || ''} hidden readOnly />
-              <input name="toAddress" value={users[modalIndex]?.walletAddress || ''} hidden readOnly />
-            </div>
-            <div className="form-group mt-2">
-              <label>Token:</label>
-              <select className="form-select" name="tokenAddress">
-                {
-                  tokens?.map((token, key) => <option key={key} value={token.tokenAddress}>{token.tokenAddress}</option>)
-                }
-              </select>
-            </div>
-            <div className="form-group mt-3">
-              <div className="d-flex">
-                <input type="number" className="form-control" step="any" name="tokenAmount" required placeholder="Input the amount to transfer" />
-                <button type="submit" className="btn btn-secondary ms-2" >Send</button>
-              </div>
-            </div>
-
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setModalIndex(-1)}>Close</Button>
-        </Modal.Footer>
-      </Modal> */}
-
     </div>
   )
 }

@@ -60,6 +60,7 @@ require('./app/routes/blog.routes')(app);
 require('./app/routes/order.routes')(app);
 require('./app/routes/hellosign.routes')(app);
 require('./app/routes/credential.routes')(app);
+require('./app/routes/email.routes')(app);
 
 app.use(express.static('frontend/build'));
 app.get('/', (req, res) => {

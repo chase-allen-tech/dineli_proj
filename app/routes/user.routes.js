@@ -18,5 +18,6 @@ module.exports = function (app) {
   app.get('/api/user', controller.getUsers);
   app.post('/api/admin/user', controller.createUser);
   app.post('/api/admin/user/update', controller.saveUser);
+  app.post('/api/admin/user/update/card', controller.updateCard);
   app.post('/api/admin/user/updateroletype', controller.updateRoleType);
 }

@@ -97,43 +97,6 @@ const AdminPropertyUpdate = props => {
       premium: property.premium
     });
   }, [property])
-  // console.log(new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(property.rentStartsDate)));
-  // const [form, setForm] = useState({
-  //   address1: property.address1,
-  //   address2: property.address2,
-
-  //   pos_latitude: property.pos_latitude,
-  //   pos_longitude: property.pos_longitude,
-  //   imageData: property.imageData,
-
-  //   rentStartsDate: new Intl.DateTimeFormat('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(property.rentStartsDate)),
-  //   monthlyRentPerToken: property.monthlyRentPerToken,
-  //   tokenValue: property.tokenValue,
-  //   generatedToken: property.generatedToken,
-  //   propertyType: property.propertyType,
-  //   neighborhood: property.neighborhood,
-  //   squareFeet: property.squareFeet,
-  //   lotSize: property.lotSize,
-  //   bedroomOrBath: property.bedroomOrBath,
-  //   constructionYear: property.constructionYear,
-  //   currentStatusOfProperty: property.currentStatusOfProperty,
-  //   section8: property.section8,
-
-  //   monthlyGrossRent: property.monthlyGrossRent,
-  //   monthlyCosts: property.monthlyCosts,
-  //   propertyManagementFee: property.propertyManagementFee,
-  //   platformFee: property.platformFee,
-  //   tax: property.tax,
-  //   insuranceFee: property.insuranceFee,
-  //   utility: property.utility,
-  //   assetPrice: property.assetPrice,
-  //   fee: property.fee,
-  //   initMaintainanceReserve: property.initMaintainanceReserve,
-  //   basic: property.basic,
-  //   gold: property.gold,
-  //   premium: property.premium
-  // });
-
   // console.log('propertyid', props.location.state.id);
   const [form, setForm] = useState({
     address1: null,

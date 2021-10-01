@@ -2,9 +2,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  UPDATE_CARD
 } from '../actionTypes/auth'
 
-let user  = JSON.parse(localStorage.getItem('user'))
+let user = JSON.parse(localStorage.getItem('user'))
 export const initialState = {
   token: '',
   user: user,
@@ -28,6 +29,11 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         logged: false,
+      }
+    case UPDATE_CARD:
+      return {
+        ...state,
+        user: {...user, card:action.payload}
       }
     default:
       return state

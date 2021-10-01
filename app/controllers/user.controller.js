@@ -75,8 +75,7 @@ exports.createUser = (req, res) => {
           console.log(roles);
           user.setRoles(roles).then(() => {
             res.send({ message: 'User registered successfully!' })
-            console.log('user registerd', req.body.email);
-            sendEmail(req.body.email, 'User Registered', `User(${req.body.email} registerd succesfully!)`);
+            sendEmail(req.email, 'User Registered', `User(${req.email} registerd succesfully!)`);
           })
         })
       } else {
@@ -103,12 +102,40 @@ exports.saveUser = (req, res) => {
         message: 'Order not found',
       })
     }
-
+    // console.log('update user', req.body);
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
+    user.username = req.body.username;
+    user.phone = req.body.phone;
+    user.email = req.body.email;
+    user.citizen = req.body.citizen;
+    user.isActive = req.body.isActive ? true : false;
     user.walletAddress = req.body.walletAddress;
+    user.type = req.body.type
+    user.save()
+    user.setRoles([Number(req.body.role)]).then(() => {
+      console.log(`${user.email} updated success`);
+      res.send({ message: 'User updated successfully!' })
+    })
+  })
+}
 
+exports.updateCard = (req, res) => {
+  User.findOne({
+    where: {
+      id: req.body.id,
+    }
+  }).then(user => {
+    if (!user) {
+      res.status(400).send({
+        message: 'Order not found',
+      })
+    }
+
+    user.card = req.body.card;
     user.save()
     res.status(200).send({
-      message: 'User approved successfully',
+      message: 'Card sumbit successfully',
     })
   })
 }

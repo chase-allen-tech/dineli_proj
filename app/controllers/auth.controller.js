@@ -93,7 +93,7 @@ exports.signup = (req, res) => {
           }).then(roles => {
             user.setRoles(roles).then(() => {
               res.send({ message: 'User registered successfully!' })
-              sendEmail(req.body.email, 'User Registered', `User(${req.body.email} registerd succesfully!)`);
+              // sendEmail(req.body.email, 'User Registered', `User(${req.body.email} registerd succesfully!)`);
             })
           })
         } else {
@@ -159,7 +159,7 @@ loginProcess = (req, res, user) => {
       message: 'Not activated yet!'
     })
   }
-  var token = jwt.sign({ id: user.id }, config.secret, {
+  var token = jwt.sign({ id: user.id, email: user.email }, config.secret, {
     expiresIn: 86400 // 24 hours
   })
 
@@ -176,7 +176,8 @@ loginProcess = (req, res, user) => {
       roles: authorities,
       accessToken: token,
       walletAddress: user.walletAddress,
-      type: user.type
+      type: user.type,
+      card: user.card
     })
   })
 }
@@ -232,7 +233,6 @@ exports.resetPassword = (req, res) => {
       res.status(200).send({
         message: 'Your password has been changed successfully!',
       })
-      console.log('reset password', user.email);
       sendEmail(user.email, 'Reset Password', `Your password has been changed. Your new password is <b>${randString}</b>`)
     })
     .catch(err => {
@@ -268,7 +268,6 @@ exports.resetNewPassword = (req, res) => {
       res.status(200).send({
         message: 'Your password has been changed successfully!',
       })
-      console.log('reset password', user.email);
       sendEmail(user.email, 'Reset Password', `Your password has been changed. Your new password is <b>${req.body.password}</b>`)
     })
     .catch(err => {

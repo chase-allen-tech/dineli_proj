@@ -2,6 +2,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  UPDATE_CARD,
 } from '../actionTypes/auth'
 
 import {
@@ -159,5 +160,13 @@ export const actionAuthLogout = () => (dispatch) => {
   localStorage.removeItem('cartProducts');
   dispatch({
     type: LOGOUT,
+  })
+}
+
+export const actionAuthUpdateCard = (card) => dispatch => {
+  console.log('auth card update');
+  dispatch({
+    type:UPDATE_CARD,
+    payload:card
   })
 }
