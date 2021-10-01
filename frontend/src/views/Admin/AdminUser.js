@@ -19,7 +19,7 @@ const AdminUser = props => {
   const history = useHistory();
 
   useEffect(()=>{
-    if(!users)
+    // if(!users)
       dispatch(actionUserList());
   },[]);
 

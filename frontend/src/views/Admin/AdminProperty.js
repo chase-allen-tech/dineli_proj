@@ -13,7 +13,7 @@ const AdminProperty = props => {
   const properties = useSelector(state => state.property.propertyData);
 
   useEffect(()=>{
-    if(!properties)
+    // if(!properties)
       dispatch(actionPropertyList());
   },[])
   const onNewClicked = () => {
