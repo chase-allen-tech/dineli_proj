@@ -16,11 +16,11 @@ const sendEmail = (email, subject, content) => {
     host: 'mail.dineli.com',
     port: 465,
     auth: {
-      user: 'emailtest@dineli.com',
+      user: 'info@dineli.com',
       pass: '/DellD620!',
     }
   })
-  let sender = 'emailtest@dineli.com'
+  let sender = 'info@dineli.com'
   const mainOptions = {
     from: sender,
     to: email,
