@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
-import {Button, Row, Col, Form} from 'react-bootstrap'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { Button, Row, Col, Form } from 'react-bootstrap'
 import Fade from 'react-reveal/Fade'
-import {Layout} from "element-react"
+import { Layout } from "element-react"
 import ImageLabel from '../ImageLabel'
 import BecomeInvestor from './BecomeInvestor'
 import './home.css'
@@ -21,29 +22,29 @@ class Home extends Component {
   renderHome1() {
     return <Fade>
       <div className="img-box img-box-home1">
-        <Row style={{margin: "4% 12% 0% 12%"}}>
-          <Col md="6" style={{marginBottom: 20}}>
+        <Row style={{ margin: "4% 12% 0% 12%" }}>
+          <Col md="6" style={{ marginBottom: 20 }}>
             <Fade bottom delay={200}>
-                <div className="d-white d-font-black d-text-90">
-                  Fractional and <br/>
-                  frictionless real <br/>
-                  estate investing
-                </div>
-                <div style={{height: 30}}/>
-                <div className="d-highlight d-font-black d-text-48">
-                  OWNERSHIP REINVENTED
-                </div>
-                <div style={{height: 5}}/>
-                <div className="d-white d-font-book d-text-24">
-                  For the first time, investors around the globe can buy into the US
-                  real estate market through fully-compliant, fractional,
-                  tokenized ownership. Powered by blockchain.
-                </div>
+              <div className="d-white d-font-black d-text-90">
+                Fractional and <br />
+                frictionless real <br />
+                estate investing
+              </div>
+              <div style={{ height: 30 }} />
+              <div className="d-highlight d-font-black d-text-48">
+                OWNERSHIP REINVENTED
+              </div>
+              <div style={{ height: 5 }} />
+              <div className="d-white d-font-book d-text-24">
+                For the first time, investors around the globe can buy into the US
+                real estate market through fully-compliant, fractional,
+                tokenized ownership. Powered by blockchain.
+              </div>
             </Fade>
           </Col>
-          <Col md="6" style={{paddingLeft: '20%', marginTop: 'auto'}}>
+          <Col md="6" style={{ paddingLeft: '20%', marginTop: 'auto' }}>
             <Fade bottom delay={600}>
-              <div className="d-white d-font-black d-text-36" style={{width: 'fit-content'}}>
+              <div className="d-white d-font-black d-text-36" style={{ width: 'fit-content' }}>
                 EXPECTED ROI
                 <div className="d-content-center d-white d-font-black d-text-18">
                   (rental income)
@@ -57,15 +58,17 @@ class Home extends Component {
           </Col>
         </Row>
 
-        <div style={{margin: "3px 12% 0% 13%", paddingBottom: "8%"}}>
+        <div style={{ margin: "3px 12% 0% 13%", paddingBottom: "8%" }}>
           <div>
-            <Button className="d-font-black d-text-24">GET STARTED</Button>
+            <Link to='/my-account'>
+              <Button className="d-font-black d-text-24" on>GET STARTED</Button>
+            </Link>
           </div>
-          <div style={{height: 48}}/>
+          <div style={{ height: 48 }} />
           <div className="d-white d-font-black d-text-30">
             AS SEEN ON
           </div>
-          <img src="imgs/home/1/1.png" alt="" style={{width: '103%'}}/>
+          <img src="imgs/home/1/1.png" alt="" style={{ width: '103%' }} />
         </div>
       </div>
     </Fade>
@@ -74,7 +77,7 @@ class Home extends Component {
   renderHome2() {
     return <Fade>
       <div className="img-box img-box-home2">
-        <div style={{margin: "8% 12% 2% 12%"}}>
+        <div style={{ margin: "8% 12% 2% 12%" }}>
           <Fade bottom delay={200}>
             <div>
               <div className="d-white d-font-black d-text-56 col-md-8">
@@ -83,7 +86,7 @@ class Home extends Component {
                 in income generating Real Estate
                 in US Market
               </div>
-              <div style={{margin: "2% 1%"}}>
+              <div style={{ margin: "2% 1%" }}>
                 <ImageLabel
                   img="imgs/home/2/check.png"
                   padding={12}
@@ -121,7 +124,7 @@ class Home extends Component {
                   label="Real estate NOW liquid. Resell it anytime"
                 />
               </div>
-              <div style={{display: 'flex', alignItems: 'center'}}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <ImageLabel
                   img="imgs/logo2.png"
                   padding={24}
@@ -132,7 +135,7 @@ class Home extends Component {
               <Row>
                 <Layout.Row gutter={30}>
                   <Layout.Col span="12">
-                    <div className="grid-content bg-purple" style={{textAlign: "right"}}>
+                    <div className="grid-content bg-purple" style={{ textAlign: "right" }}>
                       <Button
                         className="d-font-black d-back-highlight-button d-text-18 home2-btn">
                         GET STARTED
@@ -140,20 +143,22 @@ class Home extends Component {
                     </div>
                   </Layout.Col>
 
-                    <Layout.Col span="12">
-                      <div className="grid-content bg-purple" style={{textAlign: "left"}}>
+                  <Layout.Col span="12">
+                    <div className="grid-content bg-purple" style={{ textAlign: "left" }}>
+                      <Link to='/learn'>
                         <Button className="d-font-black d-none-white-button d-text-18 home2-btn">
-                          <img src="imgs/home/2/movie.png" alt="Movie" style={{paddingRight: 8}}/>
-                            HOW IT WORKS
+                          <img src="imgs/home/2/movie.png" alt="Movie" style={{ paddingRight: 8 }} />
+                          HOW IT WORKS
                         </Button>
-                      </div>
-                    </Layout.Col>
+                      </Link>
+                    </div>
+                  </Layout.Col>
                 </Layout.Row>
               </Row>
-              <div style={{height: 24}}/>
-              <div style={{display: 'flex', alignItems: 'flex-end', marginLeft: 12}}>
-                <img src="imgs/home/2/rocket.png" alt="" style={{paddingRight: 4}}/>
-                <div className="d-white d-font-book d-text-18" style={{textDecoration: 'underline'}}>
+              <div style={{ height: 24 }} />
+              <div style={{ display: 'flex', alignItems: 'flex-end', marginLeft: 12 }}>
+                <img src="imgs/home/2/rocket.png" alt="" style={{ paddingRight: 4 }} />
+                <div className="d-white d-font-book d-text-18" style={{ textDecoration: 'underline' }}>
                   Find out why now is a great time to buy US Real Estate
                 </div>
               </div>
@@ -167,16 +172,16 @@ class Home extends Component {
   renderHome4() {
     return <Fade>
       <div className="img-box img-box-home4">
-        <div style={{margin: "4% 10% 6% 10%"}}>
+        <div style={{ margin: "4% 10% 6% 10%" }}>
           <Fade bottom delay={200}>
             <div className="d-content-center">
               <div className="d-white d-font-black d-text-48">
                 WHAT DO WE DO AT DINELI
               </div>
-              <div style={{height: 24}}/>
+              <div style={{ height: 24 }} />
               <img src="imgs/home/4/1.png" alt="BecomeInvestor"
-                style={{width: '100%', padding: '0% 28%'}}/>
-              <div style={{height: 48}}/>
+                style={{ width: '100%', padding: '0% 28%' }} />
+              <div style={{ height: 48 }} />
               <div className="d-black d-font-book d-text-24">
                 We sell Real Estate properties through fractional ownership using blockchain technology.
                 Each Real Estate Property offered to investors on Dineli is owned by a Limited Liability
@@ -194,7 +199,7 @@ class Home extends Component {
   renderHome5() {
     return <Fade>
       <div className="img-box img-box-home5">
-        <div style={{margin: "8% 16% 8% 16%"}}>
+        <div style={{ margin: "8% 16% 8% 16%" }}>
           <Fade bottom delay={200}>
             <div className="d-content-center d-highlight d-font-black d-text-85">
               Become investor
@@ -202,7 +207,7 @@ class Home extends Component {
             <div className="d-content-center d-white d-font-book d-text-20">
               It’s never been easier to invest in residential real estate
             </div>
-            <div style={{padding: '4%'}}/>
+            <div style={{ padding: '4%' }} />
             <Row>
               <Col className="home5-col">
                 <BecomeInvestor
@@ -248,16 +253,16 @@ class Home extends Component {
       <div className="img-box img-box-home6">
         <div className="home6-margin">
           <Fade bottom delay={200}>
-            <div style={{height: 48}}/>
+            <div style={{ height: 48 }} />
             <div className="d-content-center">
               <div className="d-content-center d-white d-font-black d-text-48">
                 HOW DOES IT WORK?
               </div>
-              <div style={{height: 48}}/>
-              <img src="imgs/home/6/1.png" alt="" style={{width: '100%'}}/>
+              <div style={{ height: 48 }} />
+              <img src="imgs/home/6/1.png" alt="" style={{ width: '100%' }} />
               <div>
                 <Button className="d-font-bold d-highlight-black-button d-text-18 home6-btn"
-                  style={{width: 228, height: 48}}>
+                  style={{ width: 228, height: 48 }}>
                   SIGN up free
                 </Button>
               </div>
@@ -271,7 +276,7 @@ class Home extends Component {
   renderHome7() {
     return <Fade>
       <div className="img-box img-box-home7">
-        <div style={{margin: "5% 12% 5% 12%"}}>
+        <div style={{ margin: "5% 12% 5% 12%" }}>
           <Fade bottom delay={200}>
             <div>
               <div className="d-content-center d-white d-font-bold d-text-60">
@@ -283,20 +288,20 @@ class Home extends Component {
               <div className="d-content-center d-white d-font-bold d-text-18">
                 Fractional, liquid real estate investing.
               </div>
-              <div style={{height: 24}}/>
-              <Form style={{margin: "0 12% 0 12%"}}>
-                <Form.Group as={Row} style={{alignItems: 'center'}}>
-                  <Form.Label column sm={6} style={{marginTop: 24}}>
+              <div style={{ height: 24 }} />
+              <Form style={{ margin: "0 12% 0 12%" }}>
+                <Form.Group as={Row} style={{ alignItems: 'center' }}>
+                  <Form.Label column sm={6} style={{ marginTop: 24 }}>
                     <div className="d-content-center d-white d-font-black d-text-48">
                       Stay in Touch With Us.
                     </div>
                   </Form.Label>
-                  <Col sm={3} style={{marginTop: 24}}>
-                    <Form.Control type="email" placeholder="Email Address" style={{height: 60}}/>
+                  <Col sm={3} style={{ marginTop: 24 }}>
+                    <Form.Control type="email" placeholder="Email Address" style={{ height: 60 }} />
                   </Col>
-                  <Col sm={3} style={{marginTop: 24}}>
+                  <Col sm={3} style={{ marginTop: 24 }}>
                     <Button className="d-font-black d-back-highlight-button d-text-18"
-                      style={{height: 60, width: '100%', minWidth: 160}}>Newsletter SIGN
+                      style={{ height: 60, width: '100%', minWidth: 160 }}>Newsletter SIGN
                       UP
                     </Button>
                   </Col>
@@ -312,7 +317,7 @@ class Home extends Component {
   renderHome8() {
     return <Fade>
       <div className="img-box img-box-home8">
-        <Row style={{margin: "10% 12% 10% 12%"}}>
+        <Row style={{ margin: "10% 12% 10% 12%" }}>
           <Col md="6">
             <Fade bottom delay={200}>
               <div className="d-white d-font-black d-text-60">
@@ -321,14 +326,14 @@ class Home extends Component {
               <div className="d-black d-font-book d-text-24">
                 It's an asset class that offers steady income and low volatility
               </div>
-              <div style={{height: 24}}/>
+              <div style={{ height: 24 }} />
               <div className="d-white d-font-bold d-text-28">
                 Best Performing Asset Class through Time
               </div>
               <div className="d-black d-font-book d-text-24">
                 Real Estate has historically been the number 1 investment for wealth creation
               </div>
-              <div style={{height: 24}}/>
+              <div style={{ height: 24 }} />
               <div className="d-white d-font-bold d-text-28">
                 Passive Income
               </div>
@@ -336,7 +341,7 @@ class Home extends Component {
                 Real Estate generates a recurring income stream from renting out the
                 property
               </div>
-              <div style={{height: 24}}/>
+              <div style={{ height: 24 }} />
               <div className="d-white d-font-bold d-text-28">
                 Stability
               </div>
@@ -344,14 +349,14 @@ class Home extends Component {
                 Real Estate prices tend to be less volatile than stocks and
                 other financial assets over the long run
               </div>
-              <div style={{height: 24}}/>
+              <div style={{ height: 24 }} />
               <div className="d-white d-font-bold d-text-28">
                 Residential
               </div>
               <div className="d-black d-font-book d-text-24">
                 Covid-19 has made housing more relevant than ever before
               </div>
-              <div style={{height: 24}}/>
+              <div style={{ height: 24 }} />
               <Button className="d-font-black d-black-white-button btn-start-now">START NOW</Button>
             </Fade>
           </Col>
@@ -363,7 +368,7 @@ class Home extends Component {
   renderHome9() {
     return <Fade>
       <div className="img-box img-box-home9">
-        <div style={{margin: "10% 20% 10% 20%"}}>
+        <div style={{ margin: "10% 20% 10% 20%" }}>
           <Fade bottom delay={200}>
             <div className="d-content-center d-white d-font-black d-text-72">
               NEED HELP GETTING STARTED?
@@ -371,9 +376,9 @@ class Home extends Component {
             <div className="d-content-center d-white d-font-book d-text-20">
               Talk to one of our team members and start building your portfolio
             </div>
-            <div style={{height: 24}}/>
+            <div style={{ height: 24 }} />
             <div className="d-content-center">
-              <Button className="d-black-highlight-button d-text-24" style={{height: 60}}>SCHEDULE A
+              <Button className="d-black-highlight-button d-text-24" style={{ height: 60 }}>SCHEDULE A
                 CALL</Button>
             </div>
           </Fade>
@@ -387,7 +392,7 @@ class Home extends Component {
       <div>
         {this.renderHome1()}
         {this.renderHome2()}
-        {<Home3/>}
+        {<Home3 />}
         {this.renderHome4()}
         {this.renderHome5()}
         {this.renderHome6()}

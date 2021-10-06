@@ -69,7 +69,7 @@ const Home3 = connect(mapStateToProps, mapDispatchToProps)(class extends Compone
 
   render() {
 
-    console.log(this.state.products);
+    // console.log(this.state.products);
 
     let products = this.state.products;
     let width = this.state.width;
@@ -97,7 +97,7 @@ const Home3 = connect(mapStateToProps, mapDispatchToProps)(class extends Compone
                   (!products || products.length === 0) ? <div><h1>There is no house.</h1></div>
                     : width < this.state.home3CriticalWidth ?
                     products.map(product => (
-                      <Carousel.Item interval={100000}>
+                      <Carousel.Item key={product.id} interval={100000}>
                         <Layout.Row gutter="20">
                           <Layout.Col className='col-12'>
                               <div className="grid-content bg-purple">

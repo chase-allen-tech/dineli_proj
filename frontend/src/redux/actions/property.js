@@ -32,7 +32,7 @@ export const actionPropertyCreate = (propertyData) => (dispatch) => {
         type: 'Warning',
       })
     }
-  )
+    )
 }
 
 export const actionPropertyUpdate = (propertyData) => (dispatch) => {
@@ -56,7 +56,7 @@ export const actionPropertyUpdate = (propertyData) => (dispatch) => {
         type: 'Warning',
       })
     }
-  )
+    )
 }
 
 export const actionPropertyList = (count) => (dispatch) => {
@@ -69,7 +69,7 @@ export const actionPropertyList = (count) => (dispatch) => {
         result[i].yearlyNetRent = (result[i].monthlyGrossRent - result[i].monthlyCosts) * 12
         result[i].totalInvestment = result[i].generatedToken * result[i].tokenValue
         result[i].expectedYield = (result[i].monthlyGrossRent - result[i].monthlyCosts) * 12
-            / (result[i].generatedToken * result[i].tokenValue);
+          / (result[i].generatedToken * result[i].tokenValue) * 100;
 
         result[i].imageData = result[i].imageData.split(',')
       }
@@ -83,7 +83,7 @@ export const actionPropertyList = (count) => (dispatch) => {
         type: ACTION_PROPERTY_LIST_FAIL,
       })
     }
-  )
+    )
 }
 
 export const actionPropertyGet = (ID) => (dispatch) => {
@@ -94,7 +94,7 @@ export const actionPropertyGet = (ID) => (dispatch) => {
       result.monthlyNetRent = result.monthlyGrossRent - result.monthlyCosts;
       result.yearlyNetRent = (result.monthlyGrossRent - result.monthlyCosts) * 12
       result.totalInvestment = result.generatedToken * result.tokenValue
-      result.expectedYield = (result.monthlyGrossRent - result.monthlyCosts) * 12 / parseFloat(result.generatedToken * result.tokenValue)
+      result.expectedYield = (result.monthlyGrossRent - result.monthlyCosts) * 12 / parseFloat(result.generatedToken * result.tokenValue) * 100;
       result.imageData = result.imageData.split(',')
 
       return dispatch({
@@ -107,5 +107,5 @@ export const actionPropertyGet = (ID) => (dispatch) => {
         type: ACTION_PROPERTY_GET_FAIL,
       })
     }
-  )
+    )
 }

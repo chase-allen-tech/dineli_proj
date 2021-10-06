@@ -51,6 +51,54 @@ class TheHeader extends Component {
         <Navbar.Brand href="#home">
           <img className="img-mobile" src="imgs/logo.png" alt="Logo" width="80" />
         </Navbar.Brand>
+        <div className="phoneContent ms-auto">
+
+          {
+            this.state.logged && (
+              <div className="ms-2">
+                <div className="phoneContent align-items-center h-100">
+                  <div className="d-white d-font-bold d-text-nav position-relative hover-bg-dark trans-2 p-2 cursor-pointer" id='navbar-my-account' style={{ zIndex: 1, marginRight:"20px" }}>
+                    <div>MY ACCOUNT</div>
+                    <div className="position-absolute bg-dark d-none border border-1 border-secondary" style={{ minWidth: 220, right: 0, top: 40, height: 'fit-content' }} id="navbar-my-account-children">
+                      {
+                        this.state.role === 'ADMIN' ?
+                          <Nav.Link href="#admin/dashboard">
+                            <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">ADMIN</div>
+                          </Nav.Link>
+                          :
+                          <Nav.Link href="#my-account">
+                            <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">ACCOUNT</div>
+                          </Nav.Link>
+                      }
+
+                      <Nav.Link href="#calculator">
+                        <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">CALCULATOR</div>
+                      </Nav.Link>
+                      <Nav.Link href="#affiliate-dashboard">
+                        <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">AFFILIATE DASHBOARD</div>
+                      </Nav.Link>
+
+
+                      <Nav.Link onClick={this.onClickedLogout}>
+                        <div className="d-highlight d-font-bold d-text-nav hover-bg-dark trans-2 px-1">LOGOUT</div>
+                      </Nav.Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          }
+          {
+            !this.state.logged && (
+              <Nav.Link href="#my-account" className="phoneContent">
+                <div className="d-white d-font-bold d-text-nav hover-bg-dark trans-2 px-1" id='navbar-my-account'
+                  style={{ width: 'fit-content', marginRight:"20px"  }}>
+                  Sign In
+                </div>
+              </Nav.Link>
+            )
+          }
+        </div>
         <Navbar.Toggle className="img-mobile" aria-controls="basic-navbar-nav"
           style={{ backgroundColor: "white" }} />
         <Navbar.Collapse id="basic-navbar-nav">
