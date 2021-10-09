@@ -27,14 +27,14 @@ const sendEmail = (email, subject, content) => {
     subject: subject,
     html: content,
   }
-  console.log('[MailOptions]', mainOptions)
+  // console.log('[MailOptions]', mainOptions)
   transport.sendMail(mainOptions, (err, info) => {
     if(err) {
       console.log('[mail err]', err);
     }
     console.log('[mail info]', info);
   })
-  console.log('[mailsend success]');
+  // console.log('[mailsend success]');
   //   const msg = {
   //     to: email,
   //     from: 'maksovsouse@gmail.com',

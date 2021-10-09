@@ -155,7 +155,9 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 
 	handleSubmit(e) {
 		e.preventDefault()
-
+		////////////	TEST
+		// this.onSaveOrder('paypal');
+		// return;
 		this.refs.form.validate((valid) => {
 			// if (!valid) return;
 			// this.props.actionAuthRegister(this.state.form);
@@ -425,7 +427,9 @@ const Checkout = connect(mapStateToProps, mapDispatchToProps)(class extends Comp
 							</Layout.Col>
 
 							{
-								(this.state.hellosignId || true) &&
+								(this.state.hellosignId) &&
+								////	TEST
+								// (this.state.hellosignId || true) &&
 								<Layout.Col span={24} style={{ zIndex: 100 }}>
 									<div className="grid-content"
 										style={{ border: "2px solid #03ffa4", margin: 20, borderRadius: 10 }}>

@@ -114,7 +114,8 @@ const AdminPropertyNew = props => {
       formClone['tokenValue'] = formClone['generatedToken'] != 0 ? (formClone['assetPrice'] / parseFloat(formClone['generatedToken'])).toFixed(2) : null;
     }
 
-    formClone['monthlyCosts'] = - (-formClone['propertyManagementFee'] - formClone['platformFee'] - formClone['tax'] - formClone['insuranceFee'] - formClone['fee']).toFixed(2);
+    // formClone['monthlyCosts'] = - (-formClone['propertyManagementFee'] - formClone['platformFee'] - formClone['tax'] - formClone['insuranceFee'] - formClone['fee']).toFixed(2);
+    formClone['monthlyCosts'] = - (-formClone['propertyManagementFee'] - formClone['platformFee'] - formClone['tax'] - formClone['insuranceFee']).toFixed(2);   // remove fromClone['fee']
     formClone['monthlyRentPerToken'] = formClone['generatedToken'] != 0 ? (formClone['monthlyCosts'] / formClone['generatedToken']).toFixed(2) : null;
 
 

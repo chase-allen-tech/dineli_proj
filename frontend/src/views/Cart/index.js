@@ -106,6 +106,25 @@ const Cart = props => {
 		// console.log('userOrder', userOrder);
 		// console.log('cartproducts', products);
 		// console.log('quantityValues', quantityValues);
+		let keys = Object.keys(quantityValues);
+		if(keys.length === 0){
+			Notification.error({
+				title: 'Quantity Error',
+				message: `Your cart is empty!`,
+				type: 'Warning',
+			})
+			return;
+		}
+		for(let i=0; i<keys.length; i++){
+			if (quantityValues[keys[i]] < 1) {								
+				Notification.error({
+					title: 'Quantity Error',
+					message: `You should input Quantity more than 1 or remove from cart.`,
+					type: 'Warning',
+				})
+				return;
+			}
+		}
 		let tokenCount = 0;
 		let userType = TYPES[user.type || 0];
 		// console.log('usertype',user.type);
@@ -120,7 +139,7 @@ const Cart = props => {
 					}
 				}
 				// console.log('total',tokenCount + Number(quantityValues[products[i].id]));
-				if(tokenCount + Number(quantityValues[products[i].id]) > products[i][userType]){
+				if (tokenCount + Number(quantityValues[products[i].id]) > products[i][userType]) {
 					Notification.error({
 						title: 'Proceed to checkout failed',
 						message: `You can buy up to ${products[i][userType]} ${products[i].tokenSymbol} Token`,

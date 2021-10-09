@@ -64,7 +64,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
     })
     let tokenValue = Number(product.tokenValue).toLocaleString('en-US', {style: 'currency', currency: 'USD',})
     let generatedToken = Number(product.generatedToken).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-
+    let availableToken = Number(product.available).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     let propertyType = typeOptions.find(t => t.key === product.propertyType)?.label;
     let neighborhood = product.neighborhood
     let squareFeet = Number(product.squareFeet).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
@@ -162,7 +162,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                   <td style={{backgroundColor: 'RGB(201, 202, 210)'}} className={'text-center'}>
                     <img src={'imgs/detail/tokenAvailable.png'} alt='token available' width={30}/>&nbsp;
                     <span className={'d-text-36'}>TOKEN Available:</span><br/>
-                    <span className={'d-text-60 d-white'}>{generatedToken}</span>
+                    <span className={'d-text-60 d-white'}>{availableToken}</span>
                   </td>
                 </tr>
               </tbody>

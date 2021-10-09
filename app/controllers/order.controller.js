@@ -2,6 +2,7 @@ const db = require('../models')
 const sendEmail = require('./auth.controller').sendEmail;
 const Order = db.order
 const User = db.user
+const Token = db.token
 
 exports.getOrders = (req, res) => {
   const count = Number(req.query.count) ? Number(req.query.count) : 20
@@ -47,6 +48,21 @@ exports.createOrder = (req, res) => {
     signatureId: req.body.signatureId
   }).then(result => {
     if (result) {
+
+      let details = JSON.parse(req.body.details);
+      console.log('details',details);
+      details.forEach(element => {
+        Token.findOne({
+          where:{
+            tokenAddress:element.tokenAddress
+          }
+        }).then(token=>{
+          // console.log("token available",token.available, element.tokenQuantity);
+          token.available = token.available-element.tokenQuantity;
+          token.save();
+        })
+      });
+
       res.status(200).send({
         message: 'Site setting created successfully',
       })

@@ -29,7 +29,7 @@ class Product extends Component {
 		let rentPerToken = Number(this.props.productData.monthlyRentPerToken * 12.0).toFixed(2).toLocaleString()
 		let totalTokens = this.props.productData.generatedToken
 		let invest = 79
-		let tokensAvaliable = 1000
+		let tokensAvaliable = this.props.productData.available
 		let soldOut = false
 		let totalPrice = this.props.productData.totalInvestment.toFixed(2).toLocaleString()
 		let expectedROI = Number(this.props.productData.expectedYield).toFixed(2).toLocaleString()

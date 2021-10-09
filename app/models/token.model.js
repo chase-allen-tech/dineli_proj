@@ -12,6 +12,7 @@ module.exports = (sequelize, Sequelize) => {
     purchasePrice: { type: Sequelize.FLOAT },
     salePrice: { type: Sequelize.FLOAT },
     quantity: { type: Sequelize.INTEGER },
+    available: { type: Sequelize.INTEGER}
   })
   return Token
 }

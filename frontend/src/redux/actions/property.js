@@ -67,7 +67,10 @@ export const actionPropertyList = (count) => (dispatch) => {
       for (let i = 0; i < result.length; i++) {
         result[i].monthlyNetRent = result[i].monthlyGrossRent - result[i].monthlyCosts;
         result[i].yearlyNetRent = (result[i].monthlyGrossRent - result[i].monthlyCosts) * 12
-        result[i].totalInvestment = result[i].generatedToken * result[i].tokenValue
+        // result[i].totalInvestment = result[i].generatedToken * result[i].tokenValue        
+        result[i].fee = result[i].generatedToken * result[i].tokenValue * 10 / 100
+        result[i].totalInvestment = result[i].generatedToken * result[i].tokenValue + result[i].initMaintainanceReserve + result[i].fee;
+        // console.log(`${result[i].id} totalInvestment: ${result[i].totalInvestment}`);
         result[i].expectedYield = (result[i].monthlyGrossRent - result[i].monthlyCosts) * 12
           / (result[i].generatedToken * result[i].tokenValue) * 100;
 
@@ -93,7 +96,9 @@ export const actionPropertyGet = (ID) => (dispatch) => {
       result.monthlyGrossRent = result.monthlyGrossRent
       result.monthlyNetRent = result.monthlyGrossRent - result.monthlyCosts;
       result.yearlyNetRent = (result.monthlyGrossRent - result.monthlyCosts) * 12
-      result.totalInvestment = result.generatedToken * result.tokenValue
+      // result.totalInvestment = result.generatedToken * result.tokenValue
+      result.fee = result.generatedToken * result.tokenValue * 10 / 100
+      result.totalInvestment = result.generatedToken * result.tokenValue + result.initMaintainanceReserve + result.fee;
       result.expectedYield = (result.monthlyGrossRent - result.monthlyCosts) * 12 / parseFloat(result.generatedToken * result.tokenValue) * 100;
       result.imageData = result.imageData.split(',')
 
