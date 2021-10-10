@@ -1,4 +1,4 @@
-const {authJwt} = require('../middleware')
+const { authJwt } = require('../middleware')
 const controller = require('../controllers/property.controller')
 const path = require('path')
 const fs = require('fs')
@@ -18,18 +18,37 @@ module.exports = function (app) {
     var rootPath = __dirname.slice(0, -11)
     var file = JSON.parse(JSON.stringify(req.files))
     // console.log('[file]', file);
-    const time = new Date().valueOf()
-    var file_name = rootPath + '/public/' + (time + '_' + file.img.name)
-    //if you want just the buffer format you can use it
-    var buffer = new Buffer.from(file.img.data.data)
+    var imgPaths = [];
+    if(!Array.isArray(file.img))
+      file.img = [file.img];
+    for (let i = 0; i < file.img.length; i++) {
+      let img = file.img[i];
+      const time = new Date().valueOf()
+      var file_name = rootPath + '/public/' + (time + '_' + img.name)
+      //if you want just the buffer format you can use it
+      var buffer = new Buffer.from(img.data)
 
-    /*await*/
-    fs.writeFile(file_name, buffer, async (err) => {
-      console.log('Successfully Written to File.')
-      fs.unlink(rootPath + '/public/images' + file_name, () => {
+      /*await*/
+      // fs.writeFile(file_name, buffer), async (err) => {
+      //   console.log('Successfully Written to File.')
+      //   fs.unlink(rootPath + '/public/images' + file_name, () => {
+      //   })
+      //   console.log(time + '_' + img.name)
+      //   imgPaths.push(time + '_' + img.name);
+      // })
+      fs.writeFile(file_name, buffer, (err) => {
+        if (err) throw err;
+        // console.log('Successfully Written to File.')
+        fs.unlink(rootPath + '/public/images' + file_name, () => {
+        })
+        // console.log(time + '_' + img.name)
+        imgPaths.push(time + '_' + img.name);
+        if (i === file.img.length - 1) {
+          console.log(imgPaths);
+          res.send({ imgPaths })
+        }
       })
-      res.send({imgPath: time + '_' + file.img.name})
-    })
+    }
   })
 
   app.post('/api/admin/property', [authJwt.verifyToken, authJwt.isAdmin], controller.createProperty)

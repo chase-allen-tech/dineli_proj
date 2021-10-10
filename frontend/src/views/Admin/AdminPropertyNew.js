@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Form, Input, Layout, Select } from "element-react"
 import Fade from "react-reveal/Fade"
 import { useDispatch } from 'react-redux';
+import { Carousel } from 'react-bootstrap';
 import { actionPropertyCreate } from "../../redux/actions/property";
 import { callPost } from "../../services/axios";
 
@@ -99,7 +100,7 @@ const AdminPropertyNew = props => {
   const history = useHistory();
 
   const formRef = useRef();
-  const [imgFile, setImgFile] = useState(null);
+  const [imgFile, setImgFile] = useState([]);
 
   const onFormChange = (key, value) => {
     let formClone = Object.assign({}, form);
@@ -107,10 +108,10 @@ const AdminPropertyNew = props => {
 
     const monthlyGrossRent = key == 'monthlyGrossRent' ? value : formClone['monthlyGrossRent'];
 
-    if(key == 'monthlyGrossRent') {
+    if (key == 'monthlyGrossRent') {
       formClone['propertyManagementFee'] = (monthlyGrossRent * PROPERTY_MANAGEMENT_FEE).toFixed(2);
       formClone['platformFee'] = (monthlyGrossRent * PROPERTYplatformFee_FEE).toFixed(2);
-    } else if(key == 'generatedToken' || key == 'assetPrice') {
+    } else if (key == 'generatedToken' || key == 'assetPrice') {
       formClone['tokenValue'] = formClone['generatedToken'] != 0 ? (formClone['assetPrice'] / parseFloat(formClone['generatedToken'])).toFixed(2) : null;
     }
 
@@ -123,28 +124,32 @@ const AdminPropertyNew = props => {
   }
 
   const onFileChange = e => {
-    setImgFile(e.target.files[0]);
+    setImgFile([...imgFile, e.target.files[0]]);
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
     formRef.current.validate(valid => {
-      // if (!valid || !imgFile) return false;
+      if (!valid || !imgFile) return false;
 
       const token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null
-      const formData = new FormData();
-      formData.append("img", imgFile, imgFile.name);
-
-      callPost('/api/admin/image/upload', formData, token)
-        .then(res => {
-          console.log('[Image Uploaded]', res);
-          let payload = Object.assign({}, form);
-          payload.imageData = [res.data.imgPath];
-          dispatch(actionPropertyCreate(payload));
-          history.push('/admin/properties');
-        }).catch(err => {
-          console.log('[Image Upload Fail]', err);
-        })
+      if (imgFile.length) {
+        // imgFile.forEach(img => {
+        const formData = new FormData();
+        imgFile.forEach(img => formData.append("img", img, img.name));
+        callPost('/api/admin/image/upload', formData, token)
+          .then(res => {
+            console.log('[Image Uploaded]', res);
+            let payload = Object.assign({}, form);
+            payload.imageData = [];
+            payload.imageData = res.data.imgPaths;
+            dispatch(actionPropertyCreate(payload));
+            history.push('/admin/properties');
+          }).catch(err => {
+            console.log('[Image Upload Fail]', err);
+          })
+        // })
+      }
     });
   }
 
@@ -170,9 +175,20 @@ const AdminPropertyNew = props => {
               <div className="row">
 
                 <div className="col-md-3 mt-4">
-                  <div className="bg-white d-flex rounded justify-content-center align-items-center position-relative overflow-hidden d-inline-block w-100" style={{height: 150 }}>
+                  <div className="bg-white d-flex rounded justify-content-center align-items-center position-relative overflow-hidden d-inline-block w-100" style={{ height: 150 }}>
                     {
-                      imgFile ? <img src={URL.createObjectURL(imgFile)} className="w-100 h-100 img-thumbnail" /> : <div className="text-muted bg-white" style={{ fontSize: 50 }}>+</div>
+                      imgFile.length ?
+                        <Carousel indicators={true} >
+                          
+                          {imgFile.map(img =>
+                            <Carousel.Item interval={5000} key={img}>
+                              <img src={URL.createObjectURL(img)} alt="img" width="100%" height="100%" />
+                            </Carousel.Item>
+                          )
+                          }
+                        </Carousel>
+                        :
+                        <div className="text-muted bg-white" style={{ fontSize: 50 }}>+</div>
                     }
                     <input type="file" onChange={onFileChange} className="position-absolute top-0 left-0 opacity-0 w-100 h-100 cursor-pointer" />
                   </div>
@@ -337,12 +353,12 @@ const AdminPropertyNew = props => {
                 </div>
                 <div className="col-md-4 mt-4">
                   <Form.Item label="gold" prop="gold">
-                    <Input type="number" value={form.gold} onChange={val => onFormChange('gold', val)}/>
+                    <Input type="number" value={form.gold} onChange={val => onFormChange('gold', val)} />
                   </Form.Item>
                 </div>
                 <div className="col-md-4 mt-4">
                   <Form.Item label="premium" prop="premium">
-                    <Input type="number" value={form.premium} onChange={val => onFormChange('premium', val)}  />
+                    <Input type="number" value={form.premium} onChange={val => onFormChange('premium', val)} />
                   </Form.Item>
                 </div>
               </div>

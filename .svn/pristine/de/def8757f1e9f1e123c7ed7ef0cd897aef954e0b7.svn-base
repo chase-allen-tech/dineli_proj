@@ -1,0 +1,116 @@
+import {
+  ACTION_PROPERTY_ADD,
+  ACTION_PROPERTY_UPDATE,
+  ACTION_PROPERTY_LIST,
+  ACTION_PROPERTY_LIST_FAIL,
+  ACTION_PROPERTY_GET,
+  ACTION_PROPERTY_GET_FAIL,
+} from '../actionTypes/property'
+
+import { callGet, callPost, } from '../../services/axios'
+import { Notification } from 'element-react'
+
+const token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null
+
+export const actionPropertyCreate = (propertyData) => (dispatch) => {
+  callPost('/api/admin/property', propertyData, token)
+    .then((response) => {
+      Notification.success({
+        title: 'Success',
+        message: 'House Properties Submit Success!',
+        type: 'success',
+      })
+      dispatch({
+        type: ACTION_PROPERTY_ADD,
+        payload: propertyData,
+      })
+    }).catch(err => {
+      console.log(err);
+      Notification.error({
+        title: 'Failed',
+        message: 'Please try again.',
+        type: 'Warning',
+      })
+    }
+    )
+}
+
+export const actionPropertyUpdate = (propertyData) => (dispatch) => {
+  // console.log('token', token);
+  callPost('/api/admin/property/update', propertyData, token)
+    .then((response) => {
+      Notification.success({
+        title: 'Success',
+        message: 'House Properties Update Success!',
+        type: 'success',
+      })
+      dispatch({
+        type: ACTION_PROPERTY_UPDATE,
+        payload: propertyData,
+      })
+    }).catch(err => {
+      console.log(err);
+      Notification.error({
+        title: 'Failed',
+        message: 'Please try again.',
+        type: 'Warning',
+      })
+    }
+    )
+}
+
+export const actionPropertyList = (count) => (dispatch) => {
+  return callGet(`/api/property?count=${count}`)
+    .then(function (response) {
+      let result = response.data
+      // console.log("result",result);
+      for (let i = 0; i < result.length; i++) {
+        result[i].monthlyNetRent = result[i].monthlyGrossRent - result[i].monthlyCosts;
+        result[i].yearlyNetRent = (result[i].monthlyGrossRent - result[i].monthlyCosts) * 12
+        // result[i].totalInvestment = result[i].generatedToken * result[i].tokenValue        
+        result[i].fee = result[i].generatedToken * result[i].tokenValue * 10 / 100
+        result[i].totalInvestment = result[i].generatedToken * result[i].tokenValue + result[i].initMaintainanceReserve + result[i].fee;
+        // console.log(`${result[i].id} totalInvestment: ${result[i].totalInvestment}`);
+        result[i].expectedYield = (result[i].monthlyGrossRent - result[i].monthlyCosts) * 12
+          / (result[i].generatedToken * result[i].tokenValue) * 100;
+
+        result[i].imageData = result[i].imageData.split(',')
+      }
+      dispatch({
+        type: ACTION_PROPERTY_LIST,
+        payload: result,
+      })
+    })
+    .catch((error) => {
+      dispatch({
+        type: ACTION_PROPERTY_LIST_FAIL,
+      })
+    }
+    )
+}
+
+export const actionPropertyGet = (ID) => (dispatch) => {
+  return callGet(`/api/property/id?ID=${ID}`)
+    .then(function (response) {
+      let result = response.data
+      result.monthlyGrossRent = result.monthlyGrossRent
+      result.monthlyNetRent = result.monthlyGrossRent - result.monthlyCosts;
+      result.yearlyNetRent = (result.monthlyGrossRent - result.monthlyCosts) * 12
+      // result.totalInvestment = result.generatedToken * result.tokenValue
+      result.fee = result.generatedToken * result.tokenValue * 10 / 100
+      result.totalInvestment = result.generatedToken * result.tokenValue + result.initMaintainanceReserve + result.fee;
+      result.expectedYield = (result.monthlyGrossRent - result.monthlyCosts) * 12 / parseFloat(result.generatedToken * result.tokenValue) * 100;
+      result.imageData = result.imageData.split(',')
+
+      return dispatch({
+        type: ACTION_PROPERTY_GET,
+        payload: result,
+      })
+    })
+    .catch((error) => {
+      return dispatch({
+        type: ACTION_PROPERTY_GET_FAIL,
+      })
+    }
+    )
+}

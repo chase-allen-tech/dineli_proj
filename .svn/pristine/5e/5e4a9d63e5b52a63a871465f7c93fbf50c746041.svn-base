@@ -1,0 +1,9 @@
+DB_HOST=localhost
+DB_USER=postgres
+DB_PASSWORD=root
+DB_NAME=dineli_db
+DB_DIALECT=postgres
+AUTH_SECRET=dineli-secret-key
+
+HELLOSIGN_API_KEY=0637ada5f85d981d1cd7bf647a9186706fce679de7e2e3b89ff66cd095d8adcb
+HELLOSIGN_CLIENT_ID=5af14302042046e4c7db271fd337d2a2

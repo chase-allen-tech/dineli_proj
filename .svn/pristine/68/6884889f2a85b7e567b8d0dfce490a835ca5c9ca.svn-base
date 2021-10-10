@@ -1,0 +1,26 @@
+#affiliate-menu div {
+    display: inline-block !important;
+    background: white;
+    border-radius: 3px;
+    margin-right: 5%;
+    margin-top: 15px;
+    padding: 5px;
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+
+}
+
+#affiliate-menu {
+    /*text-align: center;*/
+}
+
+#affiliate-menu .active {
+    background: #03ffa4;
+}
+
+#affiliate-dashboard-referrals table, #affiliate-dashboard-payout table, #affiliate-dashboard-visits table {
+    margin-bottom: 0;
+}
+
+.affiliate-statistics-table1 {
+    margin-bottom: 0;
+}

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react"
 import { useHistory } from 'react-router-dom';
 import { Button, Form, Input, Layout, Select } from "element-react"
+import { Carousel } from 'react-bootstrap';
 import Fade from "react-reveal/Fade"
 import { useDispatch, useSelector } from 'react-redux';
 import { actionPropertyUpdate } from "../../redux/actions/property";
@@ -138,7 +139,7 @@ const AdminPropertyUpdate = props => {
   const history = useHistory();
 
   const formRef = useRef();
-  const [imgFile, setImgFile] = useState(null);
+  const [imgFile, setImgFile] = useState([]);
 
   const onFormChange = (key, value) => {
     let formClone = Object.assign({}, form);
@@ -162,7 +163,7 @@ const AdminPropertyUpdate = props => {
   }
 
   const onFileChange = e => {
-    setImgFile(e.target.files[0]);
+    setImgFile([...imgFile, e.target.files[0]]);
   }
 
   const onSubmit = (e) => {
@@ -171,29 +172,33 @@ const AdminPropertyUpdate = props => {
       // if (!valid || !imgFile) return false;
 
       const token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null
-      if (imgFile) {
-        const formData = new FormData();
-        formData.append("img", imgFile, imgFile.name);
 
+      if (imgFile.length) {
+        // imgFile.forEach(img => {
+        const formData = new FormData();
+        imgFile.forEach(img => formData.append("img", img, img.name));
         callPost('/api/admin/image/upload', formData, token)
           .then(res => {
             console.log('[Image Uploaded]', res);
             let payload = Object.assign({}, form);
-            payload.imageData = [res.data.imgPath];
+            payload.imageData = [];
+            payload.imageData = res.data.imgPaths;
             payload.id = property.id;
             dispatch(actionPropertyUpdate(payload));
             history.push('/admin/properties');
           }).catch(err => {
             console.log('[Image Upload Fail]', err);
           })
-
+        // })
       } else {
         let payload = Object.assign({}, form);
         delete payload.imageData;
         payload.id = property.id;
         dispatch(actionPropertyUpdate(payload));
         history.push('/admin/properties');
+        return;
       }
+
     });
   }
 
@@ -221,7 +226,19 @@ const AdminPropertyUpdate = props => {
                 <div className="col-md-3 mt-4">
                   <div className="bg-white d-flex rounded justify-content-center align-items-center position-relative overflow-hidden d-inline-block w-100" style={{ height: 150 }}>
                     {
-                      imgFile ? <img src={URL.createObjectURL(imgFile)} className="w-100 h-100 img-thumbnail" alt="img" /> : <img src={`${process.env.REACT_APP_API_ENDPOINT}/public/${property.imageData}`} className="w-100 h-100 img-thumbnail" alt="img" />
+                      <Carousel indicators={true} >
+                        {property.imageData?.map((img) => (
+                          <Carousel.Item interval={5000} key={img}>
+                            <img src={`${process.env.REACT_APP_API_ENDPOINT}/public/${img}`} alt="img" width="100%" height="100%" />
+                          </Carousel.Item>
+                        ))}
+                        {imgFile.map(img =>
+                          <Carousel.Item interval={5000} key={img}>
+                            <img src={URL.createObjectURL(img)} alt="img" width="100%" height="100%" />
+                          </Carousel.Item>
+                        )
+                        }
+                      </Carousel>
                     }
                     <input type="file" onChange={onFileChange} className="position-absolute top-0 left-0 opacity-0 w-100 h-100 cursor-pointer" />
                   </div>

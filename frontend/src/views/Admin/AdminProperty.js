@@ -2,20 +2,20 @@ import React, { useEffect } from "react"
 import { Button, Layout } from "element-react"
 import { useHistory } from "react-router-dom";
 import Fade from "react-reveal/Fade"
-import { Table as TableBs } from 'react-bootstrap';
+import { Table as TableBs, Carousel } from 'react-bootstrap';
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import { actionPropertyList, actionPropertyGet} from "../../redux/actions/property";
+import { actionPropertyList, actionPropertyGet } from "../../redux/actions/property";
 
 const AdminProperty = props => {
   let history = useHistory();
   const dispatch = useDispatch();
   const properties = useSelector(state => state.property.propertyData);
 
-  useEffect(()=>{
+  useEffect(() => {
     // if(!properties)
-      dispatch(actionPropertyList());
-  },[])
+    dispatch(actionPropertyList());
+  }, [])
   const onNewClicked = () => {
 
   }
@@ -74,14 +74,16 @@ const AdminProperty = props => {
                 <tbody>
                   {
                     properties.map((item, key) =>
-                      <tr key={key} onClick={(e)=>onPropertyClicked(e,item.id)}>
+                      <tr key={key} onClick={(e) => onPropertyClicked(e, item.id)}>
                         <td>{key + 1}</td>
                         <td>
-                          {
-                            item.imageData.length ?
-                            <img src={`${process.env.REACT_APP_API_ENDPOINT}/public/${item.imageData[0]}`} alt="img" width="100" />
-                            : ''
-                          }
+                          <Carousel indicators={true} >
+                            {item.imageData?.map((img) => (
+                              <Carousel.Item interval={2000} key={img}>
+                                <img src={`${process.env.REACT_APP_API_ENDPOINT}/public/${img}`} alt="img" width="100" height="100%" />
+                              </Carousel.Item>
+                            ))}
+                          </Carousel>
                         </td>
                         <td>{item.address1}</td>
                         <td>{item.address2}</td>

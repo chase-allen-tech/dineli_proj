@@ -106,7 +106,7 @@ exports.updateProperty = (req, res) => {
     property.pos_latitude = req.body.pos_latitude;
     property.pos_longitude = req.body.pos_longitude;
     if (req.body.imageData) {
-      property.imageData = req.body.imageData
+      property.imageData = property.imageData + ',' + req.body.imageData
     }
     property.rentStartsDate = req.body.rentStartsDate;
     property.monthlyRentPerToken = req.body.monthlyRentPerToken;
@@ -139,7 +139,7 @@ exports.updateProperty = (req, res) => {
     res.status(200).send({
       message: 'House Property update Success'
     })
-    sendEmail(req.email, 'Property updated', `Propery updated success`);
+    // sendEmail(req.email, 'Property updated', `Propery updated success`);
   }).catch(err => {
     console.log(err);
     res.status(500).send({ message: 'Server error' })

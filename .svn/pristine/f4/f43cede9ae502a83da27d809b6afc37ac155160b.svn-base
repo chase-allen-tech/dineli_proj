@@ -1,0 +1,4 @@
+REACT_APP_API_ENDPOINT2=http://localhost:8000
+REACT_APP_API_ENDPOINT1=http://192.64.86.245
+REACT_APP_API_ENDPOINT=https://dineli.com
+REACT_APP_COINBASE_API_ENDPOINT=https://api.commerce.coinbase.com

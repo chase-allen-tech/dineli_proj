@@ -21,12 +21,14 @@ const docs = [
 
 const mapStateToProps = state => {
   const { currentHouse } = state.property
+  const { user } = state.auth
   return {
-    currentHouse
+    currentHouse,
+    user
   }
 }
 
-const mapDispatchToProps = {actionPropertyGet}
+const mapDispatchToProps = { actionPropertyGet }
 
 const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Component {
   constructor(props) {
@@ -42,10 +44,10 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
 
     this.props.actionPropertyGet(productID).then(() => {
       console.log('[curr]', this.props.currentHouse);
-      this.setState({product: this.props.currentHouse})
+      this.setState({ product: this.props.currentHouse })
     })
 
-  
+
   }
 
   render() {
@@ -62,7 +64,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
       style: 'currency',
       currency: 'USD',
     })
-    let tokenValue = Number(product.tokenValue).toLocaleString('en-US', {style: 'currency', currency: 'USD',})
+    let tokenValue = Number(product.tokenValue).toLocaleString('en-US', { style: 'currency', currency: 'USD', })
     let generatedToken = Number(product.generatedToken).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     let availableToken = Number(product.available).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     let propertyType = typeOptions.find(t => t.key === product.propertyType)?.label;
@@ -74,28 +76,43 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
     let currentStatusOfProperty = currentStatusOptions.find(t => t.key === product.currentStatusOfProperty)?.label;
     let section8 = section8Options.find(item => item.key === product.section8)?.label;
 
+    let purchaseLimit;
+    switch (this.props.user.type) {
+      case 1:
+        purchaseLimit = product.basic;
+        break;
+      case 2:
+        purchaseLimit = product.basic;
+        break;
+      case 3:
+        purchaseLimit = product.basic;
+        break;
+      default:
+        purchaseLimit = product.available;
+    }
+
     let yearlyGrossRent = Number(product.monthlyGrossRent * 12).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
     })
-    let monthlyCosts = Number(product.monthlyCosts).toLocaleString('en-US', {style: 'currency', currency: 'USD',})
+    let monthlyCosts = Number(product.monthlyCosts).toLocaleString('en-US', { style: 'currency', currency: 'USD', })
     let propertyManagementFee = Number(product.propertyManagementFee).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
     })
-    let platformFee = Number(product.platformFee).toLocaleString('en-US', {style: 'currency', currency: 'USD',})
+    let platformFee = Number(product.platformFee).toLocaleString('en-US', { style: 'currency', currency: 'USD', })
     let tax = Number(product.tax).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
     })
-    let insuranceFee = Number(product.insuranceFee).toLocaleString('en-US', {style: 'currency', currency: 'USD',})
+    let insuranceFee = Number(product.insuranceFee).toLocaleString('en-US', { style: 'currency', currency: 'USD', })
     let utility = utilityOptions.find(item => item.key === product.utility)?.label;
 
     let assetPrice = Number(product.assetPrice).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
     })
-    let fee = Number(product.fee).toLocaleString('en-US', {style: 'currency', currency: 'USD',})
+    let fee = Number(product.fee).toLocaleString('en-US', { style: 'currency', currency: 'USD', })
     let initMaintainanceReserve = Number(product.initMaintainanceReserve).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -109,7 +126,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
       style: 'currency',
       currency: 'USD',
     })
-    let yearlyNetRent = Number(product.yearlyNetRent).toLocaleString('en-US', {style: 'currency', currency: 'USD',})
+    let yearlyNetRent = Number(product.yearlyNetRent).toLocaleString('en-US', { style: 'currency', currency: 'USD', })
     let totalInvestment = Number(product.totalInvestment).toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -117,14 +134,14 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
     let expectedYield = Number(product.expectedYield).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     // console.log('product detail', product);
     return <>
-      <div style={{margin: '2% 9% 2% 9%'}}>
-        <div style={{marginBottom: 100}}>
-          <div style={{marginBottom: '20px'}} className={'d-font-bold d-text-48'}>
-            &nbsp;&nbsp;&nbsp;<img src={'imgs/footer/address.png'} alt='address'/>&nbsp;&nbsp;
+      <div style={{ margin: '2% 9% 2% 9%' }}>
+        <div style={{ marginBottom: 100 }}>
+          <div style={{ marginBottom: '20px' }} className={'d-font-bold d-text-48'}>
+            &nbsp;&nbsp;&nbsp;<img src={'imgs/footer/address.png'} alt='address' />&nbsp;&nbsp;
             <span className={'d-white'}>{address1}, </span>
             <span className={'d-highlight'}>{address2}</span>
-            &nbsp;&nbsp;<span className={'d-white'} style={{float: 'right'}}>EtherScanID</span>
-            <img width={25} src={'imgs/detail/EtherscanID.png'} alt='Etherscan' style={{float: 'right'}}/>
+            &nbsp;&nbsp;<span className={'d-white'} style={{ float: 'right' }}>EtherScanID</span>
+            <img width={25} src={'imgs/detail/EtherscanID.png'} alt='Etherscan' style={{ float: 'right' }} />
           </div>
           <MyCarousel
             hasThumbnails={true}
@@ -137,31 +154,31 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
             <TableBs borderless>
               <tbody className={'d-font-bold'}>
                 <tr>
-                  <td style={{width: '50%', backgroundColor: 'RGB(3, 255, 164)'}}
+                  <td style={{ width: '50%', backgroundColor: 'RGB(3, 255, 164)' }}
                     className={'text-center'}>
                     <span className={'d-text-36'}>
-                      <img src={'imgs/detail/totalInvestment.png'} alt='total investment' width={20}/>&nbsp;
+                      <img src={'imgs/detail/totalInvestment.png'} alt='total investment' width={20} />&nbsp;
                       Total Investment:
-                    </span><br/>
+                    </span><br />
                     <span className={'d-text-60'}>{totalInvestment}</span>
                   </td>
-                  <td style={{backgroundColor: 'RGB(255, 255, 255'}} className={'text-center'}>
-                    <img src={'imgs/detail/tokenPrice1.png'} alt='token price' width={20}/>&nbsp;&nbsp;
+                  <td style={{ backgroundColor: 'RGB(255, 255, 255' }} className={'text-center'}>
+                    <img src={'imgs/detail/tokenPrice1.png'} alt='token price' width={20} />&nbsp;&nbsp;
                     <span className={'d-text-36'}>
                       TOKEN PRICE:
-                    </span><br/>
+                    </span><br />
                     <span className={'d-text-60 d-highlight'}>{tokenValue}</span>
                   </td>
                 </tr>
                 <tr>
-                  <td style={{backgroundColor: 'RGB(50, 58, 69)'}} className={'text-center'}>
-                    <img src={'imgs/detail/totalToken.png'} alt='total token' width={30}/>&nbsp;&nbsp;
-                    <span className={'d-text-36 d-white'}>Total TOKEN:</span><br/>
+                  <td style={{ backgroundColor: 'RGB(50, 58, 69)' }} className={'text-center'}>
+                    <img src={'imgs/detail/totalToken.png'} alt='total token' width={30} />&nbsp;&nbsp;
+                    <span className={'d-text-36 d-white'}>Total TOKEN:</span><br />
                     <span className={'d-text-60 d-highlight'}>{generatedToken}</span>
                   </td>
-                  <td style={{backgroundColor: 'RGB(201, 202, 210)'}} className={'text-center'}>
-                    <img src={'imgs/detail/tokenAvailable.png'} alt='token available' width={30}/>&nbsp;
-                    <span className={'d-text-36'}>TOKEN Available:</span><br/>
+                  <td style={{ backgroundColor: 'RGB(201, 202, 210)' }} className={'text-center'}>
+                    <img src={'imgs/detail/tokenAvailable.png'} alt='token available' width={30} />&nbsp;
+                    <span className={'d-text-36'}>TOKEN Available:</span><br />
                     <span className={'d-text-60 d-white'}>{availableToken}</span>
                   </td>
                 </tr>
@@ -171,13 +188,13 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
         </div>
 
         <div className={'text-center'}>
-          <div style={{marginTop: 30, width: '60%'}}>
+          <div style={{ marginTop: 30, width: '60%' }}>
           </div>
         </div>
 
         <Layout.Row gutter='20'>
           <Layout.Col md='5'>
-              <div className='grid-content bg-purple'>.</div>
+            <div className='grid-content bg-purple'>.</div>
           </Layout.Col>
           <Layout.Col md='14'>
             <div className='grid-content bg-purple'>
@@ -188,14 +205,14 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                       <td className={'text-center gradient-bg'}>
                         <Link to={'/cart/' + product.id}>
                           <button className='d-text-60 d-black gradient-bg'
-                            style={{width: '100%', border: 'none'}}>PURCHASE TOKEN
+                            style={{ width: '100%', border: 'none' }}>PURCHASE TOKEN
                           </button>
                         </Link>
                       </td>
                     </tr>
                     <tr>
-                      <td style={{backgroundColor: '#ffffff'}} className={'text-center'}>
-                        <span className={'d-text-60 d-black'}>Purchase limit</span>
+                      <td style={{ backgroundColor: '#ffffff' }} className={'text-center'}>
+                        <span className={'d-text-60 d-black'}>{`Purchase limit ${purchaseLimit}`}</span>
                       </td>
                     </tr>
                   </tbody>
@@ -211,13 +228,13 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
           <Layout.Col md='12'>
             <div className='grid-content bg-purple'
               style={{
-                  padding: '0 5% 0 5%',
-                  borderRadius: 10,
-                  border: '1px solid #03ffa4',
-                  marginBottom: 100
+                padding: '0 5% 0 5%',
+                borderRadius: 10,
+                border: '1px solid #03ffa4',
+                marginBottom: 100
               }}>
               <TableBs borderless>
-                <tbody style={{padding: '0px 2% 0 2%'}}>
+                <tbody style={{ padding: '0px 2% 0 2%' }}>
                   <DetailTableRow texts={['Property Highlights']}
                     textSize={48}
                     colors={['#ffffff']}
@@ -389,7 +406,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                 marginBottom: 100
               }}>
               <TableBs borderless>
-                <tbody style={{padding: '0px 2% 0px 2%'}}>
+                <tbody style={{ padding: '0px 2% 0px 2%' }}>
                   <DetailTableRow texts={['Financials']}
                     textSize={48}
                     colors={['#03ffa4']}
@@ -421,10 +438,10 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                         text: 'Property Management (7.00%)',
                         price: `${propertyManagementFee}`
                       },
-                      {text: 'RealT Platform (2.00%)', price: `${platformFee}`},
-                      {text: 'Property Taxes', price: `${tax}`},
-                      {text: 'Insurance', price: `${insuranceFee}`},
-                      {text: 'Utilities', price: `${utility}`},
+                      { text: 'RealT Platform (2.00%)', price: `${platformFee}` },
+                      { text: 'Property Taxes', price: `${tax}` },
+                      { text: 'Insurance', price: `${insuranceFee}` },
+                      { text: 'Utilities', price: `${utility}` },
                     ]}
                   />
 
@@ -464,8 +481,8 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                     underLineWidth={'1px'}
                     textSize={36}
                     collapseData={[
-                      {text: 'Underlying Asset Price', price: `${assetPrice}`},
-                      {text: 'RealT Listing Fee (10%)', price: `${fee}`},
+                      { text: 'Underlying Asset Price', price: `${assetPrice}` },
+                      { text: 'RealT Listing Fee (10%)', price: `${fee}` },
                       {
                         text: 'Initial Maintenance Reserve',
                         price: `${initMaintainanceReserve}`
@@ -501,7 +518,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                 marginBottom: 100
               }}>
               <TableBs borderless>
-                <tbody style={{padding: '0px 2% 0px 2%'}}>
+                <tbody style={{ padding: '0px 2% 0px 2%' }}>
                   <DetailTableRow texts={['Property Reserve Accumulation']}
                     textSize={48}
                     colors={['#ffffff']}
@@ -520,12 +537,12 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
           </Layout.Col>
         </Layout.Row>
         <Zoom delay={300}>
-          <div style={{marginTop: '40px', width: '100%', height: '600px'}}>
+          <div style={{ marginTop: '40px', width: '100%', height: '600px' }}>
             <SimpleMap lat={pos_latitude} long={pos_longitude}>Google Map</SimpleMap>
           </div>
         </Zoom>
 
-        <Accordion style={{paddingTop: '6%'}}>
+        <Accordion style={{ paddingTop: '6%' }}>
           {
             docs.map((item, i) => {
               return (
@@ -539,12 +556,12 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
                     as={Card.Header}
                     eventKey={item.eventKey}
                     className='d-content-highlight d-black d-font-bold d-text-24'
-                    style={{padding: '12px 36px'}}
+                    style={{ padding: '12px 36px' }}
                   >
                     {item.label}
                   </Accordion.Toggle>
                   <Accordion.Collapse eventKey={item.eventKey}>
-                    <Card.Body className='d-white d-font-book d-text-18' style={{padding: 24}}>
+                    <Card.Body className='d-white d-font-book d-text-18' style={{ padding: 24 }}>
                       {item.content}
                     </Card.Body>
                   </Accordion.Collapse>

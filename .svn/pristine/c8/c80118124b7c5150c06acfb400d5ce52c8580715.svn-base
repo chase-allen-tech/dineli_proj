@@ -1,0 +1,6 @@
+DB_HOST=localhost
+DB_USER=dineli_admin
+DB_PASSWORD=dineli_dineli
+DB_NAME=dineli_db
+DB_DIALECT=postgres
+AUTH_SECRET=dineli-secret-key
