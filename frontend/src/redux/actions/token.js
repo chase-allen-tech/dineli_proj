@@ -9,9 +9,10 @@ import {
 import { callGet, callPost, } from '../../services/axios'
 import { Notification } from 'element-react'
 
-const token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null
+var token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null
 
 export const actionTokenCreate = (tokenData) => (dispatch) => {
+  token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null
   callPost('/api/admin/token', tokenData, token)
     .then((response) => {
       Notification.success({

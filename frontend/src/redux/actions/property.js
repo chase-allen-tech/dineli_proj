@@ -10,9 +10,10 @@ import {
 import { callGet, callPost, } from '../../services/axios'
 import { Notification } from 'element-react'
 
-const token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null
+var token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null
 
 export const actionPropertyCreate = (propertyData) => (dispatch) => {
+  token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null
   callPost('/api/admin/property', propertyData, token)
     .then((response) => {
       Notification.success({
@@ -37,6 +38,7 @@ export const actionPropertyCreate = (propertyData) => (dispatch) => {
 
 export const actionPropertyUpdate = (propertyData) => (dispatch) => {
   // console.log('token', token);
+  token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))['accessToken'] : null;
   console.log('token',token);
   callPost('/api/admin/property/update', propertyData, token)
     .then((response) => {
