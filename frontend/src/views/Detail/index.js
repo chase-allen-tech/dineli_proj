@@ -46,8 +46,6 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
       console.log('[curr]', this.props.currentHouse);
       this.setState({ product: this.props.currentHouse })
     })
-
-
   }
 
   render() {
@@ -77,7 +75,7 @@ const Detail = connect(mapStateToProps, mapDispatchToProps)(class extends Compon
     let section8 = section8Options.find(item => item.key === product.section8)?.label;
 
     let purchaseLimit;
-    switch (this.props.user.type) {
+    switch (this.props.user?.type) {
       case 1:
         purchaseLimit = product.basic;
         break;
